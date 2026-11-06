@@ -148,3 +148,6 @@ def build_book():
         filename, "PDF", resolution=300, save_all=True, append_images=pages[1:]
     )
     print(f"Successfully saved {filename}")
+
+if __name__ == "__main__":
+    build_book()
