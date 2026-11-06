@@ -1,0 +1,43 @@
+name: Generate Daily Coloring Book
+
+on:
+  schedule:
+    - cron: '0 4 * * *'
+  workflow_dispatch: 
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30 # Added a timeout extension since 30 pages will take a few minutes
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install Pillow requests
+
+    - name: Run generation script
+      env:
+        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      run: python generate_book.py
+
+    - name: Upload PDF to Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: '*.pdf'
+        tag_name: book-${{ github.run_id }}
+        name: Complete Digital Coloring Book - ${{ github.run_id }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
