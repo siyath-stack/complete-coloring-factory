@@ -2,6 +2,7 @@ import os
 import csv
 import requests
 import urllib.request
+import base64
 from datetime import datetime
 from io import BytesIO
 from PIL import Image, ImageEnhance, ImageDraw, ImageFont
@@ -33,6 +34,16 @@ def fetch_cloudflare_image(prompt):
     headers = {"Authorization": f"Bearer {API_TOKEN}"}
     response = requests.post(API_BASE_URL, headers=headers, json={"prompt": prompt})
     response.raise_for_status()
+    
+    # Cloudflare returns JSON containing a Base64 string for text-to-image models
+    try:
+        json_data = response.json()
+        if "result" in json_data and "image" in json_data["result"]:
+            image_b64 = json_data["result"]["image"]
+            return base64.b64decode(image_b64)
+    except ValueError:
+        pass # If it's not JSON, fallback to raw content below
+        
     return response.content
 
 def create_blank_page():
