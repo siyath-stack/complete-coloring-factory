@@ -5,7 +5,7 @@ import urllib.request
 import base64
 from datetime import datetime
 from io import BytesIO
-from PIL import Image, ImageEnhance, ImageDraw, ImageFont
+from PIL import Image, ImageEnhance, ImageDraw, ImageFont, ImageFilter
 
 ACCOUNT_ID = os.environ.get("CLOUDFLARE_ACCOUNT_ID")
 API_TOKEN = os.environ.get("CLOUDFLARE_API_TOKEN")
@@ -58,7 +58,28 @@ def generate_cover_page(theme):
     )
     image_bytes = fetch_cloudflare_image(prompt)
     img = Image.open(BytesIO(image_bytes)).convert('RGB')
-    return img.resize((PAGE_WIDTH, PAGE_HEIGHT), Image.Resampling.LANCZOS)
+    
+    # Proportional Resizing to prevent stretching
+    img_ratio = img.width / img.height
+    page_ratio = PAGE_WIDTH / PAGE_HEIGHT
+    
+    if img_ratio > page_ratio:
+        # Image is wider than page
+        new_width = PAGE_WIDTH
+        new_height = int(PAGE_WIDTH / img_ratio)
+    else:
+        # Image is taller than page
+        new_height = PAGE_HEIGHT
+        new_width = int(PAGE_HEIGHT * img_ratio)
+        
+    img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+    
+    final_page = create_blank_page()
+    # Center the proportionally resized image on the blank page
+    x_offset = (PAGE_WIDTH - new_width) // 2
+    y_offset = (PAGE_HEIGHT - new_height) // 2
+    final_page.paste(img, (x_offset, y_offset))
+    return final_page
 
 def generate_text_page(title, subtitle="", draw_line=False, draw_shapes=False):
     print(f"Generating programmatic page: {title[:15]}...")
@@ -93,6 +114,7 @@ def generate_interior_page(theme, modifier):
     prompt = (
         f"A children's coloring book page of a {theme}. {modifier}. "
         "Full body shot, zoomed out, character centered entirely within the frame, no cropping. "
+        "Targeted for ages 2-5: ultra-thick, bold outlines, single central subject, large open coloring areas. "
         "ABSOLUTELY NO TEXT, NO LETTERS, NO NUMBERS, NO WORDS, AND NO SIGNATURES. "
         "Clean, 2D illustration. Strictly no shading, no grayscale, no cross-hatching, no gradients, and no color. "
         "Only bold, thick, clean black outlines on a pure white background."
@@ -101,17 +123,32 @@ def generate_interior_page(theme, modifier):
     image_bytes = fetch_cloudflare_image(prompt)
     img = Image.open(BytesIO(image_bytes)).convert('L')
     
-    # Force pure black and white vector-style lines
+    # Pre-sharpen the image before contrast boost to prevent blur on upscale
+    img = img.filter(ImageFilter.SHARPEN)
     enhancer = ImageEnhance.Contrast(img)
     img = enhancer.enhance(3.0)
     img = img.point(lambda x: 255 if x > 140 else 0, '1')
     
-    # Calculate 0.5 inch margins
     inner_width, inner_height = (PAGE_WIDTH - 300, PAGE_HEIGHT - 300)
-    img = img.resize((inner_width, inner_height), Image.Resampling.LANCZOS)
+    
+    # Proportional resizing for interior images to prevent stretching
+    img_ratio = img.width / img.height
+    inner_ratio = inner_width / inner_height
+    
+    if img_ratio > inner_ratio:
+        new_width = inner_width
+        new_height = int(inner_width / img_ratio)
+    else:
+        new_height = inner_height
+        new_width = int(inner_height * img_ratio)
+        
+    img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
     
     final_page = create_blank_page()
-    final_page.paste(img, (150, 150))
+    # Paste centered within the safe margin box
+    x_offset = 150 + ((inner_width - new_width) // 2)
+    y_offset = 150 + ((inner_height - new_height) // 2)
+    final_page.paste(img, (x_offset, y_offset))
     return final_page
 
 def build_book():
