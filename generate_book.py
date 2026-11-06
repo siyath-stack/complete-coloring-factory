@@ -88,12 +88,13 @@ def generate_text_page(title, subtitle="", draw_line=False, draw_shapes=False):
             
     return img
 
-def generate_interior_page(theme):
-    print("Generating interior line art...")
+def generate_interior_page(theme, modifier):
+    print(f"Generating interior line art: {modifier[:20]}...")
     prompt = (
-        f"A children's coloring book page of a {theme}, featuring a whimsical, super cute "
-        "and joyful cartoon character. Clean, 2D illustration. "
-        "Strictly no shading, no grayscale, no cross-hatching, no gradients, and no color. "
+        f"A children's coloring book page of a {theme}. {modifier}. "
+        "Full body shot, zoomed out, character centered entirely within the frame, no cropping. "
+        "ABSOLUTELY NO TEXT, NO LETTERS, NO NUMBERS, NO WORDS, AND NO SIGNATURES. "
+        "Clean, 2D illustration. Strictly no shading, no grayscale, no cross-hatching, no gradients, and no color. "
         "Only bold, thick, clean black outlines on a pure white background."
     )
     
@@ -123,15 +124,27 @@ def build_book():
     pages.append(generate_text_page("Terms of Use", "This digital file is for personal use only.\nDo not resell or distribute.", draw_line=False))
     pages.append(generate_text_page("Color Test Page", "Try your markers, crayons, or colored pencils below!", draw_shapes=True))
     
-    # Generate 30 illustrations
+    # Dynamic modifiers to ensure all 30 pages are unique
+    scene_modifiers = [
+        "Surrounded by simple fluffy clouds and stars",
+        "Standing in a grassy field with tiny flowers",
+        "Looking very happy with a big smile",
+        "With a big bright sun in the sky",
+        "Sitting down playfully",
+        "With a few simple trees in the background",
+        "Waving hello",
+        "Surrounded by simple geometric shapes like circles and triangles",
+        "Wearing a cute little bow tie",
+        "Looking curious with wide open spaces around"
+    ]
+    
+    # Generate 30 illustrations, cycling through the modifiers
     for i in range(30):
-        pages.append(generate_interior_page(theme))
+        mod = scene_modifiers[i % len(scene_modifiers)]
+        pages.append(generate_interior_page(theme, mod))
         
     filename = f"Digital_Coloring_Book_{theme.replace(' ', '_')}.pdf"
     pages[0].save(
         filename, "PDF", resolution=300, save_all=True, append_images=pages[1:]
     )
     print(f"Successfully saved {filename}")
-
-if __name__ == "__main__":
-    build_book()
