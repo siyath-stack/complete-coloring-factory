@@ -342,9 +342,13 @@ def build_book():
     safe_slug = re.sub(r"_+", "_", safe_slug)
     filename = f"Digital_Coloring_Book_{safe_slug}.pdf"
 
-    pages.save(
-        filename, "PDF", resolution=300, save_all=True, append_images=pages[1:]
-    )
+    pages[0].save(
+    filename,
+    "PDF",
+    resolution=300,
+    save_all=True,
+    append_images=pages[1:],
+)
     print(f"=====================================================")
     print(f"Successfully generated: {filename}")
     print(f"Total pages compiled: {len(pages)} (4 front matter + 30 coloring pages)")
@@ -352,4 +356,3 @@ def build_book():
 
 if __name__ == "__main__":
     build_book()
-```
