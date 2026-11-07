@@ -2,8 +2,9 @@ name: Generate Daily Coloring Book
 
 on:
   schedule:
-    - cron: '0 4 * * *'
-  workflow_dispatch: 
+    # Runs at 01:00 UTC daily (right after Cloudflare quota resets)
+    - cron: '0 1 * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -11,33 +12,44 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 30 # Added a timeout extension since 30 pages will take a few minutes
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Check out repo
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install Pillow requests
+      - name: Install dependencies
+        run: pip install requests pillow
 
-    - name: Run generation script
-      env:
-        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      run: python generate_book.py
+      # Step 1: Research today's viral theme and check deduplication history
+      - name: Research trending theme
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: python research_trend.py
 
-    - name: Upload PDF to Release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: '*.pdf'
-        tag_name: book-${{ github.run_id }}
-        name: Complete Digital Coloring Book - ${{ github.run_id }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Step 2: Build the high-end 34-page book
+      - name: Generate coloring book PDF
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: python generate_book.py
+
+      # Step 3: Commit updated used_topics.json back to repository
+      - name: Commit history to repo
+        run: |
+          git config --global user.name "Daily Book Bot"
+          git config --global user.email "bot@users.noreply.github.com"
+          git add used_topics.json
+          git commit -m "chore: record daily generated theme [skip ci]" || echo "No changes to commit"
+          git push
+
+      # Step 4: Upload PDF as a Release or Artifact
+      - name: Upload PDF Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-coloring-book
+          path: "*.pdf"
