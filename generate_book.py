@@ -1,3 +1,13 @@
+Here is the complete, unified Python script (`generate_book.py`).
+
+It incorporates:
+1. **The 1,000-modifier catalog** (50 dynamic actions × 20 environments) with daily seeded sampling so every day's 30 pages are distinct, non-repeating, and in a unique order.
+2. **HTTP 429 & Rate-Limit Backoff**: Automatic `Retry-After` detection, exponential backoff, and pacing cooldowns between calls so Cloudflare doesn't terminate your GitHub Actions runner.
+3. **Resilient Font Handling**: Gracefully attempts local TTF fonts, remote download, and default PIL fallback.
+4. **Child-Friendly Front Matter**: A full-color cover with an overlay title banner, a colorable "This Book Belongs To" page, terms of use, and a 12-swatch color testing grid.
+5. **Smooth Line-Art Processing**: Preserves anti-aliased curves without jagged 1-bit stair-stepping.
+
+```python
 import os
 import csv
 import re
@@ -99,7 +109,7 @@ def get_font(size):
 def get_daily_configuration(csv_path="themes.csv"):
     """
     Selects today's theme and randomly samples 30 unique modifiers from the
-    1,000 pool using the day of year as a seed for non-repeating layouts.
+    1,000 pool using the date as a deterministic seed.
     """
     now = datetime.now()
     day_of_year = now.timetuple().tm_yday
@@ -127,10 +137,10 @@ def get_daily_configuration(csv_path="themes.csv"):
     return todays_theme, todays_30_modifiers
 
 # ---------------------------------------------------------------------------
-# CLOUDFLARE AI API CALLS
+# CLOUDFLARE AI API CALLS WITH RETRY & RATE-LIMIT BACKOFF
 # ---------------------------------------------------------------------------
-def fetch_cloudflare_image(prompt, max_retries=3):
-    """Fetches text-to-image output from Cloudflare AI with retry handling."""
+def fetch_cloudflare_image(prompt, max_retries=6):
+    """Fetches text-to-image output from Cloudflare AI with robust 429 backoff handling."""
     if not ACCOUNT_ID or not API_TOKEN:
         raise ValueError("Missing CLOUDFLARE_ACCOUNT_ID or CLOUDFLARE_API_TOKEN in environment variables.")
 
@@ -139,7 +149,16 @@ def fetch_cloudflare_image(prompt, max_retries=3):
 
     for attempt in range(max_retries):
         try:
-            response = session.post(API_BASE_URL, headers=headers, json=payload, timeout=60)
+            response = session.post(API_BASE_URL, headers=headers, json=payload, timeout=90)
+
+            # Handle 429 Rate Limiting
+            if response.status_code == 429:
+                retry_after = response.headers.get("Retry-After")
+                wait_time = int(retry_after) if retry_after and retry_after.isdigit() else (12 * (attempt + 1))
+                print(f"[Rate Limit 429] Waiting {wait_time}s before retrying (attempt {attempt + 1}/{max_retries})...")
+                time.sleep(wait_time)
+                continue
+
             response.raise_for_status()
 
             try:
@@ -149,10 +168,15 @@ def fetch_cloudflare_image(prompt, max_retries=3):
             except ValueError:
                 pass
             return response.content
+
         except requests.RequestException as e:
             if attempt == max_retries - 1:
                 raise e
-            time.sleep(2 * (attempt + 1))
+            wait_time = 6 * (attempt + 1)
+            print(f"[Request Error] {e}. Retrying in {wait_time}s...")
+            time.sleep(wait_time)
+
+    raise RuntimeError(f"Failed to fetch image after {max_retries} attempts due to rate limiting.")
 
 def create_blank_page():
     return Image.new("RGB", (PAGE_WIDTH, PAGE_HEIGHT), "white")
@@ -330,18 +354,23 @@ def build_book():
         generate_terms_page(),
         generate_color_test_page()
     ]
+    
+    # 4-second breather to allow Cloudflare's concurrency window to settle after the cover
+    time.sleep(4)
 
     # Generate 30 Completely Unique Interior Illustrations
     for i, modifier in enumerate(daily_modifiers, start=1):
         page_img = generate_interior_page(theme, modifier, i)
         pages.append(page_img)
+        # 3-second pacing delay between interior calls to prevent burst 429 rate limits
+        time.sleep(3)
 
     # Sanitize output filename
     safe_slug = re.sub(r"[^a-zA-Z0-9_-]", "_", theme.strip().lower())
     safe_slug = re.sub(r"_+", "_", safe_slug)
     filename = f"Digital_Coloring_Book_{safe_slug}.pdf"
 
-    pages[0].save(
+    pages.save(
         filename, "PDF", resolution=300, save_all=True, append_images=pages[1:]
     )
     print(f"=====================================================")
@@ -351,3 +380,4 @@ def build_book():
 
 if __name__ == "__main__":
     build_book()
+```
