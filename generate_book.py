@@ -1,13 +1,3 @@
-Here is the complete, unified Python script (`generate_book.py`).
-
-It incorporates:
-1. **The 1,000-modifier catalog** (50 dynamic actions × 20 environments) with daily seeded sampling so every day's 30 pages are distinct, non-repeating, and in a unique order.
-2. **HTTP 429 & Rate-Limit Backoff**: Automatic `Retry-After` detection, exponential backoff, and pacing cooldowns between calls so Cloudflare doesn't terminate your GitHub Actions runner.
-3. **Resilient Font Handling**: Gracefully attempts local TTF fonts, remote download, and default PIL fallback.
-4. **Child-Friendly Front Matter**: A full-color cover with an overlay title banner, a colorable "This Book Belongs To" page, terms of use, and a 12-swatch color testing grid.
-5. **Smooth Line-Art Processing**: Preserves anti-aliased curves without jagged 1-bit stair-stepping.
-
-```python
 import os
 import csv
 import re
@@ -115,7 +105,6 @@ def get_daily_configuration(csv_path="themes.csv"):
     day_of_year = now.timetuple().tm_yday
     year = now.year
 
-    # 1. Fetch theme from CSV schedule
     if os.path.exists(csv_path):
         with open(csv_path, mode="r", encoding="utf-8") as file:
             reader = list(csv.DictReader(file))
@@ -127,11 +116,9 @@ def get_daily_configuration(csv_path="themes.csv"):
     else:
         todays_theme = {"id": 1, "theme": "cute animal adventure", "category": "Kids Animals"}
 
-    # 2. Seed random generator so today's selection is unique every single day
     seed_value = int(f"{year}{day_of_year}")
     rng = random.Random(seed_value)
 
-    # 3. Sample exactly 30 unique, non-repeating scenes from the 1,000 pool
     todays_30_modifiers = rng.sample(ALL_1000_MODIFIERS, 30)
 
     return todays_theme, todays_30_modifiers
@@ -151,7 +138,6 @@ def fetch_cloudflare_image(prompt, max_retries=6):
         try:
             response = session.post(API_BASE_URL, headers=headers, json=payload, timeout=90)
 
-            # Handle 429 Rate Limiting
             if response.status_code == 429:
                 retry_after = response.headers.get("Retry-After")
                 wait_time = int(retry_after) if retry_after and retry_after.isdigit() else (12 * (attempt + 1))
@@ -197,7 +183,6 @@ def generate_cover_page(theme_data):
     image_bytes = fetch_cloudflare_image(prompt)
     img = Image.open(BytesIO(image_bytes)).convert("RGB")
 
-    # Proportional cover fit
     img_ratio = img.width / img.height
     page_ratio = PAGE_WIDTH / PAGE_HEIGHT
 
@@ -214,7 +199,6 @@ def generate_cover_page(theme_data):
     y_offset = (PAGE_HEIGHT - new_height) // 2
     final_page.paste(img, (x_offset, y_offset))
 
-    # Add overlay title banner
     draw = ImageDraw.Draw(final_page)
     title_font = get_font(130)
     sub_font = get_font(60)
@@ -226,26 +210,22 @@ def generate_cover_page(theme_data):
     return final_page
 
 def generate_ownership_page():
-    """Generates an engaging, colorable 'This Book Belongs To' page."""
     img = create_blank_page()
     draw = ImageDraw.Draw(img)
     title_font = get_font(120)
     sub_font = get_font(70)
 
-    # Decorative borders
     draw.rectangle([120, 120, PAGE_WIDTH - 120, PAGE_HEIGHT - 120], outline="black", width=12)
     draw.rectangle([150, 150, PAGE_WIDTH - 150, PAGE_HEIGHT - 150], outline="black", width=4)
 
     draw.text((PAGE_WIDTH // 2, 800), "This Coloring Book", fill="black", font=sub_font, anchor="mm")
     draw.text((PAGE_WIDTH // 2, 980), "BELONGS TO:", fill="black", font=title_font, anchor="mm")
 
-    # Colorable name box
     box_x0, box_y0 = PAGE_WIDTH // 2 - 800, 1300
     box_x1, box_y1 = PAGE_WIDTH // 2 + 800, 1600
     draw.rectangle([box_x0, box_y0, box_x1, box_y1], outline="black", width=10)
     draw.line([(box_x0 + 100, 1530), (box_x1 - 100, 1530)], fill="black", width=6)
 
-    # Colorable shapes
     for x in [PAGE_WIDTH // 4, PAGE_WIDTH // 2, (PAGE_WIDTH // 4) * 3]:
         draw.ellipse([x - 70, 2400, x + 70, 2540], outline="black", width=8)
 
@@ -270,7 +250,6 @@ def generate_terms_page():
     return img
 
 def generate_color_test_page():
-    """Generates an interactive swatch tester."""
     img = create_blank_page()
     draw = ImageDraw.Draw(img)
     title_font = get_font(110)
@@ -308,7 +287,6 @@ def generate_interior_page(theme, modifier, page_num):
     image_bytes = fetch_cloudflare_image(prompt)
     img = Image.open(BytesIO(image_bytes)).convert("L")
 
-    # Moderate contrast boost without converting to 1-bit, keeping curves smooth
     enhancer = ImageEnhance.Contrast(img)
     img = enhancer.enhance(2.2)
 
@@ -330,7 +308,6 @@ def generate_interior_page(theme, modifier, page_num):
     y_offset = 150 + ((inner_height - new_height) // 2)
     final_page.paste(img.convert("RGB"), (x_offset, y_offset))
 
-    # Add page number centered at the bottom margin
     draw = ImageDraw.Draw(final_page)
     draw.text((PAGE_WIDTH // 2, PAGE_HEIGHT - 120), f"- {page_num} -", fill="#555555", font=get_font(45), anchor="mm")
 
@@ -347,7 +324,6 @@ def build_book():
     print(f"Category: {theme_data.get('category', 'Kids')}")
     print(f"=====================================================")
 
-    # Assemble Front Matter
     pages = [
         generate_cover_page(theme_data),
         generate_ownership_page(),
@@ -355,17 +331,13 @@ def build_book():
         generate_color_test_page()
     ]
     
-    # 4-second breather to allow Cloudflare's concurrency window to settle after the cover
     time.sleep(4)
 
-    # Generate 30 Completely Unique Interior Illustrations
     for i, modifier in enumerate(daily_modifiers, start=1):
         page_img = generate_interior_page(theme, modifier, i)
         pages.append(page_img)
-        # 3-second pacing delay between interior calls to prevent burst 429 rate limits
         time.sleep(3)
 
-    # Sanitize output filename
     safe_slug = re.sub(r"[^a-zA-Z0-9_-]", "_", theme.strip().lower())
     safe_slug = re.sub(r"_+", "_", safe_slug)
     filename = f"Digital_Coloring_Book_{safe_slug}.pdf"
