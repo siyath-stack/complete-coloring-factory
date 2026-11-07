@@ -24,48 +24,48 @@ PAGE_HEIGHT = 3300
 session = requests.Session()
 
 # ---------------------------------------------------------------------------
-# HIGH-END STORY ACTIONS & SCENES (Monkey.pdf Style: Natural & Diverse)
+# 30 HIGH-END STORY ACTIONS & SCENES (Monkey.pdf Benchmark)
 # ---------------------------------------------------------------------------
 HIGH_END_ACTIONS = [
     # Act 1: Morning & Playful Introductions (Pages 1-6)
-    "waving hello with a cheerful joyful expression, character centered",
-    "swinging happily from a gentle leafy tree branch with a spiral curled tail",
-    "curiously smelling a large tropical blossom flower on a branch",
-    "clapping paws and dancing happily with cute musical notes floating nearby",
-    "happily sitting on a branch peeling a fresh banana or favorite sweet fruit snack",
-    "peeking playfully from behind a friendly broad jungle palm leaf",
+    ("waving hello cheerfully with a big smile, standing centered", "Can you wave hello and color my big smile?"),
+    ("swinging happily from a gentle leafy tree branch with a curled tail", "Count the leaves on the branch: 1, 2, 3!"),
+    ("curiously smelling a large tropical flower blossom", "Find the tiny ladybug resting on the petal!"),
+    ("clapping paws and dancing happily with cute musical notes in the air", "Color the musical notes your favorite bright color!"),
+    ("sitting happily on a branch peeling a fresh banana snack", "Can you color the fruit bright yellow?"),
+    ("peeking playfully from behind a friendly broad tropical leaf", "Play peekaboo! What color will you make the big leaf?"),
 
-    # Act 2: Family, Companions & Nature Exploration (Pages 7-14)
-    "riding happily on its mother's back holding on with tiny paws",
-    "perched side by side on a sturdy branch chatting with a friendly smiling tropical parrot",
-    "gently reaching out a paw to let a cheerful smiling cartoon butterfly land",
-    "drinking fresh juice with a fun striped straw from a round coconut cup",
-    "splashing playfully with toes in a calm jungle puddle under warm sunlight",
-    "wearing a wide-brimmed safari sun hat decorated with a small flower",
-    "balancing playfully on one foot along a fallen mossy tree log",
-    "playing peekaboo behind a cluster of hanging jungle vines",
+    # Act 2: Companions & Nature Exploration (Pages 7-14)
+    ("riding happily on its mother's back holding on with tiny paws", "Give baby and mommy a warm, cozy color!"),
+    ("perched side by side on a branch chatting with a smiling tropical parrot", "Color the parrot's feathers with rainbow colors!"),
+    ("gently reaching out a paw to let a cheerful smiling butterfly land", "Find both wings of the friendly butterfly!"),
+    ("drinking fresh juice with a fun striped straw from a round coconut cup", "Color the stripes on the straw: red and blue!"),
+    ("splashing playfully with feet in a calm clear forest puddle", "Count the water ripples in the puddle!"),
+    ("wearing a wide-brimmed safari sun hat decorated with a flower", "Make the explorer hat look stylish!"),
+    ("balancing playfully on one foot along a fallen mossy tree log", "Can you balance on one foot like me?"),
+    ("playing peekaboo behind a cluster of hanging jungle vines", "Count the hanging vines: 1, 2, 3, 4!"),
 
     # Act 3: Playful Feats & Outdoor Adventures (Pages 15-22)
-    "hanging upside down by feet and tail with a big playful grin",
-    "juggling three smooth round jungle fruits with happy bright cartoon eyes",
-    "flying a colorful diamond-shaped kite high against puffy cartoon clouds",
-    "proudly holding up a shiny star-shaped wooden badge like a junior explorer",
-    "sitting inside a hollow tree trunk cozy nook waving through a knot hole",
-    "making funny goofy faces in the reflection of a calm water pool",
-    "curiously inspecting a friendly little caterpillar creeping along a leaf",
-    "happily rolling a giant shiny polished river pebble like a ball",
+    ("hanging upside down by feet and tail with a silly playful grin", "Everything looks upside down! Color my happy face!"),
+    ("juggling three smooth round jungle fruits with sparkling bright eyes", "Count the 3 juggling fruits in the air!"),
+    ("flying a colorful diamond-shaped kite high against puffy clouds", "Color the kite with your favorite pattern!"),
+    ("proudly holding up a shiny star-shaped wooden medal", "Shine bright! Color the gold star award!"),
+    ("sitting inside a cozy hollow tree nook waving through a knot hole", "A secret treehouse hideout to color!"),
+    ("making funny goofy faces in the reflection of a calm water pool", "Smile! Color the funny reflection!"),
+    ("curiously watching a friendly little caterpillar crawl along a twig", "Count the caterpillar's tiny little spots!"),
+    ("happily rolling a giant shiny smooth river pebble like a ball", "Color the big river stone!"),
 
     # Act 4: Joyful Games & Celebrations (Pages 23-28)
-    "wearing a tiny party party hat surrounded by floating festive confetti",
-    "building a neat stack of rounded river stones with focused cute eyes",
-    "giggling while blowing giant round soap bubbles floating into the sky",
-    "holding a vibrant balloon cluster tied to a tiny wrist string",
-    "happily sharing a cluster of sweet wild berries with a little songbird",
-    "taking a cheerful victory bow with arms outstretched in joy",
+    ("wearing a festive party hat surrounded by floating fun confetti", "Party time! Color all the floating confetti!"),
+    ("building a neat stack of rounded river stones with focused cute eyes", "Count how many stones are in the tall stack!"),
+    ("giggling while blowing giant round soap bubbles floating into the sky", "Color the shiny reflections on the soap bubbles!"),
+    ("holding a vibrant balloon cluster tied to a tiny wrist string", "Make each balloon in the bundle a different color!"),
+    ("happily sharing a cluster of sweet wild berries with a little songbird", "Good friends share! Color the sweet berries!"),
+    ("taking a cheerful victory bow with arms outstretched in joy", "Ta-da! You're doing an amazing job coloring!"),
 
     # Act 5: Twilight & Bedtime (Pages 29-30)
-    "sitting peacefully on a high branch gazing at a smiling crescent moon and twinkling stars",
-    "curled up fast asleep on a cozy hammock of jungle leaves hugging a tiny leaf pillow"
+    ("sitting peacefully on a branch gazing at a smiling crescent moon and twinkling stars", "Count the 4 twinkling stars in the sky!"),
+    ("curled up fast asleep on a cozy hammock of jungle leaves hugging a tiny pillow", "Sweet dreams! Color the cozy bedtime scene!")
 ]
 
 # ---------------------------------------------------------------------------
@@ -99,18 +99,14 @@ def get_font(size):
     return ImageFont.load_default()
 
 # ---------------------------------------------------------------------------
-# DAILY SCHEDULE & SUBJECT EXTRACTION
+# DAILY SCHEDULE & CLEAN SUBJECT EXTRACTION
 # ---------------------------------------------------------------------------
 def extract_clean_subject(raw_theme):
-    """
-    Strips 'glued' action phrases (like 'eating watermelon slices', 'building a tower')
-    so the character remains pure across all 30 unique pages.
-    """
     text = raw_theme.strip().lower()
     text = re.sub(r'\b(eating|building|driving|riding|flying|holding|cooking|playing|with)\b.*$', '', text)
     text = text.strip()
     if not text:
-        text = "cute friendly animal character"
+        text = "cute friendly animal"
     return text
 
 def get_daily_configuration(csv_path="themes.csv"):
@@ -118,30 +114,31 @@ def get_daily_configuration(csv_path="themes.csv"):
     day_of_year = now.timetuple().tm_yday
     year = now.year
 
-    # 1. Prefer today's newly researched trending topic
     if os.path.exists("today_theme.txt"):
         with open("today_theme.txt", "r", encoding="utf-8") as f:
             topic_str = f.read().strip()
-        todays_theme = {"id": day_of_year, "theme": topic_str, "category": "Trending Kids"}
+        todays_theme = {"id": day_of_year, "theme": topic_str, "category": "Trending Kids Animals"}
     elif os.path.exists(csv_path):
         with open(csv_path, mode="r", encoding="utf-8") as file:
             reader = list(csv.DictReader(file))
-            index = (day_of_year - 1) % len(reader)
-            todays_theme = reader[index]
+            if reader:
+                theme_index = (day_of_year - 1) % len(reader)
+                todays_theme = reader[theme_index]
+            else:
+                todays_theme = {"id": 1, "theme": "cute baby capybara", "category": "Trending Kids Animals"}
     else:
-        todays_theme = {"id": 1, "theme": "cute baby capybara", "category": "Trending Kids"}
+        todays_theme = {"id": 1, "theme": "cute baby capybara", "category": "Trending Kids Animals"}
 
     clean_subject = extract_clean_subject(todays_theme["theme"])
 
-    # 2. Seed random sample using date to guarantee 30 unique, distinct pages
     seed_value = int(f"{year}{day_of_year}")
     rng = random.Random(seed_value)
-    todays_30_actions = rng.sample(HIGH_END_ACTIONS, min(30, len(HIGH_END_ACTIONS)))
+    todays_30_scenes = rng.sample(HIGH_END_ACTIONS, min(30, len(HIGH_END_ACTIONS)))
 
-    return todays_theme, clean_subject, todays_30_actions
+    return todays_theme, clean_subject, todays_30_scenes
 
 # ---------------------------------------------------------------------------
-# CLOUDFLARE AI API CALLS WITH RATE-LIMIT BACKOFF
+# CLOUDFLARE AI API CALLS WITH RATE-LIMIT (429) BACKOFF
 # ---------------------------------------------------------------------------
 def fetch_cloudflare_image(prompt, max_retries=6):
     if not ACCOUNT_ID or not API_TOKEN:
@@ -288,10 +285,10 @@ def generate_color_test_page():
 
     return img
 
-def generate_high_end_interior_page(clean_subject, action_scene, page_num):
+def generate_high_end_interior_page(clean_subject, scene_tuple, page_num):
+    action_scene, micro_prompt = scene_tuple
     print(f"Generating page {page_num}/30: {action_scene[:45]}...")
 
-    # Monkey.pdf Benchmark Prompt: Vector line art, large open spaces, pure white background
     prompt = (
         f"A premium children's coloring book page featuring a {clean_subject}. "
         f"Scene: {action_scene}. "
@@ -310,32 +307,101 @@ def generate_high_end_interior_page(clean_subject, action_scene, page_num):
     enhancer = ImageEnhance.Contrast(img)
     img = enhancer.enhance(2.2)
 
-    inner_width, inner_height = (PAGE_WIDTH - 300, PAGE_HEIGHT - 350)
-    img_ratio = img.width / img.height
-    inner_ratio = inner_width / inner_height
+    # Frame geometry
+    border_margin_x = 140
+    border_margin_y = 140
+    inner_w = PAGE_WIDTH - (2 * border_margin_x) - 40
+    inner_h = PAGE_HEIGHT - (2 * border_margin_y) - 240
 
-    if img_ratio > inner_ratio:
-        new_width = inner_width
-        new_height = int(inner_width / img_ratio)
+    img_ratio = img.width / img.height
+    target_ratio = inner_w / inner_h
+
+    if img_ratio > target_ratio:
+        new_width = inner_w
+        new_height = int(inner_w / img_ratio)
     else:
-        new_height = inner_height
-        new_width = int(inner_height * img_ratio)
+        new_height = inner_h
+        new_width = int(inner_h * img_ratio)
 
     img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
 
     final_page = create_blank_page()
-    x_offset = 150 + ((inner_width - new_width) // 2)
-    y_offset = 150 + ((inner_height - new_height) // 2)
+    draw = ImageDraw.Draw(final_page)
+
+    # High-end rounded rectangle border
+    draw.rounded_rectangle(
+        [border_margin_x, border_margin_y, PAGE_WIDTH - border_margin_x, PAGE_HEIGHT - border_margin_y],
+        radius=40,
+        outline="black",
+        width=8
+    )
+
+    # Paste centered within frame
+    x_offset = border_margin_x + 20 + ((inner_w - new_width) // 2)
+    y_offset = border_margin_y + 40 + ((inner_h - new_height) // 2)
     final_page.paste(img.convert("RGB"), (x_offset, y_offset))
 
-    draw = ImageDraw.Draw(final_page)
-    draw.text((PAGE_WIDTH // 2, PAGE_HEIGHT - 120), f"- {page_num} -", fill="#555555", font=get_font(45), anchor="mm")
+    # Micro-interactive educational prompt
+    prompt_font = get_font(52)
+    draw.text(
+        (PAGE_WIDTH // 2, PAGE_HEIGHT - border_margin_y - 120),
+        micro_prompt,
+        fill="#333333",
+        font=prompt_font,
+        anchor="mm"
+    )
+
+    # Centered page number
+    page_font = get_font(45)
+    draw.text(
+        (PAGE_WIDTH // 2, PAGE_HEIGHT - 70),
+        f"- {page_num} -",
+        fill="#555555",
+        font=page_font,
+        anchor="mm"
+    )
 
     return final_page
 
-# ---------------------------------------------------------------------------
-# MAIN COMPILER
-# ---------------------------------------------------------------------------
+def generate_certificate_page(clean_subject):
+    """Adds a high-value Certificate of Completion at the end of the book."""
+    img = create_blank_page()
+    draw = ImageDraw.Draw(img)
+
+    draw.rectangle([140, 140, PAGE_WIDTH - 140, PAGE_HEIGHT - 140], outline="black", width=16)
+    draw.rectangle([180, 180, PAGE_WIDTH - 180, PAGE_HEIGHT - 180], outline="black", width=4)
+
+    title_font = get_font(140)
+    sub_font = get_font(75)
+    body_font = get_font(60)
+
+    draw.text((PAGE_WIDTH // 2, 600), "CERTIFICATE", fill="black", font=title_font, anchor="mm")
+    draw.text((PAGE_WIDTH // 2, 780), "OF COMPLETION", fill="black", font=sub_font, anchor="mm")
+
+    draw.text((PAGE_WIDTH // 2, 1150), "This is proudly awarded to:", fill="#444444", font=body_font, anchor="mm")
+
+    draw.line([(PAGE_WIDTH // 2 - 700, 1450), (PAGE_WIDTH // 2 + 700, 1450)], fill="black", width=6)
+    draw.text((PAGE_WIDTH // 2, 1530), "Little Master Artist", fill="#777777", font=get_font(45), anchor="mm")
+
+    draw.text(
+        (PAGE_WIDTH // 2, 1850),
+        f"For creatively completing all 30 coloring adventures with the {clean_subject}!",
+        fill="black",
+        font=body_font,
+        anchor="mm"
+    )
+
+    draw.line([(350, 2400), (950, 2400)], fill="black", width=5)
+    draw.text((650, 2460), "Date", fill="black", font=get_font(50), anchor="mm")
+
+    draw.ellipse([PAGE_WIDTH // 2 - 120, 2220, PAGE_WIDTH // 2 + 120, 2460], outline="black", width=8)
+    draw.text((PAGE_WIDTH // 2, 2340), "★", fill="black", font=get_font(100), anchor="mm")
+
+    draw.line([(PAGE_WIDTH - 950, 2400), (PAGE_WIDTH - 350, 2400)], fill="black", width=5)
+    draw.text((PAGE_WIDTH - 650, 2460), "Artist Signature", fill="black", font=get_font(50), anchor="mm")
+
+    return img
+
 # ---------------------------------------------------------------------------
 # MAIN COMPILER
 # ---------------------------------------------------------------------------
@@ -356,23 +422,24 @@ def build_book():
 
     time.sleep(4)
 
-    for i, action in enumerate(daily_actions, start=1):
-        page_img = generate_high_end_interior_page(clean_subject, action, i)
+    for i, action_tuple in enumerate(daily_actions, start=1):
+        page_img = generate_high_end_interior_page(clean_subject, action_tuple, i)
         pages.append(page_img)
         time.sleep(3)
+
+    pages.append(generate_certificate_page(clean_subject))
 
     safe_slug = re.sub(r"[^a-zA-Z0-9_-]", "_", clean_subject.strip().lower())
     safe_slug = re.sub(r"_+", "_", safe_slug)
     filename = f"Digital_Coloring_Book_{safe_slug}.pdf"
 
-    pages[0].save(
+    pages.save(
         filename, "PDF", resolution=300, save_all=True, append_images=pages[1:]
     )
     print("=====================================================")
     print(f"Successfully generated high-end book: {filename}")
-    print(f"Total pages compiled: {len(pages)} (4 front matter + 30 coloring pages)")
+    print(f"Total pages compiled: {len(pages)} (4 front matter + 30 coloring pages + 1 certificate)")
     print("=====================================================")
-
 
 if __name__ == "__main__":
     build_book()
