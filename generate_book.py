@@ -118,19 +118,22 @@ def get_daily_configuration(csv_path="themes.csv"):
     day_of_year = now.timetuple().tm_yday
     year = now.year
 
-    if os.path.exists(csv_path):
+    # 1. Prefer today's newly researched trending topic
+    if os.path.exists("today_theme.txt"):
+        with open("today_theme.txt", "r", encoding="utf-8") as f:
+            topic_str = f.read().strip()
+        todays_theme = {"id": day_of_year, "theme": topic_str, "category": "Trending Kids"}
+    elif os.path.exists(csv_path):
         with open(csv_path, mode="r", encoding="utf-8") as file:
             reader = list(csv.DictReader(file))
-            if reader:
-                theme_index = (day_of_year - 1) % len(reader)
-                todays_theme = reader[theme_index]
-            else:
-                todays_theme = {"id": 1, "theme": "cute monkey", "category": "Kids Animals"}
+            index = (day_of_year - 1) % len(reader)
+            todays_theme = reader[index]
     else:
-        todays_theme = {"id": 1, "theme": "cute monkey", "category": "Kids Animals"}
+        todays_theme = {"id": 1, "theme": "cute baby capybara", "category": "Trending Kids"}
 
     clean_subject = extract_clean_subject(todays_theme["theme"])
 
+    # 2. Seed random sample using date to guarantee 30 unique, distinct pages
     seed_value = int(f"{year}{day_of_year}")
     rng = random.Random(seed_value)
     todays_30_actions = rng.sample(HIGH_END_ACTIONS, min(30, len(HIGH_END_ACTIONS)))
