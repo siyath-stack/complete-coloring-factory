@@ -24,49 +24,54 @@ PAGE_HEIGHT = 3300
 session = requests.Session()
 
 # ---------------------------------------------------------------------------
-# 1,000 UNIQUE MODIFIERS ENGINE (50 Actions x 20 Environments)
+# HIGH-END STORY ACTIONS & SCENES (Monkey.pdf Style: Natural & Diverse)
 # ---------------------------------------------------------------------------
-ACTIONS = [
-    "happily eating breakfast", "reading a colorful storybook", "flying a high diamond kite",
-    "riding a wooden skateboard", "baking cupcakes with a chef hat", "painting a rainbow on a canvas",
-    "planting flower seeds with a trowel", "looking through a brass telescope", "dancing under the rain with an umbrella",
-    "building a tall sandcastle with seashells", "sleeping peacefully on a fluffy cloud", "splashing in muddy puddles with rainboots",
-    "riding a small bicycle with a basket", "fishing on a wooden dock", "blowing giant iridescent soap bubbles",
-    "playing a wooden acoustic guitar", "wearing a shiny superhero cape", "hiking up a gentle mountain trail",
-    "having a cozy tea party with plush toys", "catching fluttering yellow butterflies with a net",
-    "rowing a little wooden boat on a lake", "gliding on ice skates across a pond", "juggling three round apples",
-    "climbing a sturdy wooden ladder into a treehouse", "peeking curiously from behind a thick oak tree",
-    "balancing carefully on a wooden balance beam", "building a puzzle on a braided rug", "wearing a cozy knitted winter scarf",
-    "carrying a wicker basket full of apples", "camping inside a canvas tent with a lantern", "playing hide and seek behind a hedge",
-    "swinging high on a wooden tire swing", "eating a large slice of watermelon", "licking a double-scoop ice cream cone",
-    "drawing with colorful chalk on the sidewalk", "racing with a small toy wooden sailboat in a brook",
-    "making a snow angel in deep fresh snow", "picking ripe red strawberries in a patch", "sipping hot cocoa from a mug with marshmallows",
-    "listening to birds singing on a branch", "taking a photo with a vintage toy camera", "wearing a folded paper pirate hat",
-    "wrapping a gift with a big satin bow", "watering potted sunflowers with a watering can", "stacking wooden alphabet blocks",
-    "sliding down a gentle playground slide", "wearing snorkel goggles in shallow water", "flying a tiny toy propeller plane",
-    "skipping flat stones across a river", "whistling a cheerful tune along a footpath"
-]
+HIGH_END_ACTIONS = [
+    # Act 1: Morning & Playful Introductions (Pages 1-6)
+    "waving hello with a cheerful joyful expression, character centered",
+    "swinging happily from a gentle leafy tree branch with a spiral curled tail",
+    "curiously smelling a large tropical blossom flower on a branch",
+    "clapping paws and dancing happily with cute musical notes floating nearby",
+    "happily sitting on a branch peeling a fresh banana or favorite sweet fruit snack",
+    "peeking playfully from behind a friendly broad jungle palm leaf",
 
-ENVIRONMENTS = [
-    "in a lush sunny meadow filled with daisies", "under a starry night sky with a crescent moon",
-    "inside a cozy rustic kitchen with warm pies", "on an enchanted woodland trail surrounded by mushrooms",
-    "at a sunny sandy beach with gentle rolling waves", "in a vibrant flower garden buzzing with friendly bumblebees",
-    "on the front porch of a charming cottage", "in a lively playground with swings and sandpits",
-    "near a crystal-clear forest stream with smooth pebbles", "at a joyful village carnival with colorful balloons",
-    "inside a secret treehouse overlooking rolling green hills", "in a peaceful snowy pine forest with gentle snowflakes",
-    "at an apple orchard with ripe fruit on branches", "inside a whimsical library with tall wooden bookshelves",
-    "in a golden wheat field under puffy white clouds", "at a community duck pond with swimming ducklings",
-    "beside a mossy stone wall covered in ivy", "in a blooming botanical greenhouse filled with tropical ferns",
-    "at a backyard campsite under a canopy of oak trees", "on a breezy hilltop overlooking a peaceful valley"
-]
+    # Act 2: Family, Companions & Nature Exploration (Pages 7-14)
+    "riding happily on its mother's back holding on with tiny paws",
+    "perched side by side on a sturdy branch chatting with a friendly smiling tropical parrot",
+    "gently reaching out a paw to let a cheerful smiling cartoon butterfly land",
+    "drinking fresh juice with a fun striped straw from a round coconut cup",
+    "splashing playfully with toes in a calm jungle puddle under warm sunlight",
+    "wearing a wide-brimmed safari sun hat decorated with a small flower",
+    "balancing playfully on one foot along a fallen mossy tree log",
+    "playing peekaboo behind a cluster of hanging jungle vines",
 
-ALL_1000_MODIFIERS = [f"{act} {env}" for act in ACTIONS for env in ENVIRONMENTS]
+    # Act 3: Playful Feats & Outdoor Adventures (Pages 15-22)
+    "hanging upside down by feet and tail with a big playful grin",
+    "juggling three smooth round jungle fruits with happy bright cartoon eyes",
+    "flying a colorful diamond-shaped kite high against puffy cartoon clouds",
+    "proudly holding up a shiny star-shaped wooden badge like a junior explorer",
+    "sitting inside a hollow tree trunk cozy nook waving through a knot hole",
+    "making funny goofy faces in the reflection of a calm water pool",
+    "curiously inspecting a friendly little caterpillar creeping along a leaf",
+    "happily rolling a giant shiny polished river pebble like a ball",
+
+    # Act 4: Joyful Games & Celebrations (Pages 23-28)
+    "wearing a tiny party party hat surrounded by floating festive confetti",
+    "building a neat stack of rounded river stones with focused cute eyes",
+    "giggling while blowing giant round soap bubbles floating into the sky",
+    "holding a vibrant balloon cluster tied to a tiny wrist string",
+    "happily sharing a cluster of sweet wild berries with a little songbird",
+    "taking a cheerful victory bow with arms outstretched in joy",
+
+    # Act 5: Twilight & Bedtime (Pages 29-30)
+    "sitting peacefully on a high branch gazing at a smiling crescent moon and twinkling stars",
+    "curled up fast asleep on a cozy hammock of jungle leaves hugging a tiny leaf pillow"
+]
 
 # ---------------------------------------------------------------------------
 # FONT HELPER WITH SAFE FALLBACKS
 # ---------------------------------------------------------------------------
 def get_font(size):
-    """Safely loads a font with system and fallback detection."""
     system_font_paths = [
         "Roboto-Regular.ttf",
         "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
@@ -94,13 +99,21 @@ def get_font(size):
     return ImageFont.load_default()
 
 # ---------------------------------------------------------------------------
-# DAILY SCHEDULE & RANDOMIZATION LOGIC
+# DAILY SCHEDULE & SUBJECT EXTRACTION
 # ---------------------------------------------------------------------------
+def extract_clean_subject(raw_theme):
+    """
+    Strips 'glued' action phrases (like 'eating watermelon slices', 'building a tower')
+    so the character remains pure across all 30 unique pages.
+    """
+    text = raw_theme.strip().lower()
+    text = re.sub(r'\b(eating|building|driving|riding|flying|holding|cooking|playing|with)\b.*$', '', text)
+    text = text.strip()
+    if not text:
+        text = "cute friendly animal character"
+    return text
+
 def get_daily_configuration(csv_path="themes.csv"):
-    """
-    Selects today's theme and randomly samples 30 unique modifiers from the
-    1,000 pool using the date as a deterministic seed.
-    """
     now = datetime.now()
     day_of_year = now.timetuple().tm_yday
     year = now.year
@@ -112,22 +125,22 @@ def get_daily_configuration(csv_path="themes.csv"):
                 theme_index = (day_of_year - 1) % len(reader)
                 todays_theme = reader[theme_index]
             else:
-                todays_theme = {"id": 1, "theme": "cute animal adventure", "category": "Kids Animals"}
+                todays_theme = {"id": 1, "theme": "cute monkey", "category": "Kids Animals"}
     else:
-        todays_theme = {"id": 1, "theme": "cute animal adventure", "category": "Kids Animals"}
+        todays_theme = {"id": 1, "theme": "cute monkey", "category": "Kids Animals"}
+
+    clean_subject = extract_clean_subject(todays_theme["theme"])
 
     seed_value = int(f"{year}{day_of_year}")
     rng = random.Random(seed_value)
+    todays_30_actions = rng.sample(HIGH_END_ACTIONS, min(30, len(HIGH_END_ACTIONS)))
 
-    todays_30_modifiers = rng.sample(ALL_1000_MODIFIERS, 30)
-
-    return todays_theme, todays_30_modifiers
+    return todays_theme, clean_subject, todays_30_actions
 
 # ---------------------------------------------------------------------------
-# CLOUDFLARE AI API CALLS WITH RETRY & RATE-LIMIT BACKOFF
+# CLOUDFLARE AI API CALLS WITH RATE-LIMIT BACKOFF
 # ---------------------------------------------------------------------------
 def fetch_cloudflare_image(prompt, max_retries=6):
-    """Fetches text-to-image output from Cloudflare AI with robust 429 backoff handling."""
     if not ACCOUNT_ID or not API_TOKEN:
         raise ValueError("Missing CLOUDFLARE_ACCOUNT_ID or CLOUDFLARE_API_TOKEN in environment variables.")
 
@@ -168,17 +181,16 @@ def create_blank_page():
     return Image.new("RGB", (PAGE_WIDTH, PAGE_HEIGHT), "white")
 
 # ---------------------------------------------------------------------------
-# PAGE GENERATION FUNCTIONS
+# HIGH-END PAGE GENERATION FUNCTIONS
 # ---------------------------------------------------------------------------
-def generate_cover_page(theme_data):
-    theme = theme_data["theme"]
-    category = theme_data.get("category", "Kids")
-    print(f"Generating full-color cover for theme: '{theme}'...")
+def generate_cover_page(clean_subject, category):
+    print(f"Generating premium vector-style cover for '{clean_subject}'...")
 
     prompt = (
-        f"A beautiful, vibrant, professional full-color children's book cover illustration "
-        f"featuring {theme}. Vibrant joyful colors, adorable cartoon styling, clean composition. "
-        "High quality 2D children's book artwork. Absolutely no text, no letters, no title."
+        f"A premium, professional children's book cover illustration of a {clean_subject} swinging from a tropical leafy vine. "
+        "Style: High-end storybook art, vibrant joyful colors, adorable cartoon styling with bright friendly eyes. "
+        "Clean composition, large readable shapes, cheerful daylight setting. "
+        "Strictly NO text, NO letters, NO words, NO logos."
     )
     image_bytes = fetch_cloudflare_image(prompt)
     img = Image.open(BytesIO(image_bytes)).convert("RGB")
@@ -205,7 +217,7 @@ def generate_cover_page(theme_data):
 
     draw.rectangle([100, 120, PAGE_WIDTH - 100, 360], fill=(255, 255, 255), outline="black", width=8)
     draw.text((PAGE_WIDTH // 2, 200), "COLORING BOOK", fill="black", font=title_font, anchor="mm")
-    draw.text((PAGE_WIDTH // 2, 300), f"30 Fun Adventures in {category}", fill="#333333", font=sub_font, anchor="mm")
+    draw.text((PAGE_WIDTH // 2, 300), f"30 Premium Adventures in {category}", fill="#333333", font=sub_font, anchor="mm")
 
     return final_page
 
@@ -273,15 +285,20 @@ def generate_color_test_page():
 
     return img
 
-def generate_interior_page(theme, modifier, page_num):
-    print(f"Generating page {page_num}/30: {modifier[:40]}...")
+def generate_high_end_interior_page(clean_subject, action_scene, page_num):
+    print(f"Generating page {page_num}/30: {action_scene[:45]}...")
 
+    # Monkey.pdf Benchmark Prompt: Vector line art, large open spaces, pure white background
     prompt = (
-        f"Children's coloring book line art page of {theme}, {modifier}. "
-        "Full body shot, centered in frame, zoomed out with generous borders. "
-        "Targeted for young children ages 3-8: ultra-thick, bold, clean black outlines on a pure solid white background. "
-        "Strictly black and white line art only. No colors, no shading, no gradients, no grey wash, no halftones, no crosshatching. "
-        "ABSOLUTELY NO TEXT, NO LETTERS, NO NUMBERS, NO CAPTIONS, NO WATERMARKS, AND NO ARTIST SIGNATURES."
+        f"A premium children's coloring book page featuring a {clean_subject}. "
+        f"Scene: {action_scene}. "
+        "Style: Professional children's book vector line art illustration, Monkey Pen style, Disney storybook character design. "
+        "Clean, continuous, bold black contour outlines on a solid pure white background. "
+        "Large, wide, open coloring spaces perfectly suited for young children coloring with crayons. "
+        "Cute expressive cartoon character with large friendly sparkling eyes. "
+        "Balanced minimal background with simple outline elements (like simple vine, flower, branch, or cloud). "
+        "ABSOLUTELY NO COLOR, NO GRAYSCALE, NO SHADING, NO HALFTONES, NO HATCHING, NO TEXTURES, NO GRITTY DETAIL. "
+        "ABSOLUTELY NO TEXT, NO LETTERS, NO NUMBERS, NO CAPTIONS, NO WATERMARKS, NO ARTIST SIGNATURES."
     )
 
     image_bytes = fetch_cloudflare_image(prompt)
@@ -317,40 +334,36 @@ def generate_interior_page(theme, modifier, page_num):
 # MAIN COMPILER
 # ---------------------------------------------------------------------------
 def build_book():
-    theme_data, daily_modifiers = get_daily_configuration()
-    theme = theme_data["theme"]
+    theme_data, clean_subject, daily_actions = get_daily_configuration()
+    category = theme_data.get("category", "Kids Animals")
     print(f"=====================================================")
-    print(f"Starting Daily Production for: {theme}")
-    print(f"Category: {theme_data.get('category', 'Kids')}")
+    print(f"Starting Premium Production for Character: '{clean_subject}'")
+    print(f"Original Theme Entry: '{theme_data['theme']}' | Category: {category}")
     print(f"=====================================================")
 
     pages = [
-        generate_cover_page(theme_data),
+        generate_cover_page(clean_subject, category),
         generate_ownership_page(),
         generate_terms_page(),
         generate_color_test_page()
     ]
-    
+
     time.sleep(4)
 
-    for i, modifier in enumerate(daily_modifiers, start=1):
-        page_img = generate_interior_page(theme, modifier, i)
+    for i, action in enumerate(daily_actions, start=1):
+        page_img = generate_high_end_interior_page(clean_subject, action, i)
         pages.append(page_img)
         time.sleep(3)
 
-    safe_slug = re.sub(r"[^a-zA-Z0-9_-]", "_", theme.strip().lower())
+    safe_slug = re.sub(r"[^a-zA-Z0-9_-]", "_", clean_subject.strip().lower())
     safe_slug = re.sub(r"_+", "_", safe_slug)
     filename = f"Digital_Coloring_Book_{safe_slug}.pdf"
 
-    pages[0].save(
-    filename,
-    "PDF",
-    resolution=300,
-    save_all=True,
-    append_images=pages[1:],
-)
+    pages.save(
+        filename, "PDF", resolution=300, save_all=True, append_images=pages[1:]
+    )
     print(f"=====================================================")
-    print(f"Successfully generated: {filename}")
+    print(f"Successfully generated high-end book: {filename}")
     print(f"Total pages compiled: {len(pages)} (4 front matter + 30 coloring pages)")
     print(f"=====================================================")
 
