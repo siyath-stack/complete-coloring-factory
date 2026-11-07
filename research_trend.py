@@ -1,5 +1,6 @@
 import os
 import json
+import re
 import requests
 from datetime import datetime
 
@@ -10,67 +11,92 @@ API_URL = f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/run/{T
 
 HISTORY_FILE = "used_topics.json"
 
-# Load or initialize topic history
-if os.path.exists(HISTORY_FILE):
-    with open(HISTORY_FILE, "r", encoding="utf-8") as f:
-        used_topics = json.load(f)
-else:
-    used_topics = []
+FALLBACK_VIRAL_TOPICS = [
+    "cute baby capybara",
+    "friendly baby axolotl",
+    "chubby red panda explorer",
+    "kawaii baby highland cow",
+    "playful sea otter pup",
+    "curious baby hedgehog",
+    "little woodland fox cub",
+    "happy baby alpaca",
+    "cheerful baby penguin",
+    "adventurous baby koala"
+]
 
-def get_viral_theme_candidate():
-    """Asks Cloudflare AI to suggest high-demand children's coloring book topics."""
-    prompt = (
-        "You are an expert children's coloring book publisher analyzing Amazon KDP and TikTok trends. "
-        "Suggest 5 trending, highly engaging children's coloring book character topics "
-        "(e.g., 'baby capybara in cute outfits', 'friendly baby axolotl', 'chubby red panda explorer', "
-        "'kawaii baby highland cow', 'magical baby sea otter'). "
-        "Return ONLY a raw JSON array of 5 strings, nothing else. Example: [\"topic 1\", \"topic 2\", ...]"
-    )
-    
-    headers = {"Authorization": f"Bearer {API_TOKEN}"}
-    response = requests.post(API_URL, headers=headers, json={"prompt": prompt}, timeout=30)
-    response.raise_for_status()
-    
-    data = response.json()
-    result_text = data.get("result", {}).get("response", "")
-    
-    # Extract JSON list
-    try:
-        import re
-        match = re.search(r'\\[.*?\\]', result_text, re.DOTALL)
-        if match:
-            candidates = json.loads(match.group(0))
-            return [c.strip().lower() for c in candidates if isinstance(c, str)]
-    except Exception:
-        pass
-        
-    return ["friendly baby axolotl", "baby highland cow", "chubby red panda", "baby capybara"]
+def load_history():
+    if os.path.exists(HISTORY_FILE):
+        try:
+            with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return []
+    return []
 
-def select_unique_daily_theme():
-    candidates = get_viral_theme_candidate()
-    
-    # Pick the first candidate that hasn't been used yet
-    chosen_topic = None
-    for cand in candidates:
-        if cand not in used_topics:
-            chosen_topic = cand
-            break
-            
-    # Fallback if all candidates were used
-    if not chosen_topic:
-        chosen_topic = f"{candidates[0]} adventure {datetime.now().strftime('%B')}"
-
-    # Log to history
-    used_topics.append(chosen_topic)
+def save_history(history):
     with open(HISTORY_FILE, "w", encoding="utf-8") as f:
-        json.dump(used_topics, f, indent=2)
-        
-    # Write today's active topic for generate_book.py to read
+        json.dump(history, f, indent=2)
+
+def query_trending_topics():
+    if not ACCOUNT_ID or not API_TOKEN:
+        print("Missing Cloudflare credentials. Using fallback list.")
+        return FALLBACK_VIRAL_TOPICS
+
+    prompt = (
+        "You are an expert children's coloring book editor specializing in Amazon KDP, Etsy, and TikTok trends. "
+        "Generate a list of 8 trending, highly engaging cute animal or fantasy character subjects for kids coloring books "
+        "(e.g., 'cute baby axolotl', 'playful baby red panda', 'kawaii baby capybara', 'chubby baby otter'). "
+        "Return ONLY a clean JSON array of strings, for example: [\"cute baby capybara\", \"playful axolotl\"]. "
+        "Do not include any explanation or markdown formatting."
+    )
+
+    headers = {"Authorization": f"Bearer {API_TOKEN}"}
+    try:
+        response = requests.post(API_URL, headers=headers, json={"prompt": prompt}, timeout=25)
+        response.raise_for_status()
+        res_json = response.json()
+        raw_text = res_json.get("result", {}).get("response", "")
+
+        match = re.search(r'\\[.*\\]', raw_text, re.DOTALL)
+        if match:
+            parsed = json.loads(match.group(0))
+            cleaned = [str(x).strip().lower() for x in parsed if isinstance(x, str)]
+            if cleaned:
+                return cleaned
+    except Exception as e:
+        print(f"Warning: Cloudflare text API fallback triggered: {e}")
+
+    return FALLBACK_VIRAL_TOPICS
+
+def select_and_save_daily_topic():
+    history = load_history()
+    candidates = query_trending_topics()
+
+    selected = None
+    for item in candidates:
+        norm = item.strip().lower()
+        if norm and norm not in history:
+            selected = norm
+            break
+
+    if not selected:
+        for fb in FALLBACK_VIRAL_TOPICS:
+            if fb not in history:
+                selected = fb
+                break
+
+    if not selected:
+        selected = f"happy animal adventure day {datetime.now().timetuple().tm_yday}"
+
+    history.append(selected)
+    save_history(history)
+
     with open("today_theme.txt", "w", encoding="utf-8") as f:
-        f.write(chosen_topic)
-        
-    print(f"✅ Selected Unique Trending Topic for Today: '{chosen_topic}'")
-    print(f"📊 Total Unique Books in History: {len(used_topics)}")
+        f.write(selected)
+
+    print("=== Research Trend Completed ===")
+    print(f"Chosen Viral Topic: '{selected}'")
+    print(f"Total Unique Topics Recorded: {len(history)}")
 
 if __name__ == "__main__":
-    select_unique_daily_theme()
+    select_and_save_daily_topic()
