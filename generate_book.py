@@ -333,13 +333,16 @@ def generate_high_end_interior_page(clean_subject, action_scene, page_num):
 # ---------------------------------------------------------------------------
 # MAIN COMPILER
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# MAIN COMPILER
+# ---------------------------------------------------------------------------
 def build_book():
     theme_data, clean_subject, daily_actions = get_daily_configuration()
     category = theme_data.get("category", "Kids Animals")
-    print(f"=====================================================")
+    print("=====================================================")
     print(f"Starting Premium Production for Character: '{clean_subject}'")
     print(f"Original Theme Entry: '{theme_data['theme']}' | Category: {category}")
-    print(f"=====================================================")
+    print("=====================================================")
 
     pages = [
         generate_cover_page(clean_subject, category),
@@ -357,23 +360,16 @@ def build_book():
 
     safe_slug = re.sub(r"[^a-zA-Z0-9_-]", "_", clean_subject.strip().lower())
     safe_slug = re.sub(r"_+", "_", safe_slug)
-        safe_slug = re.sub(r"[^a-zA-Z0-9_-]", "_", clean_subject.strip().lower())
-    safe_slug = re.sub(r"_+", "_", safe_slug)
     filename = f"Digital_Coloring_Book_{safe_slug}.pdf"
 
-    # Fix: Call .save() on pages[0], not pages
     pages[0].save(
         filename, "PDF", resolution=300, save_all=True, append_images=pages[1:]
     )
-    print(f"=====================================================")
+    print("=====================================================")
     print(f"Successfully generated high-end book: {filename}")
     print(f"Total pages compiled: {len(pages)} (4 front matter + 30 coloring pages)")
-    print(f"=====================================================")
+    print("=====================================================")
 
-    print(f"=====================================================")
-    print(f"Successfully generated high-end book: {filename}")
-    print(f"Total pages compiled: {len(pages)} (4 front matter + 30 coloring pages)")
-    print(f"=====================================================")
 
 if __name__ == "__main__":
     build_book()
