@@ -2,7 +2,7 @@ name: Generate Daily Coloring Book
 
 on:
   schedule:
-    # Runs at 01:00 UTC daily (right after Cloudflare quota resets)
+    # Runs at 01:00 UTC daily (1 hour after Cloudflare's 00:00 UTC quota refresh)
     - cron: '0 1 * * *'
   workflow_dispatch:
 
@@ -24,21 +24,21 @@ jobs:
       - name: Install dependencies
         run: pip install requests pillow
 
-      # Step 1: Research today's viral theme and check deduplication history
+      # Step 1: Research trending viral topic and update deduplication history
       - name: Research trending theme
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: python research_trend.py
 
-      # Step 2: Build the high-end 34-page book
+      # Step 2: Build the premium 35-page PDF book
       - name: Generate coloring book PDF
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: python generate_book.py
 
-      # Step 3: Commit updated used_topics.json back to repository
+      # Step 3: Commit history back to repository so it never repeats
       - name: Commit history to repo
         run: |
           git config --global user.name "Daily Book Bot"
@@ -47,7 +47,7 @@ jobs:
           git commit -m "chore: record daily generated theme [skip ci]" || echo "No changes to commit"
           git push
 
-      # Step 4: Upload PDF as a Release or Artifact
+      # Step 4: Upload PDF as a GitHub Artifact
       - name: Upload PDF Artifact
         uses: actions/upload-artifact@v4
         with:
