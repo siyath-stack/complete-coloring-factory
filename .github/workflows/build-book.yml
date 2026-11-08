@@ -2,7 +2,7 @@ name: Generate Daily Coloring Book
 
 on:
   schedule:
-    # 01:00 AM UTC daily (1 hour after Cloudflare daily neuron refresh)
+    # Runs at 01:00 AM UTC daily (1 hour after Cloudflare quota resets at 00:00 UTC)
     - cron: '0 1 * * *'
   workflow_dispatch:
 
@@ -24,14 +24,14 @@ jobs:
       - name: Install dependencies
         run: pip install requests pillow
 
-      # Step 1: Discover trending topic and write 30 habitat-accurate scenes
+      # Step 1: Research trending viral topic and write 30 habitat-accurate scenes
       - name: Research trending theme
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: python research_trend.py
 
-      # Step 2: Compile the 35-page high-end PDF
+      # Step 2: Compile the 36-page high-end PDF
       - name: Generate coloring book PDF
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
