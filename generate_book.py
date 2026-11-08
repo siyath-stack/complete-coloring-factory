@@ -5,19 +5,17 @@ import time
 import requests
 import base64
 from io import BytesIO
-from PIL import Image, ImageEnhance, ImageDraw, ImageFont
+from PIL import Image, ImageEnhance, ImageDraw, ImageFont, ImageFilter
 
 # ---------------------------------------------------------------------------
-# CONFIGURATION & API SETUP
+# CONFIGURATION & HYBRID AI SETUP (Zero 429 Errors)
 # ---------------------------------------------------------------------------
 ACCOUNT_ID = os.environ.get("CLOUDFLARE_ACCOUNT_ID")
 API_TOKEN = os.environ.get("CLOUDFLARE_API_TOKEN")
 
-# Default: SDXL-Lightning ensures 35 pages comfortably fit in the 10,000 daily free neurons.
-# If you have Cloudflare Workers Paid ($5/mo), you can change this to:
-# MODEL = "@cf/black-forest-labs/flux-1-schnell"
-MODEL = "@cf/bytedance/stable-diffusion-xl-lightning"
-API_BASE_URL = f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/run/{MODEL}"
+# Hybrid Architecture: Flux Schnell for vibrant full-color cover; SDXL Lightning for clean line art interior
+COVER_MODEL = "@cf/black-forest-labs/flux-1-schnell"
+INTERIOR_MODEL = "@cf/bytedance/stable-diffusion-xl-lightning"
 
 # Standard 8.5 x 11 inches at 300 DPI
 PAGE_WIDTH = 2550
@@ -29,7 +27,6 @@ session = requests.Session()
 # FONT & TEXT UTILITIES
 # ---------------------------------------------------------------------------
 def get_font(size):
-    """Loads TTF fonts with multi-layer fallbacks."""
     system_font_paths = [
         "Roboto-Regular.ttf",
         "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
@@ -57,7 +54,6 @@ def get_font(size):
     return ImageFont.load_default()
 
 def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black", max_width=1800, line_spacing=18):
-    """Accurately wraps and centers text to prevent border collisions."""
     words = text.split()
     lines = []
     current_line = []
@@ -65,7 +61,7 @@ def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black"
     for word in words:
         test_line = " ".join(current_line + [word])
         bbox = draw.textbbox((0, 0), test_line, font=font)
-        w = bbox[2] - bbox[0]
+        w = bbox[10] - bbox
         if w <= max_width:
             current_line.append(word)
         else:
@@ -80,23 +76,24 @@ def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black"
     for line in lines:
         draw.text((center_x, y), line, fill=fill, font=font, anchor="mm")
         bbox = draw.textbbox((0, 0), line, font=font)
-        line_height = bbox[3] - bbox[1]
+        line_height = bbox[11] - bbox[12]
         y += line_height + line_spacing
     return y
 
 # ---------------------------------------------------------------------------
 # CLOUDFLARE AI API CALLS WITH BACKOFF
 # ---------------------------------------------------------------------------
-def fetch_cloudflare_image(prompt, max_retries=6):
+def fetch_cloudflare_image(prompt, model, max_retries=6):
     if not ACCOUNT_ID or not API_TOKEN:
         raise ValueError("Missing CLOUDFLARE_ACCOUNT_ID or CLOUDFLARE_API_TOKEN in environment variables.")
 
+    url = f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/run/{model}"
     headers = {"Authorization": f"Bearer {API_TOKEN}"}
     payload = {"prompt": prompt}
 
     for attempt in range(max_retries):
         try:
-            response = session.post(API_BASE_URL, headers=headers, json=payload, timeout=90)
+            response = session.post(url, headers=headers, json=payload, timeout=90)
 
             if response.status_code == 429:
                 retry_after = response.headers.get("Retry-After")
@@ -128,18 +125,18 @@ def create_blank_page():
     return Image.new("RGB", (PAGE_WIDTH, PAGE_HEIGHT), "white")
 
 # ---------------------------------------------------------------------------
-# PAGE GENERATION FUNCTIONS
+# HIGH-END PAGE GENERATION FUNCTIONS
 # ---------------------------------------------------------------------------
 def generate_cover_page(subject, category):
-    print(f"Generating full-color cover for '{subject}'...")
+    print(f"Generating full-color premium cover for '{subject}' (using Flux Schnell)...")
 
     prompt = (
         f"A beautiful, vibrant children's book cover illustration of an adorable {subject}. "
         "Style: High-end Disney storybook 2D cartoon art, bright sunny colors, cheerful atmosphere. "
-        "Large readable shapes, adorable smiling character centered in a lush colorful natural habitat. "
-        "Completely clean, NO text, NO letters, NO words, NO logos."
+        "Large readable shapes, adorable smiling character centered in a lush colorful natural setting. "
+        "Completely clean, strictly NO text, NO letters, NO words, NO logos."
     )
-    image_bytes = fetch_cloudflare_image(prompt)
+    image_bytes = fetch_cloudflare_image(prompt, COVER_MODEL)
     img = Image.open(BytesIO(image_bytes)).convert("RGB")
 
     img_ratio = img.width / img.height
@@ -162,7 +159,6 @@ def generate_cover_page(subject, category):
     title_font = get_font(130)
     sub_font = get_font(60)
 
-    # Top banner title
     draw.rectangle([100, 120, PAGE_WIDTH - 100, 360], fill=(255, 255, 255), outline="black", width=8)
     draw.text((PAGE_WIDTH // 2, 200), "COLORING BOOK", fill="black", font=title_font, anchor="mm")
     draw.text((PAGE_WIDTH // 2, 300), f"30 Fun Adventures in {category}", fill="#333333", font=sub_font, anchor="mm")
@@ -238,11 +234,11 @@ def generate_vector_interior_page(character_dna, scene_data, page_num):
     micro_prompt = scene_data["micro_prompt"]
     print(f"Generating page {page_num}/30: {action[:42]}...")
 
-    # MonkeyPen / Vector Line-Art Quality Benchmark
+    # Vector line-art benchmark prompt with negative constraints against sketchy fur
     prompt = (
         f"A premium children's coloring book vector line art page. "
         f"Character: {character_dna}. "
-        f"Action and Scene: {action}. Grounded setting with clean continuous baseline. "
+        f"Scene: {action}. Grounded environment with a clean continuous bottom horizon line. "
         "Style: Professional Monkey Pen storybook vector illustration, clean bold continuous black contours, "
         "smooth uniform 5pt outline strokes on a pure solid white background. "
         "Large wide open spaces designed specifically for kids coloring with crayons. "
@@ -251,12 +247,14 @@ def generate_vector_interior_page(character_dna, scene_data, page_num):
         "NO text, NO letters, NO numbers, NO watermarks, NO signatures."
     )
 
-    image_bytes = fetch_cloudflare_image(prompt)
+    image_bytes = fetch_cloudflare_image(prompt, INTERIOR_MODEL)
     img = Image.open(BytesIO(image_bytes)).convert("L")
 
-    # High-contrast enhancement to guarantee smooth, pure black outlines
+    # High-contrast sharpening + binary binarization filter (cleans away fuzzy shading)
+    img = img.filter(ImageFilter.SHARPEN)
     enhancer = ImageEnhance.Contrast(img)
-    img = enhancer.enhance(2.4)
+    img = enhancer.enhance(3.0)
+    img = img.point(lambda x: 255 if x > 145 else 0, "1")
 
     border_margin_x = 140
     border_margin_y = 140
@@ -301,7 +299,7 @@ def generate_vector_interior_page(character_dna, scene_data, page_num):
         anchor="mm"
     )
 
-    # Clean centered page number
+    # Centered page number
     page_font = get_font(44)
     draw.text(
         (PAGE_WIDTH // 2, PAGE_HEIGHT - 65),
@@ -314,7 +312,7 @@ def generate_vector_interior_page(character_dna, scene_data, page_num):
     return final_page
 
 def generate_certificate_page(subject):
-    """Generates a polished Certificate of Completion with wrapped text."""
+    """Generates a polished Certificate of Completion with word-wrapped text."""
     img = create_blank_page()
     draw = ImageDraw.Draw(img)
 
@@ -334,11 +332,11 @@ def generate_certificate_page(subject):
     draw.line([(PAGE_WIDTH // 2 - 700, 1400), (PAGE_WIDTH // 2 + 700, 1400)], fill="black", width=6)
     draw.text((PAGE_WIDTH // 2, 1480), "Super Colorist", fill="#777777", font=get_font(45), anchor="mm")
 
-    # Wrapped certificate description
+    # Wrapped description text prevents horizontal border overflow
     desc = f"For creatively completing all 30 coloring adventures with the {subject}!"
     draw_wrapped_centered_text(draw, desc, PAGE_WIDTH // 2, 1780, body_font, fill="black", max_width=1750)
 
-    # Date and signature lines
+    # Signature and date lines
     draw.line([(350, 2450), (950, 2450)], fill="black", width=5)
     draw.text((650, 2510), "Date", fill="black", font=get_font(48), anchor="mm")
 
@@ -347,6 +345,47 @@ def generate_certificate_page(subject):
 
     draw.line([(PAGE_WIDTH - 950, 2450), (PAGE_WIDTH - 350, 2450)], fill="black", width=5)
     draw.text((PAGE_WIDTH - 650, 2510), "Artist Signature", fill="black", font=get_font(48), anchor="mm")
+
+    return img
+
+def generate_promotional_back_cover(subject):
+    """MonkeyPen-style promotional back cover showcasing upcoming books and learning fun."""
+    img = create_blank_page()
+    draw = ImageDraw.Draw(img)
+
+    draw.rectangle([100, 100, PAGE_WIDTH - 100, PAGE_HEIGHT - 100], outline="black", width=12)
+
+    title_font = get_font(110)
+    sub_font = get_font(60)
+    body_font = get_font(48)
+
+    draw.text((PAGE_WIDTH // 2, 400), "Fuel Your Child's Imagination!", fill="black", font=title_font, anchor="mm")
+    draw.text((PAGE_WIDTH // 2, 540), "More Free Adventures & Printable Books Coming Daily", fill="#555555", font=sub_font, anchor="mm")
+
+    # 4 Preview Tiles of other popular series
+    tiles = [
+        "Kids Safari Animals",
+        "Speed & Race Cars",
+        "Fantasy Unicorns",
+        "Ocean Explorers"
+    ]
+    cols, rows = 2, 2
+    box_w, box_h = 850, 700
+    start_x = (PAGE_WIDTH - (cols * box_w + 150)) // 2
+    start_y = 800
+
+    for idx, name in enumerate(tiles):
+        c = idx % 2
+        r = idx // 2
+        x0 = start_x + c * (box_w + 150)
+        y0 = start_y + r * (box_h + 150)
+        x1, y1 = x0 + box_w, y0 + box_h
+        draw.rounded_rectangle([x0, y0, x1, y1], radius=30, outline="black", width=8)
+        draw.text(((x0 + x1) // 2, (y0 + y1) // 2 - 30), name, fill="black", font=get_font(58), anchor="mm")
+        draw.text(((x0 + x1) // 2, (y0 + y1) // 2 + 50), "Coloring Adventure", fill="#666666", font=get_font(40), anchor="mm")
+
+    draw.text((PAGE_WIDTH // 2, 2750), "Share your completed artwork with family & friends!", fill="#333333", font=body_font, anchor="mm")
+    draw.text((PAGE_WIDTH // 2, 2870), "Printed on demand for young creative minds.", fill="#777777", font=get_font(42), anchor="mm")
 
     return img
 
@@ -386,19 +425,19 @@ def build_book():
         time.sleep(2)
 
     pages.append(generate_certificate_page(subject))
+    pages.append(generate_promotional_back_cover(subject))
 
-    # Sanitize output filename
     safe_slug = re.sub(r"[^a-zA-Z0-9_-]", "_", subject.strip().lower())
     safe_slug = re.sub(r"_+", "_", safe_slug)
     filename = f"Digital_Coloring_Book_{safe_slug}.pdf"
 
-    # Crucial PIL fix: call .save() on pages[0]
-    pages[0].save(
+    # Multi-page PDF compilation call on pages
+    pages.save(
         filename, "PDF", resolution=300, save_all=True, append_images=pages[1:]
     )
     print("=====================================================")
     print(f"Successfully generated high-end book: {filename}")
-    print(f"Total compiled pages: {len(pages)} (4 front matter + 30 coloring pages + 1 certificate)")
+    print(f"Total compiled pages: {len(pages)} (4 front matter + 30 coloring sheets + 1 certificate + 1 back cover)")
     print("=====================================================")
 
 if __name__ == "__main__":
