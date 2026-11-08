@@ -2,7 +2,7 @@ name: Generate Daily Coloring Book
 
 on:
   schedule:
-    # Runs at 01:00 UTC daily (1 hour after Cloudflare's 00:00 UTC quota refresh)
+    # 01:00 AM UTC daily (1 hour after Cloudflare daily neuron refresh)
     - cron: '0 1 * * *'
   workflow_dispatch:
 
@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repo
+      - name: Check out repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -24,30 +24,30 @@ jobs:
       - name: Install dependencies
         run: pip install requests pillow
 
-      # Step 1: Research trending viral topic and update deduplication history
+      # Step 1: Discover trending topic and write 30 habitat-accurate scenes
       - name: Research trending theme
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: python research_trend.py
 
-      # Step 2: Build the premium 35-page PDF book
+      # Step 2: Compile the 35-page high-end PDF
       - name: Generate coloring book PDF
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: python generate_book.py
 
-      # Step 3: Commit history back to repository so it never repeats
-      - name: Commit history to repo
+      # Step 3: Record topic history so themes never repeat
+      - name: Commit history to repository
         run: |
-          git config --global user.name "Daily Book Bot"
+          git config --global user.name "Coloring Factory Bot"
           git config --global user.email "bot@users.noreply.github.com"
-          git add used_topics.json
-          git commit -m "chore: record daily generated theme [skip ci]" || echo "No changes to commit"
+          git add used_topics.json daily_book_plan.json
+          git commit -m "chore: record daily generated theme and plan [skip ci]" || echo "No changes to commit"
           git push
 
-      # Step 4: Upload PDF as a GitHub Artifact
+      # Step 4: Save compiled book as a GitHub artifact
       - name: Upload PDF Artifact
         uses: actions/upload-artifact@v4
         with:
