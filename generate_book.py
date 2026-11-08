@@ -1,11 +1,9 @@
 import os
-import csv
 import re
+import json
 import time
-import random
 import requests
 import base64
-from datetime import datetime
 from io import BytesIO
 from PIL import Image, ImageEnhance, ImageDraw, ImageFont
 
@@ -14,7 +12,11 @@ from PIL import Image, ImageEnhance, ImageDraw, ImageFont
 # ---------------------------------------------------------------------------
 ACCOUNT_ID = os.environ.get("CLOUDFLARE_ACCOUNT_ID")
 API_TOKEN = os.environ.get("CLOUDFLARE_API_TOKEN")
-MODEL = "@cf/black-forest-labs/flux-1-schnell"
+
+# Default: SDXL-Lightning ensures 35 pages comfortably fit in the 10,000 daily free neurons.
+# If you have Cloudflare Workers Paid ($5/mo), you can change this to:
+# MODEL = "@cf/black-forest-labs/flux-1-schnell"
+MODEL = "@cf/bytedance/stable-diffusion-xl-lightning"
 API_BASE_URL = f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/run/{MODEL}"
 
 # Standard 8.5 x 11 inches at 300 DPI
@@ -24,54 +26,10 @@ PAGE_HEIGHT = 3300
 session = requests.Session()
 
 # ---------------------------------------------------------------------------
-# 30 HIGH-END STORY ACTIONS & SCENES (Monkey.pdf Benchmark)
-# ---------------------------------------------------------------------------
-HIGH_END_ACTIONS = [
-    # Act 1: Morning & Playful Introductions (Pages 1-6)
-    ("waving hello cheerfully with a big smile, standing centered", "Can you wave hello and color my big smile?"),
-    ("swinging happily from a gentle leafy tree branch with a curled tail", "Count the leaves on the branch: 1, 2, 3!"),
-    ("curiously smelling a large tropical flower blossom", "Find the tiny ladybug resting on the petal!"),
-    ("clapping paws and dancing happily with cute musical notes in the air", "Color the musical notes your favorite bright color!"),
-    ("sitting happily on a branch peeling a fresh banana snack", "Can you color the fruit bright yellow?"),
-    ("peeking playfully from behind a friendly broad tropical leaf", "Play peekaboo! What color will you make the big leaf?"),
-
-    # Act 2: Companions & Nature Exploration (Pages 7-14)
-    ("riding happily on its mother's back holding on with tiny paws", "Give baby and mommy a warm, cozy color!"),
-    ("perched side by side on a branch chatting with a smiling tropical parrot", "Color the parrot's feathers with rainbow colors!"),
-    ("gently reaching out a paw to let a cheerful smiling butterfly land", "Find both wings of the friendly butterfly!"),
-    ("drinking fresh juice with a fun striped straw from a round coconut cup", "Color the stripes on the straw: red and blue!"),
-    ("splashing playfully with feet in a calm clear forest puddle", "Count the water ripples in the puddle!"),
-    ("wearing a wide-brimmed safari sun hat decorated with a flower", "Make the explorer hat look stylish!"),
-    ("balancing playfully on one foot along a fallen mossy tree log", "Can you balance on one foot like me?"),
-    ("playing peekaboo behind a cluster of hanging jungle vines", "Count the hanging vines: 1, 2, 3, 4!"),
-
-    # Act 3: Playful Feats & Outdoor Adventures (Pages 15-22)
-    ("hanging upside down by feet and tail with a silly playful grin", "Everything looks upside down! Color my happy face!"),
-    ("juggling three smooth round jungle fruits with sparkling bright eyes", "Count the 3 juggling fruits in the air!"),
-    ("flying a colorful diamond-shaped kite high against puffy clouds", "Color the kite with your favorite pattern!"),
-    ("proudly holding up a shiny star-shaped wooden medal", "Shine bright! Color the gold star award!"),
-    ("sitting inside a cozy hollow tree nook waving through a knot hole", "A secret treehouse hideout to color!"),
-    ("making funny goofy faces in the reflection of a calm water pool", "Smile! Color the funny reflection!"),
-    ("curiously watching a friendly little caterpillar crawl along a twig", "Count the caterpillar's tiny little spots!"),
-    ("happily rolling a giant shiny smooth river pebble like a ball", "Color the big river stone!"),
-
-    # Act 4: Joyful Games & Celebrations (Pages 23-28)
-    ("wearing a festive party hat surrounded by floating fun confetti", "Party time! Color all the floating confetti!"),
-    ("building a neat stack of rounded river stones with focused cute eyes", "Count how many stones are in the tall stack!"),
-    ("giggling while blowing giant round soap bubbles floating into the sky", "Color the shiny reflections on the soap bubbles!"),
-    ("holding a vibrant balloon cluster tied to a tiny wrist string", "Make each balloon in the bundle a different color!"),
-    ("happily sharing a cluster of sweet wild berries with a little songbird", "Good friends share! Color the sweet berries!"),
-    ("taking a cheerful victory bow with arms outstretched in joy", "Ta-da! You're doing an amazing job coloring!"),
-
-    # Act 5: Twilight & Bedtime (Pages 29-30)
-    ("sitting peacefully on a branch gazing at a smiling crescent moon and twinkling stars", "Count the 4 twinkling stars in the sky!"),
-    ("curled up fast asleep on a cozy hammock of jungle leaves hugging a tiny pillow", "Sweet dreams! Color the cozy bedtime scene!")
-]
-
-# ---------------------------------------------------------------------------
-# FONT HELPER WITH SAFE FALLBACKS
+# FONT & TEXT UTILITIES
 # ---------------------------------------------------------------------------
 def get_font(size):
+    """Loads TTF fonts with multi-layer fallbacks."""
     system_font_paths = [
         "Roboto-Regular.ttf",
         "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
@@ -98,47 +56,36 @@ def get_font(size):
 
     return ImageFont.load_default()
 
-# ---------------------------------------------------------------------------
-# DAILY SCHEDULE & CLEAN SUBJECT EXTRACTION
-# ---------------------------------------------------------------------------
-def extract_clean_subject(raw_theme):
-    text = raw_theme.strip().lower()
-    text = re.sub(r'\b(eating|building|driving|riding|flying|holding|cooking|playing|with)\b.*$', '', text)
-    text = text.strip()
-    if not text:
-        text = "cute friendly animal"
-    return text
+def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black", max_width=1800, line_spacing=18):
+    """Accurately wraps and centers text to prevent border collisions."""
+    words = text.split()
+    lines = []
+    current_line = []
 
-def get_daily_configuration(csv_path="themes.csv"):
-    now = datetime.now()
-    day_of_year = now.timetuple().tm_yday
-    year = now.year
+    for word in words:
+        test_line = " ".join(current_line + [word])
+        bbox = draw.textbbox((0, 0), test_line, font=font)
+        w = bbox[2] - bbox[0]
+        if w <= max_width:
+            current_line.append(word)
+        else:
+            if current_line:
+                lines.append(" ".join(current_line))
+            current_line = [word]
 
-    if os.path.exists("today_theme.txt"):
-        with open("today_theme.txt", "r", encoding="utf-8") as f:
-            topic_str = f.read().strip()
-        todays_theme = {"id": day_of_year, "theme": topic_str, "category": "Trending Kids Animals"}
-    elif os.path.exists(csv_path):
-        with open(csv_path, mode="r", encoding="utf-8") as file:
-            reader = list(csv.DictReader(file))
-            if reader:
-                theme_index = (day_of_year - 1) % len(reader)
-                todays_theme = reader[theme_index]
-            else:
-                todays_theme = {"id": 1, "theme": "cute baby capybara", "category": "Trending Kids Animals"}
-    else:
-        todays_theme = {"id": 1, "theme": "cute baby capybara", "category": "Trending Kids Animals"}
+    if current_line:
+        lines.append(" ".join(current_line))
 
-    clean_subject = extract_clean_subject(todays_theme["theme"])
-
-    seed_value = int(f"{year}{day_of_year}")
-    rng = random.Random(seed_value)
-    todays_30_scenes = rng.sample(HIGH_END_ACTIONS, min(30, len(HIGH_END_ACTIONS)))
-
-    return todays_theme, clean_subject, todays_30_scenes
+    y = start_y
+    for line in lines:
+        draw.text((center_x, y), line, fill=fill, font=font, anchor="mm")
+        bbox = draw.textbbox((0, 0), line, font=font)
+        line_height = bbox[3] - bbox[1]
+        y += line_height + line_spacing
+    return y
 
 # ---------------------------------------------------------------------------
-# CLOUDFLARE AI API CALLS WITH RATE-LIMIT (429) BACKOFF
+# CLOUDFLARE AI API CALLS WITH BACKOFF
 # ---------------------------------------------------------------------------
 def fetch_cloudflare_image(prompt, max_retries=6):
     if not ACCOUNT_ID or not API_TOKEN:
@@ -175,22 +122,22 @@ def fetch_cloudflare_image(prompt, max_retries=6):
             print(f"[Request Error] {e}. Retrying in {wait_time}s...")
             time.sleep(wait_time)
 
-    raise RuntimeError(f"Failed to fetch image after {max_retries} attempts due to rate limiting.")
+    raise RuntimeError(f"Failed to fetch image after {max_retries} attempts.")
 
 def create_blank_page():
     return Image.new("RGB", (PAGE_WIDTH, PAGE_HEIGHT), "white")
 
 # ---------------------------------------------------------------------------
-# HIGH-END PAGE GENERATION FUNCTIONS
+# PAGE GENERATION FUNCTIONS
 # ---------------------------------------------------------------------------
-def generate_cover_page(clean_subject, category):
-    print(f"Generating premium vector-style cover for '{clean_subject}'...")
+def generate_cover_page(subject, category):
+    print(f"Generating full-color cover for '{subject}'...")
 
     prompt = (
-        f"A premium, professional children's book cover illustration of a {clean_subject} swinging from a tropical leafy vine. "
-        "Style: High-end storybook art, vibrant joyful colors, adorable cartoon styling with bright friendly eyes. "
-        "Clean composition, large readable shapes, cheerful daylight setting. "
-        "Strictly NO text, NO letters, NO words, NO logos."
+        f"A beautiful, vibrant children's book cover illustration of an adorable {subject}. "
+        "Style: High-end Disney storybook 2D cartoon art, bright sunny colors, cheerful atmosphere. "
+        "Large readable shapes, adorable smiling character centered in a lush colorful natural habitat. "
+        "Completely clean, NO text, NO letters, NO words, NO logos."
     )
     image_bytes = fetch_cloudflare_image(prompt)
     img = Image.open(BytesIO(image_bytes)).convert("RGB")
@@ -215,9 +162,10 @@ def generate_cover_page(clean_subject, category):
     title_font = get_font(130)
     sub_font = get_font(60)
 
+    # Top banner title
     draw.rectangle([100, 120, PAGE_WIDTH - 100, 360], fill=(255, 255, 255), outline="black", width=8)
     draw.text((PAGE_WIDTH // 2, 200), "COLORING BOOK", fill="black", font=title_font, anchor="mm")
-    draw.text((PAGE_WIDTH // 2, 300), f"30 Premium Adventures in {category}", fill="#333333", font=sub_font, anchor="mm")
+    draw.text((PAGE_WIDTH // 2, 300), f"30 Fun Adventures in {category}", fill="#333333", font=sub_font, anchor="mm")
 
     return final_page
 
@@ -285,33 +233,35 @@ def generate_color_test_page():
 
     return img
 
-def generate_high_end_interior_page(clean_subject, scene_tuple, page_num):
-    action_scene, micro_prompt = scene_tuple
-    print(f"Generating page {page_num}/30: {action_scene[:45]}...")
+def generate_vector_interior_page(character_dna, scene_data, page_num):
+    action = scene_data["action"]
+    micro_prompt = scene_data["micro_prompt"]
+    print(f"Generating page {page_num}/30: {action[:42]}...")
 
+    # MonkeyPen / Vector Line-Art Quality Benchmark
     prompt = (
-        f"A premium children's coloring book page featuring a {clean_subject}. "
-        f"Scene: {action_scene}. "
-        "Style: Professional children's book vector line art illustration, Monkey Pen style, Disney storybook character design. "
-        "Clean, continuous, bold black contour outlines on a solid pure white background. "
-        "Large, wide, open coloring spaces perfectly suited for young children coloring with crayons. "
-        "Cute expressive cartoon character with large friendly sparkling eyes. "
-        "Balanced minimal background with simple outline elements (like simple vine, flower, branch, or cloud). "
-        "ABSOLUTELY NO COLOR, NO GRAYSCALE, NO SHADING, NO HALFTONES, NO HATCHING, NO TEXTURES, NO GRITTY DETAIL. "
-        "ABSOLUTELY NO TEXT, NO LETTERS, NO NUMBERS, NO CAPTIONS, NO WATERMARKS, NO ARTIST SIGNATURES."
+        f"A premium children's coloring book vector line art page. "
+        f"Character: {character_dna}. "
+        f"Action and Scene: {action}. Grounded setting with clean continuous baseline. "
+        "Style: Professional Monkey Pen storybook vector illustration, clean bold continuous black contours, "
+        "smooth uniform 5pt outline strokes on a pure solid white background. "
+        "Large wide open spaces designed specifically for kids coloring with crayons. "
+        "CRITICAL NEGATIVE CONSTRAINTS: NO fur textures, NO hair lines, NO sketchy strokes, NO pencil grain, "
+        "NO shading, NO grayscale, NO crosshatching, NO stippling, NO floating characters, "
+        "NO text, NO letters, NO numbers, NO watermarks, NO signatures."
     )
 
     image_bytes = fetch_cloudflare_image(prompt)
     img = Image.open(BytesIO(image_bytes)).convert("L")
 
+    # High-contrast enhancement to guarantee smooth, pure black outlines
     enhancer = ImageEnhance.Contrast(img)
-    img = enhancer.enhance(2.2)
+    img = enhancer.enhance(2.4)
 
-    # Frame geometry
     border_margin_x = 140
     border_margin_y = 140
     inner_w = PAGE_WIDTH - (2 * border_margin_x) - 40
-    inner_h = PAGE_HEIGHT - (2 * border_margin_y) - 240
+    inner_h = PAGE_HEIGHT - (2 * border_margin_y) - 260
 
     img_ratio = img.width / img.height
     target_ratio = inner_w / inner_h
@@ -328,7 +278,7 @@ def generate_high_end_interior_page(clean_subject, scene_tuple, page_num):
     final_page = create_blank_page()
     draw = ImageDraw.Draw(final_page)
 
-    # High-end rounded rectangle border
+    # Rounded outer page frame
     draw.rounded_rectangle(
         [border_margin_x, border_margin_y, PAGE_WIDTH - border_margin_x, PAGE_HEIGHT - border_margin_y],
         radius=40,
@@ -336,69 +286,67 @@ def generate_high_end_interior_page(clean_subject, scene_tuple, page_num):
         width=8
     )
 
-    # Paste centered within frame
+    # Paste illustration inside frame
     x_offset = border_margin_x + 20 + ((inner_w - new_width) // 2)
     y_offset = border_margin_y + 40 + ((inner_h - new_height) // 2)
     final_page.paste(img.convert("RGB"), (x_offset, y_offset))
 
-    # Micro-interactive educational prompt
-    prompt_font = get_font(52)
+    # Activity prompt at bottom of framed box
+    prompt_font = get_font(50)
     draw.text(
-        (PAGE_WIDTH // 2, PAGE_HEIGHT - border_margin_y - 120),
+        (PAGE_WIDTH // 2, PAGE_HEIGHT - border_margin_y - 100),
         micro_prompt,
         fill="#333333",
         font=prompt_font,
         anchor="mm"
     )
 
-    # Centered page number
-    page_font = get_font(45)
+    # Clean centered page number
+    page_font = get_font(44)
     draw.text(
-        (PAGE_WIDTH // 2, PAGE_HEIGHT - 70),
+        (PAGE_WIDTH // 2, PAGE_HEIGHT - 65),
         f"- {page_num} -",
-        fill="#555555",
+        fill="#666666",
         font=page_font,
         anchor="mm"
     )
 
     return final_page
 
-def generate_certificate_page(clean_subject):
-    """Adds a high-value Certificate of Completion at the end of the book."""
+def generate_certificate_page(subject):
+    """Generates a polished Certificate of Completion with wrapped text."""
     img = create_blank_page()
     draw = ImageDraw.Draw(img)
 
     draw.rectangle([140, 140, PAGE_WIDTH - 140, PAGE_HEIGHT - 140], outline="black", width=16)
     draw.rectangle([180, 180, PAGE_WIDTH - 180, PAGE_HEIGHT - 180], outline="black", width=4)
 
-    title_font = get_font(140)
-    sub_font = get_font(75)
-    body_font = get_font(60)
+    title_font = get_font(135)
+    sub_font = get_font(70)
+    body_font = get_font(55)
 
     draw.text((PAGE_WIDTH // 2, 600), "CERTIFICATE", fill="black", font=title_font, anchor="mm")
-    draw.text((PAGE_WIDTH // 2, 780), "OF COMPLETION", fill="black", font=sub_font, anchor="mm")
+    draw.text((PAGE_WIDTH // 2, 770), "OF COMPLETION", fill="black", font=sub_font, anchor="mm")
 
-    draw.text((PAGE_WIDTH // 2, 1150), "This is proudly awarded to:", fill="#444444", font=body_font, anchor="mm")
+    draw.text((PAGE_WIDTH // 2, 1120), "This certificate is proudly awarded to:", fill="#444444", font=body_font, anchor="mm")
 
-    draw.line([(PAGE_WIDTH // 2 - 700, 1450), (PAGE_WIDTH // 2 + 700, 1450)], fill="black", width=6)
-    draw.text((PAGE_WIDTH // 2, 1530), "Little Master Artist", fill="#777777", font=get_font(45), anchor="mm")
+    # Name underline
+    draw.line([(PAGE_WIDTH // 2 - 700, 1400), (PAGE_WIDTH // 2 + 700, 1400)], fill="black", width=6)
+    draw.text((PAGE_WIDTH // 2, 1480), "Super Colorist", fill="#777777", font=get_font(45), anchor="mm")
 
-    draw.text(
-        (PAGE_WIDTH // 2, 1850),
-        f"For creatively completing all 30 coloring adventures with the {clean_subject}!",
-        fill="black",
-        font=body_font,
-        anchor="mm"
-    )
+    # Wrapped certificate description
+    desc = f"For creatively completing all 30 coloring adventures with the {subject}!"
+    draw_wrapped_centered_text(draw, desc, PAGE_WIDTH // 2, 1780, body_font, fill="black", max_width=1750)
 
-    draw.line([(350, 2400), (950, 2400)], fill="black", width=5)
-    draw.text((650, 2460), "Date", fill="black", font=get_font(50), anchor="mm")
+    # Date and signature lines
+    draw.line([(350, 2450), (950, 2450)], fill="black", width=5)
+    draw.text((650, 2510), "Date", fill="black", font=get_font(48), anchor="mm")
 
-    draw.ellipse([PAGE_WIDTH // 2 - 120, 2220, PAGE_WIDTH // 2 + 120, 2460], outline="black", width=8)
-    draw.text((PAGE_WIDTH // 2, 2340), "★", fill="black", font=get_font(100), anchor="mm")
+    draw.ellipse([PAGE_WIDTH // 2 - 120, 2270, PAGE_WIDTH // 2 + 120, 2510], outline="black", width=8)
+    draw.text((PAGE_WIDTH // 2, 2390), "★", fill="black", font=get_font(95), anchor="mm")
 
-    draw.line([(PAGE_WIDTH - 950, 2400), (PAGE_WIDTH - 350, 2400)], fill="black", width=5)
-    draw.text((PAGE_WIDTH - 650, 2460), "Artist Signature", fill="black", font=get_font(50), anchor="mm")
+    draw.line([(PAGE_WIDTH - 950, 2450), (PAGE_WIDTH - 350, 2450)], fill="black", width=5)
+    draw.text((PAGE_WIDTH - 650, 2510), "Artist Signature", fill="black", font=get_font(48), anchor="mm")
 
     return img
 
@@ -406,39 +354,51 @@ def generate_certificate_page(clean_subject):
 # MAIN COMPILER
 # ---------------------------------------------------------------------------
 def build_book():
-    theme_data, clean_subject, daily_actions = get_daily_configuration()
-    category = theme_data.get("category", "Kids Animals")
+    plan_file = "daily_book_plan.json"
+    if not os.path.exists(plan_file):
+        raise FileNotFoundError(f"Missing '{plan_file}'. Run 'python research_trend.py' first.")
+
+    with open(plan_file, "r", encoding="utf-8") as f:
+        plan = json.load(f)
+
+    subject = plan["subject"]
+    category = plan.get("category", "Trending Kids Animals")
+    character_dna = plan["character_dna"]
+    scenes = plan["scenes"]
+
     print("=====================================================")
-    print(f"Starting Premium Production for Character: '{clean_subject}'")
-    print(f"Original Theme Entry: '{theme_data['theme']}' | Category: {category}")
+    print(f"Starting High-End Book Production: '{subject}'")
+    print(f"Total Unique Habitat Scenes: {len(scenes)}")
     print("=====================================================")
 
     pages = [
-        generate_cover_page(clean_subject, category),
+        generate_cover_page(subject, category),
         generate_ownership_page(),
         generate_terms_page(),
         generate_color_test_page()
     ]
 
-    time.sleep(4)
+    time.sleep(3)
 
-    for i, action_tuple in enumerate(daily_actions, start=1):
-        page_img = generate_high_end_interior_page(clean_subject, action_tuple, i)
+    for i, scene in enumerate(scenes[:30], start=1):
+        page_img = generate_vector_interior_page(character_dna, scene, i)
         pages.append(page_img)
-        time.sleep(3)
+        time.sleep(2)
 
-    pages.append(generate_certificate_page(clean_subject))
+    pages.append(generate_certificate_page(subject))
 
-    safe_slug = re.sub(r"[^a-zA-Z0-9_-]", "_", clean_subject.strip().lower())
+    # Sanitize output filename
+    safe_slug = re.sub(r"[^a-zA-Z0-9_-]", "_", subject.strip().lower())
     safe_slug = re.sub(r"_+", "_", safe_slug)
     filename = f"Digital_Coloring_Book_{safe_slug}.pdf"
 
+    # Crucial PIL fix: call .save() on pages[0]
     pages[0].save(
         filename, "PDF", resolution=300, save_all=True, append_images=pages[1:]
     )
     print("=====================================================")
     print(f"Successfully generated high-end book: {filename}")
-    print(f"Total pages compiled: {len(pages)} (4 front matter + 30 coloring pages + 1 certificate)")
+    print(f"Total compiled pages: {len(pages)} (4 front matter + 30 coloring pages + 1 certificate)")
     print("=====================================================")
 
 if __name__ == "__main__":
