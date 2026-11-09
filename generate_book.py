@@ -47,13 +47,7 @@ def get_font(size):
         if r.status_code == 200:
             with open("Roboto-Regular.ttf", "wb") as f:
                 f.write(r.content)
-            return ImageFont.truetype("Roboto-Regular.ttf", size)
-    except Exception:
-        pass
-
-    return ImageFont.load_default()
-
-def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black", max_width=1800, line_spacing=18):
+        def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black", max_width=1800, line_spacing=18):
     words = text.split()
     lines = []
     current_line = []
@@ -61,7 +55,7 @@ def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black"
     for word in words:
         test_line = " ".join(current_line + [word])
         bbox = draw.textbbox((0, 0), test_line, font=font)
-        w = bbox[10] - bbox
+        w = bbox[2] - bbox[0]  # Corrected from bbox[10] to bbox[2]
         if w <= max_width:
             current_line.append(word)
         else:
@@ -76,7 +70,7 @@ def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black"
     for line in lines:
         draw.text((center_x, y), line, fill=fill, font=font, anchor="mm")
         bbox = draw.textbbox((0, 0), line, font=font)
-        line_height = bbox[11] - bbox[12]
+        line_height = bbox[3] - bbox[1]  # Corrected from bbox[11] to bbox[3]
         y += line_height + line_spacing
     return y
 
