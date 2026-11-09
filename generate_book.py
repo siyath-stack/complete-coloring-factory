@@ -541,8 +541,8 @@ def build_book():
     safe_slug = re.sub(r"_+", "_", safe_slug)
     filename = f"Digital_Coloring_Book_{safe_slug}.pdf"
 
-    # Save complete multi-page PDF
-    pages.save(
+    # Save complete multi-page PDF via pages[0]
+    pages[0].save(
         filename, "PDF", resolution=300, save_all=True, append_images=pages[1:]
     )
     print("=====================================================")
