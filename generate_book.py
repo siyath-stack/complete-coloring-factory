@@ -54,6 +54,7 @@ def get_font(size):
     return ImageFont.load_default()
 
 def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black", max_width=1800, line_spacing=18):
+    """Wraps and centers text using correct 4-tuple indexing (bbox[2]-bbox[0] for width, bbox[3]-bbox[1] for height)."""
     words = text.split()
     lines = []
     current_line = []
@@ -61,7 +62,7 @@ def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black"
     for word in words:
         test_line = " ".join(current_line + [word])
         bbox = draw.textbbox((0, 0), test_line, font=font)
-        w = bbox[14] - bbox
+        w = bbox[2] - bbox[0]
         if w <= max_width:
             current_line.append(word)
         else:
@@ -76,7 +77,7 @@ def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black"
     for line in lines:
         draw.text((center_x, y), line, fill=fill, font=font, anchor="mm")
         bbox = draw.textbbox((0, 0), line, font=font)
-        line_height = bbox[1] - bbox[15]
+        line_height = bbox[3] - bbox[1]
         y += line_height + line_spacing
     return y
 
@@ -368,7 +369,6 @@ def generate_vector_interior_page(character_dna, scene_data, page_num):
     micro_prompt = scene_data["micro_prompt"]
     print(f"Generating page {page_num}/30: {action[:42]}...")
 
-    # Strict "Bold & Easy" prompt targeting ultra-thick outlines and zero background shadows
     prompt = (
         f"A bold and easy coloring book page for toddlers and kids. "
         f"Subject: {character_dna}. "
@@ -528,8 +528,8 @@ def build_book():
         page_img = generate_vector_interior_page(character_dna, scene, i)
         pages.append(page_img)
 
-        # Collect exact page thumbnails for back cover showcase (syntax fix applied)
-        if i in [1-4]:
+        # Collect sample thumbnails for back cover (Pages 3, 11, 19, 27)
+        if i in [3, 11, 19, 27]:
             sample_thumbnails.append(page_img)
 
         time.sleep(2)
