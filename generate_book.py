@@ -8,14 +8,16 @@ from io import BytesIO
 from PIL import Image, ImageEnhance, ImageDraw, ImageFont, ImageFilter
 
 # ---------------------------------------------------------------------------
-# CONFIGURATION & HYBRID AI SETUP (Zero 429 Errors)
+# CONFIGURATION & MODEL SETUP
 # ---------------------------------------------------------------------------
 ACCOUNT_ID = os.environ.get("CLOUDFLARE_ACCOUNT_ID")
 API_TOKEN = os.environ.get("CLOUDFLARE_API_TOKEN")
 
-# Hybrid Architecture: Flux Schnell for vibrant full-color cover; SDXL Lightning for clean line art interior
-COVER_MODEL = "@cf/black-forest-labs/flux-1-schnell"
-INTERIOR_MODEL = "@cf/bytedance/stable-diffusion-xl-lightning"
+# By default, SDXL-Lightning is used for both cover and interior to comfortably
+# fit all 35 pages within the 10,000 daily free neurons without 429 lockouts.
+# If you have Cloudflare Workers Paid ($5/mo), set COVER_MODEL to flux-1-schnell.
+COVER_MODEL = os.environ.get("COVER_MODEL", "@cf/bytedance/stable-diffusion-xl-lightning")
+INTERIOR_MODEL = os.environ.get("INTERIOR_MODEL", "@cf/bytedance/stable-diffusion-xl-lightning")
 
 # Standard 8.5 x 11 inches at 300 DPI
 PAGE_WIDTH = 2550
@@ -24,7 +26,7 @@ PAGE_HEIGHT = 3300
 session = requests.Session()
 
 # ---------------------------------------------------------------------------
-# FONT & TEXT UTILITIES
+# FONT & TEXT UTILITIES (Fixes IndexError on bbox)
 # ---------------------------------------------------------------------------
 def get_font(size):
     system_font_paths = [
@@ -47,15 +49,23 @@ def get_font(size):
         if r.status_code == 200:
             with open("Roboto-Regular.ttf", "wb") as f:
                 f.write(r.content)
-        def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black", max_width=1800, line_spacing=18):
+            return ImageFont.truetype("Roboto-Regular.ttf", size)
+    except Exception:
+        pass
+
+    return ImageFont.load_default()
+
+def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black", max_width=1800, line_spacing=18):
+    """Accurately wraps and centers text to prevent border collisions."""
     words = text.split()
     lines = []
     current_line = []
 
     for word in words:
         test_line = " ".join(current_line + [word])
+        # textbbox returns (left, top, right, bottom)
         bbox = draw.textbbox((0, 0), test_line, font=font)
-        w = bbox[2] - bbox[0]  # Corrected from bbox[10] to bbox[2]
+        w = bbox[2] - bbox[0]
         if w <= max_width:
             current_line.append(word)
         else:
@@ -70,7 +80,7 @@ def get_font(size):
     for line in lines:
         draw.text((center_x, y), line, fill=fill, font=font, anchor="mm")
         bbox = draw.textbbox((0, 0), line, font=font)
-        line_height = bbox[3] - bbox[1]  # Corrected from bbox[11] to bbox[3]
+        line_height = bbox[3] - bbox[1]
         y += line_height + line_spacing
     return y
 
@@ -122,7 +132,7 @@ def create_blank_page():
 # HIGH-END PAGE GENERATION FUNCTIONS
 # ---------------------------------------------------------------------------
 def generate_cover_page(subject, category):
-    print(f"Generating full-color premium cover for '{subject}' (using Flux Schnell)...")
+    print(f"Generating full-color cover for '{subject}'...")
 
     prompt = (
         f"A beautiful, vibrant children's book cover illustration of an adorable {subject}. "
@@ -244,7 +254,7 @@ def generate_vector_interior_page(character_dna, scene_data, page_num):
     image_bytes = fetch_cloudflare_image(prompt, INTERIOR_MODEL)
     img = Image.open(BytesIO(image_bytes)).convert("L")
 
-    # High-contrast sharpening + binary binarization filter (cleans away fuzzy shading)
+    # High-contrast sharpening + binary threshold filter (cleans away fuzzy shading)
     img = img.filter(ImageFilter.SHARPEN)
     enhancer = ImageEnhance.Contrast(img)
     img = enhancer.enhance(3.0)
@@ -306,7 +316,7 @@ def generate_vector_interior_page(character_dna, scene_data, page_num):
     return final_page
 
 def generate_certificate_page(subject):
-    """Generates a polished Certificate of Completion with word-wrapped text."""
+    """Generates a polished Certificate of Completion with wrapped text."""
     img = create_blank_page()
     draw = ImageDraw.Draw(img)
 
@@ -343,7 +353,7 @@ def generate_certificate_page(subject):
     return img
 
 def generate_promotional_back_cover(subject):
-    """MonkeyPen-style promotional back cover showcasing upcoming books and learning fun."""
+    """MonkeyPen-style promotional back cover showcasing upcoming books."""
     img = create_blank_page()
     draw = ImageDraw.Draw(img)
 
@@ -356,7 +366,6 @@ def generate_promotional_back_cover(subject):
     draw.text((PAGE_WIDTH // 2, 400), "Fuel Your Child's Imagination!", fill="black", font=title_font, anchor="mm")
     draw.text((PAGE_WIDTH // 2, 540), "More Free Adventures & Printable Books Coming Daily", fill="#555555", font=sub_font, anchor="mm")
 
-    # 4 Preview Tiles of other popular series
     tiles = [
         "Kids Safari Animals",
         "Speed & Race Cars",
@@ -395,7 +404,7 @@ def build_book():
         plan = json.load(f)
 
     subject = plan["subject"]
-    category = plan.get("category", "Trending Kids Animals")
+    category = plan.get("category", "Trending Kids Characters")
     character_dna = plan["character_dna"]
     scenes = plan["scenes"]
 
@@ -425,8 +434,8 @@ def build_book():
     safe_slug = re.sub(r"_+", "_", safe_slug)
     filename = f"Digital_Coloring_Book_{safe_slug}.pdf"
 
-    # Multi-page PDF compilation call on pages
-    pages.save(
+    # Multi-page PDF compilation called on the first image object
+    pages[0].save(
         filename, "PDF", resolution=300, save_all=True, append_images=pages[1:]
     )
     print("=====================================================")
