@@ -47,7 +47,7 @@ def save_history(history):
         json.dump(history, f, indent=2)
 
 # ---------------------------------------------------------------------------
-# GEMINI RESEARCH ENGINE (With Automatic Retry & Fallbacks)
+# GEMINI RESEARCH ENGINE (Retries gemini-3.8-flash on 503 Spikes)
 # ---------------------------------------------------------------------------
 def generate_daily_plan():
     if not GEMINI_API_KEY:
@@ -80,56 +80,13 @@ TASK:
 6. Provide an engaging 1-line educational micro-prompt for every page (counting items, tracing, or coloring specifics).
 """
 
-    # Candidate models to iterate through if a 503 high-demand spike occurs
-    candidate_models = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
+    model_name = "gemini-3.8-flash"
     response = None
+    max_retries = 5
 
-    for model_name in candidate_models:
-        print(f"Attempting book plan generation with '{model_name}'...")
-        for attempt in range(1, 4):
-            try:
-                response = client.models.generate_content(
-                    model=model_name,
-                    contents=prompt,
-                    config=types.GenerateContentConfig(
-                        response_mime_type="application/json",
-                        response_schema=DailyBookPlan,
-                        temperature=0.95,
-                    ),
-                )
-                if response and response.text:
-                    print(f"Successfully generated plan using '{model_name}'.")
-                    break
-            except APIError as e:
-                print(f"[503/API Notice] {model_name} attempt {attempt} failed: {e}. Retrying in {5 * attempt}s...")
-                time.sleep(5 * attempt)
-            except Exception as e:
-                print(f"[Notice] {model_name} attempt {attempt} failed: {e}. Retrying in {5 * attempt}s...")
-                time.sleep(5 * attempt)
+    print(f"Querying {model_name} for daily book architecture...")
 
-        if response and response.text:
-            break
-
-    if not response or not response.text:
-        raise RuntimeError("Failed to generate plan after retrying across available Gemini models.")
-
-    plan_data = json.loads(response.text)
-
-    # Save today's plan
-    with open(DAILY_PLAN_FILE, "w", encoding="utf-8") as f:
-        json.dump(plan_data, f, indent=2)
-
-    # Record topic history
-    history.append(plan_data["subject"])
-    save_history(history)
-
-    print("=====================================================")
-    print(f"Gemini Selected Subject: '{plan_data['subject']}'")
-    print(f"Category: {plan_data['category']} ({plan_data['target_age']})")
-    print(f"Character DNA Anchor: {plan_data['character_dna']}")
-    print(f"Total Scenes Generated: {len(plan_data['scenes'])}")
-    print(f"Saved to '{DAILY_PLAN_FILE}'. Total recorded topics: {len(history)}")
-    print("=====================================================")
-
-if __name__ == "__main__":
-    generate_daily_plan()
+    for attempt in range(1, max_retries + 1):
+        try:
+            response = client.models.generate_content(
+                
