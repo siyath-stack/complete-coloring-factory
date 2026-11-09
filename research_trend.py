@@ -7,7 +7,6 @@ from pydantic import BaseModel, Field
 try:
     from google import genai
     from google.genai import types
-    from google.genai.errors import APIError
 except ImportError:
     raise ImportError("Please install the Google GenAI SDK: pip install google-genai pydantic")
 
@@ -19,14 +18,14 @@ DAILY_PLAN_FILE = "daily_book_plan.json"
 # STRUCTURED PYDANTIC OUTPUT SCHEMA
 # ---------------------------------------------------------------------------
 class ScenePlan(BaseModel):
-    action: str = Field(description="Visual action and setting in Bobbie Goods cozy line art style")
+    action: str = Field(description="Visual action and setting in bold & easy coloring book style with zero background clutter")
     micro_prompt: str = Field(description="A 1-line interactive coloring/counting prompt for kids (e.g. 'Count the 3 floating bubbles!')")
 
 class DailyBookPlan(BaseModel):
     subject: str = Field(description="Unique character subject (e.g. 'cheerful baby axolotl')")
     category: str = Field(description="Niche category (e.g. 'Freshwater Lagoon Explorers')")
-    target_age: str = Field(description="Target age bracket (e.g. 'Ages 3-6')")
-    character_dna: str = Field(description="Strict visual style & anatomical definition anchor for image diffusion")
+    target_age: str = Field(description="Target age bracket (e.g. 'Ages 2-5 Toddler Bold & Easy')")
+    character_dna: str = Field(description="Strict visual style anchor enforcing thick 6pt outlines, simple squishy shapes, and zero human features")
     habitat_rules: str = Field(description="Habitat and background constraints")
     scenes: list[ScenePlan] = Field(description="Exactly 30 sequential scenes telling a morning-to-night story arc")
 
@@ -47,7 +46,7 @@ def save_history(history):
         json.dump(history, f, indent=2)
 
 # ---------------------------------------------------------------------------
-# GEMINI RESEARCH ENGINE (Retries gemini-3.8-flash with Exponential Backoff)
+# GEMINI RESEARCH ENGINE (Handles 503 Spikes with Backoff)
 # ---------------------------------------------------------------------------
 def generate_daily_plan():
     if not GEMINI_API_KEY:
@@ -59,22 +58,22 @@ def generate_daily_plan():
 
     prompt = f"""
 You are the Creative Director of a top-selling Amazon KDP and Etsy children's coloring book brand, 
-celebrated for the viral 'Bobbie Goods / Coco Wyo' cozy & bold aesthetic.
+celebrated for the viral 'Bold & Easy / Bobbie Goods' aesthetic with ultra-thick lines and large open spaces.
 
 TASK:
-1. Brainstorm an adorable, commercially viral character subject for today's coloring book.
+1. Brainstorm an adorable, commercially viral animal or vehicle subject for today's coloring book.
 2. Rotate across diverse niches: 
-   - Cozy Animals (e.g., axolotl, capybara, red panda, otter, highland cow)
-   - Friendly Construction & Vehicles (e.g., cute excavator, cheerful tugboat, little camper van)
+   - Cozy Animals (e.g., baby axolotl, capybara, red panda, sea otter pup, highland cow)
+   - Friendly Vehicles (e.g., cute excavator, cheerful tugboat, little camper van)
    - Whimsical Fantasy (e.g., baby dragon, tiny cloud pegasus, forest gnome)
-   - Cozy Everyday Life (e.g., bakery puppy, garden bunny, tea-party kitten)
 3. DO NOT repeat any of these previously published subjects: [{recent_history_str}].
-4. ENFORCE STRICT BIOLOGICAL & HABITAT ACCURACY:
-   - Aquatic creatures (axolotls, sea otters, whales) MUST stay in clear water/lagoons with bubbles and water lilies—NEVER on dry land, climbing trees, or in mud puddles with boots.
-   - Ground animals (capybaras, cows) MUST NOT climb trees or swing by tails.
+4. ENFORCE STRICT BOLD & EASY DESIGN RULES:
+   - Ultra-thick 6pt black outlines, single simple central character, zero fine details, zero background clutter.
+   - NO human characters, NO human faces, NO adults, NO children under any circumstance.
+   - Aquatic creatures MUST stay in clear water/lagoons; ground animals MUST stay on riverbanks/meadows.
 5. SCRIPT A 30-SCENE STORYTELLING ARC (morning to evening):
    - Pages 1 to 6: Morning wake-up, breakfast snack, getting ready.
-   - Pages 7 to 18: Midday outdoor adventures, meeting friends, playing games.
+   - Pages 7 to 18: Midday outdoor adventures, meeting animal friends, playing simple games.
    - Pages 19 to 25: Afternoon hobbies, crafts, snacks, and celebration.
    - Pages 26 to 30: Winding down, gazing at the stars/moon, cozy bedtime sleep.
 6. Provide an engaging 1-line educational micro-prompt for every page (counting items, tracing, or coloring specifics).
