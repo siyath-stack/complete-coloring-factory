@@ -5,17 +5,16 @@ import time
 import requests
 import base64
 from io import BytesIO
-from PIL import Image, ImageEnhance, ImageDraw, ImageFont, ImageFilter
+from PIL import Image, ImageEnhance, ImageDraw, ImageFont
 
 # ---------------------------------------------------------------------------
-# CONFIGURATION & MODEL SETUP
+# CONFIGURATION & HYBRID AI SETUP (Zero 429 Errors & No Black Ink Voids)
 # ---------------------------------------------------------------------------
 ACCOUNT_ID = os.environ.get("CLOUDFLARE_ACCOUNT_ID")
 API_TOKEN = os.environ.get("CLOUDFLARE_API_TOKEN")
 
-# By default, SDXL-Lightning is used for both cover and interior to comfortably
-# fit all 35 pages within the 10,000 daily free neurons without 429 lockouts.
-# If you have Cloudflare Workers Paid ($5/mo), set COVER_MODEL to flux-1-schnell.
+# By default, SDXL-Lightning is used for interior line art to comfortably fit all 35 pages
+# within the 10,000 daily free neurons. The cover uses SDXL or Flux depending on environment.
 COVER_MODEL = os.environ.get("COVER_MODEL", "@cf/bytedance/stable-diffusion-xl-lightning")
 INTERIOR_MODEL = os.environ.get("INTERIOR_MODEL", "@cf/bytedance/stable-diffusion-xl-lightning")
 
@@ -26,7 +25,7 @@ PAGE_HEIGHT = 3300
 session = requests.Session()
 
 # ---------------------------------------------------------------------------
-# FONT & TEXT UTILITIES (Fixes IndexError on bbox)
+# FONT & TEXT UTILITIES
 # ---------------------------------------------------------------------------
 def get_font(size):
     system_font_paths = [
@@ -56,7 +55,7 @@ def get_font(size):
     return ImageFont.load_default()
 
 def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black", max_width=1800, line_spacing=18):
-    """Accurately wraps and centers text to prevent border collisions."""
+    """Accurately wraps and centers text using correct 4-tuple indexing to prevent border collisions."""
     words = text.split()
     lines = []
     current_line = []
@@ -85,7 +84,28 @@ def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black"
     return y
 
 # ---------------------------------------------------------------------------
-# CLOUDFLARE AI API CALLS WITH BACKOFF
+# ADAPTIVE LINE-ART CLEANER (Replaces destructive binary thresholding)
+# ---------------------------------------------------------------------------
+def clean_line_art_adaptive(gray_img):
+    """
+    Cleans line art smoothly without turning mid-tones into solid black ink voids:
+    - Values >= 195: clamped to pure white (#FFFFFF)
+    - Values <= 75: clamped to deep black (#000000)
+    - Midtones: scaled with a gentle gamma curve to preserve anti-aliasing without black blobs.
+    """
+    lut = []
+    for i in range(256):
+        if i >= 195:
+            lut.append(255)
+        elif i <= 75:
+            lut.append(0)
+        else:
+            norm = (i - 75) / (195 - 75)
+            lut.append(int(255 * (norm ** 1.35)))
+    return gray_img.point(lut)
+
+# ---------------------------------------------------------------------------
+# CLOUDFLARE AI API CALLS WITH RATE-LIMIT BACKOFF
 # ---------------------------------------------------------------------------
 def fetch_cloudflare_image(prompt, model, max_retries=6):
     if not ACCOUNT_ID or not API_TOKEN:
@@ -136,9 +156,9 @@ def generate_cover_page(subject, category):
 
     prompt = (
         f"A beautiful, vibrant children's book cover illustration of an adorable {subject}. "
-        "Style: High-end Disney storybook 2D cartoon art, bright sunny colors, cheerful atmosphere. "
-        "Large readable shapes, adorable smiling character centered in a lush colorful natural setting. "
-        "Completely clean, strictly NO text, NO letters, NO words, NO logos."
+        "Style: High-end Disney storybook 2D cartoon art, bright cheerful daylight colors. "
+        "Large readable shapes, adorable smiling character centered in its natural environment. "
+        "High key lighting, completely clean, strictly NO text, NO letters, NO words, NO logos."
     )
     image_bytes = fetch_cloudflare_image(prompt, COVER_MODEL)
     img = Image.open(BytesIO(image_bytes)).convert("RGB")
@@ -238,27 +258,25 @@ def generate_vector_interior_page(character_dna, scene_data, page_num):
     micro_prompt = scene_data["micro_prompt"]
     print(f"Generating page {page_num}/30: {action[:42]}...")
 
-    # Vector line-art benchmark prompt with negative constraints against sketchy fur
+    # Strict positive & negative prompt engineering to prevent black silhouette fills
     prompt = (
-        f"A premium children's coloring book vector line art page. "
-        f"Character: {character_dna}. "
-        f"Scene: {action}. Grounded environment with a clean continuous bottom horizon line. "
-        "Style: Professional Monkey Pen storybook vector illustration, clean bold continuous black contours, "
-        "smooth uniform 5pt outline strokes on a pure solid white background. "
-        "Large wide open spaces designed specifically for kids coloring with crayons. "
-        "CRITICAL NEGATIVE CONSTRAINTS: NO fur textures, NO hair lines, NO sketchy strokes, NO pencil grain, "
-        "NO shading, NO grayscale, NO crosshatching, NO stippling, NO floating characters, "
+        f"A clean coloring book page for toddlers and kids. "
+        f"Subject: {character_dna}. "
+        f"Scene: {action}. Clean open composition on a solid pure white background. "
+        "Style: Professional Monkey Pen vector line art, continuous bold black contours, smooth 5pt outline strokes. "
+        "Large open white coloring zones, high key daytime lighting. "
+        "CRITICAL NEGATIVE CONSTRAINTS: NO black sky, NO dark background, NO solid black fills, NO silhouette, "
+        "NO inverted colors, NO shadows, NO grayscale shading, NO halftones, NO pencil textures, "
         "NO text, NO letters, NO numbers, NO watermarks, NO signatures."
     )
 
     image_bytes = fetch_cloudflare_image(prompt, INTERIOR_MODEL)
     img = Image.open(BytesIO(image_bytes)).convert("L")
 
-    # High-contrast sharpening + binary threshold filter (cleans away fuzzy shading)
-    img = img.filter(ImageFilter.SHARPEN)
+    # Gentle contrast enhancement + adaptive line cleaner (eliminates black squares and silhouettes)
     enhancer = ImageEnhance.Contrast(img)
-    img = enhancer.enhance(3.0)
-    img = img.point(lambda x: 255 if x > 145 else 0, "1")
+    img = enhancer.enhance(1.6)
+    img = clean_line_art_adaptive(img)
 
     border_margin_x = 140
     border_margin_y = 140
