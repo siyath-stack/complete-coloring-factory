@@ -2,23 +2,22 @@ import os
 import re
 import json
 import time
+import math
+import random
 import requests
 import base64
 from io import BytesIO
 from PIL import Image, ImageEnhance, ImageDraw, ImageFont
 
 # ---------------------------------------------------------------------------
-# CONFIGURATION & HYBRID AI SETUP (Zero 429 Errors & No Black Ink Voids)
+# CONFIGURATION & MODEL SETUP
 # ---------------------------------------------------------------------------
 ACCOUNT_ID = os.environ.get("CLOUDFLARE_ACCOUNT_ID")
 API_TOKEN = os.environ.get("CLOUDFLARE_API_TOKEN")
 
-# By default, SDXL-Lightning is used for interior line art to comfortably fit all 35 pages
-# within the 10,000 daily free neurons. The cover uses SDXL or Flux depending on environment.
 COVER_MODEL = os.environ.get("COVER_MODEL", "@cf/bytedance/stable-diffusion-xl-lightning")
 INTERIOR_MODEL = os.environ.get("INTERIOR_MODEL", "@cf/bytedance/stable-diffusion-xl-lightning")
 
-# Standard 8.5 x 11 inches at 300 DPI
 PAGE_WIDTH = 2550
 PAGE_HEIGHT = 3300
 
@@ -55,14 +54,12 @@ def get_font(size):
     return ImageFont.load_default()
 
 def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black", max_width=1800, line_spacing=18):
-    """Accurately wraps and centers text using correct 4-tuple indexing to prevent border collisions."""
     words = text.split()
     lines = []
     current_line = []
 
     for word in words:
         test_line = " ".join(current_line + [word])
-        # textbbox returns (left, top, right, bottom)
         bbox = draw.textbbox((0, 0), test_line, font=font)
         w = bbox[2] - bbox[0]
         if w <= max_width:
@@ -84,15 +81,9 @@ def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black"
     return y
 
 # ---------------------------------------------------------------------------
-# ADAPTIVE LINE-ART CLEANER (Replaces destructive binary thresholding)
+# ADAPTIVE LINE-ART CLEANER (Prevents black blobs & preserves smooth lines)
 # ---------------------------------------------------------------------------
 def clean_line_art_adaptive(gray_img):
-    """
-    Cleans line art smoothly without turning mid-tones into solid black ink voids:
-    - Values >= 195: clamped to pure white (#FFFFFF)
-    - Values <= 75: clamped to deep black (#000000)
-    - Midtones: scaled with a gentle gamma curve to preserve anti-aliasing without black blobs.
-    """
     lut = []
     for i in range(256):
         if i >= 195:
@@ -104,12 +95,9 @@ def clean_line_art_adaptive(gray_img):
             lut.append(int(255 * (norm ** 1.35)))
     return gray_img.point(lut)
 
-# ---------------------------------------------------------------------------
-# CLOUDFLARE AI API CALLS WITH RATE-LIMIT BACKOFF
-# ---------------------------------------------------------------------------
 def fetch_cloudflare_image(prompt, model, max_retries=6):
     if not ACCOUNT_ID or not API_TOKEN:
-        raise ValueError("Missing CLOUDFLARE_ACCOUNT_ID or CLOUDFLARE_API_TOKEN in environment variables.")
+        raise ValueError("Missing CLOUDFLARE_ACCOUNT_ID or CLOUDFLARE_API_TOKEN.")
 
     url = f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/run/{model}"
     headers = {"Authorization": f"Bearer {API_TOKEN}"}
@@ -127,7 +115,6 @@ def fetch_cloudflare_image(prompt, model, max_retries=6):
                 continue
 
             response.raise_for_status()
-
             try:
                 json_data = response.json()
                 if "result" in json_data and "image" in json_data["result"]:
@@ -149,14 +136,140 @@ def create_blank_page():
     return Image.new("RGB", (PAGE_WIDTH, PAGE_HEIGHT), "white")
 
 # ---------------------------------------------------------------------------
-# HIGH-END PAGE GENERATION FUNCTIONS
+# PROCEDURAL ACTIVITY PAGES (Zero Neurons Consumed)
+# ---------------------------------------------------------------------------
+def generate_procedural_maze_page(subject):
+    """Draws a clean, solvable labyrinth maze page."""
+    img = create_blank_page()
+    draw = ImageDraw.Draw(img)
+
+    margin_x, margin_y = 140, 140
+    draw.rounded_rectangle([margin_x, margin_y, PAGE_WIDTH - margin_x, PAGE_HEIGHT - margin_y], radius=40, outline="black", width=8)
+
+    title_font = get_font(95)
+    sub_font = get_font(52)
+    draw.text((PAGE_WIDTH // 2, 320), "PUZZLE ADVENTURE: THE MAZE!", fill="black", font=title_font, anchor="mm")
+    draw.text((PAGE_WIDTH // 2, 430), f"Help the baby {subject} find the bubble party!", fill="#444444", font=sub_font, anchor="mm")
+
+    # Generate a clean 10x10 maze grid
+    cols, rows = 10, 10
+    cell_w, cell_h = 170, 170
+    start_x = (PAGE_WIDTH - (cols * cell_w)) // 2
+    start_y = 650
+
+    # Draw outer maze boundary with Start & Finish openings
+    draw.line([(start_x + cell_w, start_y), (start_x + cols * cell_w, start_y)], fill="black", width=12)
+    draw.line([(start_x, start_y + rows * cell_h), (start_x + (cols - 1) * cell_w, start_y + rows * cell_h)], fill="black", width=12)
+    draw.line([(start_x, start_y), (start_x, start_y + rows * cell_h)], fill="black", width=12)
+    draw.line([(start_x + cols * cell_w, start_y), (start_x + cols * cell_w, start_y + rows * cell_h)], fill="black", width=12)
+
+    # Internal maze corridors
+    random.seed(42)
+    for r in range(rows):
+        for c in range(cols):
+            x = start_x + c * cell_w
+            y = start_y + r * cell_h
+            if random.random() > 0.45 and c < cols - 1 and r > 0:
+                draw.line([(x + cell_w, y), (x + cell_w, y + cell_h)], fill="black", width=10)
+            if random.random() > 0.50 and r < rows - 1 and c > 0:
+                draw.line([(x, y + cell_h), (x + cell_w, y + cell_h)], fill="black", width=10)
+
+    # Markers for Start and Finish
+    draw.text((start_x + cell_w // 2, start_y - 70), "START ★", fill="black", font=get_font(60), anchor="mm")
+    draw.text((start_x + (cols - 1) * cell_w + cell_w // 2, start_y + rows * cell_h + 70), "FINISH 🎈", fill="black", font=get_font(60), anchor="mm")
+
+    draw.text((PAGE_WIDTH // 2, PAGE_HEIGHT - 220), "Trace the path with your finger or crayon, then color the decorations!", fill="#555555", font=get_font(48), anchor="mm")
+    draw.text((PAGE_WIDTH // 2, PAGE_HEIGHT - 65), "- Activity Page 1 -", fill="#777777", font=get_font(44), anchor="mm")
+    return img
+
+def generate_procedural_dot_to_dot_page(subject):
+    """Draws a clean connect-the-dots star/flower illustration."""
+    img = create_blank_page()
+    draw = ImageDraw.Draw(img)
+
+    margin_x, margin_y = 140, 140
+    draw.rounded_rectangle([margin_x, margin_y, PAGE_WIDTH - margin_x, PAGE_HEIGHT - margin_y], radius=40, outline="black", width=8)
+
+    title_font = get_font(95)
+    sub_font = get_font(52)
+    draw.text((PAGE_WIDTH // 2, 320), "CONNECT THE DOTS: 1 TO 20!", fill="black", font=title_font, anchor="mm")
+    draw.text((PAGE_WIDTH // 2, 430), "Connect all the numbered dots in order to reveal the secret gift!", fill="#444444", font=sub_font, anchor="mm")
+
+    center_x = PAGE_WIDTH // 2
+    center_y = 1500
+    points = []
+    num_points = 20
+
+    for i in range(num_points):
+        angle = (2 * math.pi * i) / num_points - (math.pi / 2)
+        radius = 700 if i % 2 == 0 else 380
+        px = int(center_x + radius * math.cos(angle))
+        py = int(center_y + radius * math.sin(angle))
+        points.append((px, py))
+
+    num_font = get_font(48)
+    for i, (px, py) in enumerate(points, start=1):
+        draw.ellipse([px - 14, py - 14, px + 14, py + 14], fill="black")
+        text_offset_x = 35 if px >= center_x else -35
+        text_offset_y = 35 if py >= center_y else -35
+        draw.text((px + text_offset_x, py + text_offset_y), str(i), fill="black", font=num_font, anchor="mm")
+
+    draw.ellipse([center_x - 80, center_y - 80, center_x + 80, center_y + 80], outline="black", width=8)
+    draw.text((center_x, center_y), "★", fill="black", font=get_font(80), anchor="mm")
+
+    draw.text((PAGE_WIDTH // 2, PAGE_HEIGHT - 220), "Can you connect from 1 to 20 without lifting your crayon?", fill="#555555", font=get_font(48), anchor="mm")
+    draw.text((PAGE_WIDTH // 2, PAGE_HEIGHT - 65), "- Activity Page 2 -", fill="#777777", font=get_font(44), anchor="mm")
+    return img
+
+def generate_procedural_spot_differences_page(subject):
+    """Draws two side-by-side framed activity scenes with subtle differences."""
+    img = create_blank_page()
+    draw = ImageDraw.Draw(img)
+
+    margin_x, margin_y = 140, 140
+    draw.rounded_rectangle([margin_x, margin_y, PAGE_WIDTH - margin_x, PAGE_HEIGHT - margin_y], radius=40, outline="black", width=8)
+
+    title_font = get_font(95)
+    sub_font = get_font(52)
+    draw.text((PAGE_WIDTH // 2, 320), "SPOT THE 4 DIFFERENCES!", fill="black", font=title_font, anchor="mm")
+    draw.text((PAGE_WIDTH // 2, 430), "Look closely at Picture A and Picture B. Can you find all 4 changes?", fill="#444444", font=sub_font, anchor="mm")
+
+    box_w, box_h = 1000, 1300
+    y0 = 650
+    x_left = 220
+    x_right = PAGE_WIDTH - 220 - box_w
+
+    for x_pos, label in [(x_left, "PICTURE A"), (x_right, "PICTURE B")]:
+        draw.rounded_rectangle([x_pos, y0, x_pos + box_w, y0 + box_h], radius=30, outline="black", width=8)
+        draw.text((x_pos + box_w // 2, y0 - 45), label, fill="black", font=get_font(55), anchor="mm")
+
+        cx = x_pos + box_w // 2
+        cy = y0 + box_h // 2
+        draw.ellipse([cx - 200, cy - 180, cx + 200, cy + 220], outline="black", width=10)
+        draw.ellipse([cx - 90, cy - 30, cx - 40, cy + 20], fill="black")
+        draw.ellipse([cx + 40, cy - 30, cx + 90, cy + 20], fill="black")
+        draw.arc([cx - 70, cy + 30, cx + 70, cy + 110], 0, 180, fill="black", width=8)
+        draw.line([(x_pos + 40, y0 + box_h - 120), (x_pos + box_w - 40, y0 + box_h - 120)], fill="black", width=8)
+
+    # Add 4 differences to Picture B
+    draw.ellipse([x_right + 180, y0 + 180, x_right + 260, y0 + 260], outline="black", width=8)
+    draw.ellipse([x_right + 220, y0 + 290, x_right + 280, y0 + 350], outline="black", width=8)
+    draw.arc([x_right + box_w // 2 - 70, y0 + box_h // 2 + 10, x_right + box_w // 2 + 70, y0 + box_h // 2 + 110], 0, 180, fill="black", width=12)
+    draw.text((x_right + box_w - 180, y0 + 200), "★", fill="black", font=get_font(80), anchor="mm")
+
+    draw.text((PAGE_WIDTH // 2, PAGE_HEIGHT - 220), "Circle the 4 differences with your favorite bright marker!", fill="#555555", font=get_font(48), anchor="mm")
+    draw.text((PAGE_WIDTH // 2, PAGE_HEIGHT - 65), "- Activity Page 3 -", fill="#777777", font=get_font(44), anchor="mm")
+    return img
+
+# ---------------------------------------------------------------------------
+# COLORING PAGES & BOBBIE GOODS LINE ART GENERATION
 # ---------------------------------------------------------------------------
 def generate_cover_page(subject, category):
     print(f"Generating full-color cover for '{subject}'...")
 
     prompt = (
         f"A beautiful, vibrant children's book cover illustration of an adorable {subject}. "
-        "Style: High-end Disney storybook 2D cartoon art, bright cheerful daylight colors. "
+        "Style: Bobbie Goods cozy line art aesthetic, bright cheerful daylight colors, bold smooth outlines. "
         "Large readable shapes, adorable smiling character centered in its natural environment. "
         "High key lighting, completely clean, strictly NO text, NO letters, NO words, NO logos."
     )
@@ -185,7 +298,7 @@ def generate_cover_page(subject, category):
 
     draw.rectangle([100, 120, PAGE_WIDTH - 100, 360], fill=(255, 255, 255), outline="black", width=8)
     draw.text((PAGE_WIDTH // 2, 200), "COLORING BOOK", fill="black", font=title_font, anchor="mm")
-    draw.text((PAGE_WIDTH // 2, 300), f"30 Fun Adventures in {category}", fill="#333333", font=sub_font, anchor="mm")
+    draw.text((PAGE_WIDTH // 2, 300), f"Cozy Coloring Adventures in {category}", fill="#333333", font=sub_font, anchor="mm")
 
     return final_page
 
@@ -220,7 +333,7 @@ def generate_terms_page():
 
     draw.text((PAGE_WIDTH // 2, 1000), "Terms of Use", fill="black", font=title_font, anchor="mm")
     terms_text = (
-        "Thank you for downloading this coloring book!\n\n"
+        "Thank you for downloading this cozy coloring book!\n\n"
         "This digital file is intended strictly for personal,\n"
         "classroom, or non-commercial home use.\n\n"
         "Please do not resell, redistribute, or host these files\n"
@@ -258,22 +371,21 @@ def generate_vector_interior_page(character_dna, scene_data, page_num):
     micro_prompt = scene_data["micro_prompt"]
     print(f"Generating page {page_num}/30: {action[:42]}...")
 
-    # Strict positive & negative prompt engineering to prevent black silhouette fills
+    # Bobbie Goods Cozy Line Art Benchmark
     prompt = (
-        f"A clean coloring book page for toddlers and kids. "
+        f"A cozy coloring book page for toddlers and kids. "
         f"Subject: {character_dna}. "
         f"Scene: {action}. Clean open composition on a solid pure white background. "
-        "Style: Professional Monkey Pen vector line art, continuous bold black contours, smooth 5pt outline strokes. "
-        "Large open white coloring zones, high key daytime lighting. "
-        "CRITICAL NEGATIVE CONSTRAINTS: NO black sky, NO dark background, NO solid black fills, NO silhouette, "
-        "NO inverted colors, NO shadows, NO grayscale shading, NO halftones, NO pencil textures, "
-        "NO text, NO letters, NO numbers, NO watermarks, NO signatures."
+        "Style: Bobbie Goods cozy line art aesthetic, Coco Wyo simple cute drawing, continuous thick 5pt smooth black contours. "
+        "Large wide open coloring zones, adorable squishy shapes, high key daylight lighting. "
+        "CRITICAL NEGATIVE CONSTRAINTS: NO black background, NO solid black fills, NO dark sky, NO silhouette, "
+        "NO fur hatching, NO pencil shading, NO grayscale, NO crosshatching, NO stippling, "
+        "NO text, NO letters, NO numbers, NO signatures."
     )
 
     image_bytes = fetch_cloudflare_image(prompt, INTERIOR_MODEL)
     img = Image.open(BytesIO(image_bytes)).convert("L")
 
-    # Gentle contrast enhancement + adaptive line cleaner (eliminates black squares and silhouettes)
     enhancer = ImageEnhance.Contrast(img)
     img = enhancer.enhance(1.6)
     img = clean_line_art_adaptive(img)
@@ -298,43 +410,21 @@ def generate_vector_interior_page(character_dna, scene_data, page_num):
     final_page = create_blank_page()
     draw = ImageDraw.Draw(final_page)
 
-    # Rounded outer page frame
-    draw.rounded_rectangle(
-        [border_margin_x, border_margin_y, PAGE_WIDTH - border_margin_x, PAGE_HEIGHT - border_margin_y],
-        radius=40,
-        outline="black",
-        width=8
-    )
+    draw.rounded_rectangle([border_margin_x, border_margin_y, PAGE_WIDTH - border_margin_x, PAGE_HEIGHT - border_margin_y], radius=40, outline="black", width=8)
 
-    # Paste illustration inside frame
     x_offset = border_margin_x + 20 + ((inner_w - new_width) // 2)
     y_offset = border_margin_y + 40 + ((inner_h - new_height) // 2)
     final_page.paste(img.convert("RGB"), (x_offset, y_offset))
 
-    # Activity prompt at bottom of framed box
     prompt_font = get_font(50)
-    draw.text(
-        (PAGE_WIDTH // 2, PAGE_HEIGHT - border_margin_y - 100),
-        micro_prompt,
-        fill="#333333",
-        font=prompt_font,
-        anchor="mm"
-    )
+    draw.text((PAGE_WIDTH // 2, PAGE_HEIGHT - border_margin_y - 100), micro_prompt, fill="#333333", font=prompt_font, anchor="mm")
 
-    # Centered page number
     page_font = get_font(44)
-    draw.text(
-        (PAGE_WIDTH // 2, PAGE_HEIGHT - 65),
-        f"- {page_num} -",
-        fill="#666666",
-        font=page_font,
-        anchor="mm"
-    )
+    draw.text((PAGE_WIDTH // 2, PAGE_HEIGHT - 65), f"- {page_num} -", fill="#666666", font=page_font, anchor="mm")
 
     return final_page
 
 def generate_certificate_page(subject):
-    """Generates a polished Certificate of Completion with wrapped text."""
     img = create_blank_page()
     draw = ImageDraw.Draw(img)
 
@@ -350,15 +440,12 @@ def generate_certificate_page(subject):
 
     draw.text((PAGE_WIDTH // 2, 1120), "This certificate is proudly awarded to:", fill="#444444", font=body_font, anchor="mm")
 
-    # Name underline
     draw.line([(PAGE_WIDTH // 2 - 700, 1400), (PAGE_WIDTH // 2 + 700, 1400)], fill="black", width=6)
     draw.text((PAGE_WIDTH // 2, 1480), "Super Colorist", fill="#777777", font=get_font(45), anchor="mm")
 
-    # Wrapped description text prevents horizontal border overflow
-    desc = f"For creatively completing all 30 coloring adventures with the {subject}!"
+    desc = f"For creatively completing all cozy coloring adventures with the {subject}!"
     draw_wrapped_centered_text(draw, desc, PAGE_WIDTH // 2, 1780, body_font, fill="black", max_width=1750)
 
-    # Signature and date lines
     draw.line([(350, 2450), (950, 2450)], fill="black", width=5)
     draw.text((650, 2510), "Date", fill="black", font=get_font(48), anchor="mm")
 
@@ -370,43 +457,45 @@ def generate_certificate_page(subject):
 
     return img
 
-def generate_promotional_back_cover(subject):
-    """MonkeyPen-style promotional back cover showcasing upcoming books."""
+def generate_retail_back_cover_with_thumbnails(subject, sample_pages):
+    """Generates an authentic retail back cover featuring 4 live rendered page thumbnails."""
+    print("Generating retail showcase back cover with live interior thumbnails...")
     img = create_blank_page()
     draw = ImageDraw.Draw(img)
 
     draw.rectangle([100, 100, PAGE_WIDTH - 100, PAGE_HEIGHT - 100], outline="black", width=12)
 
-    title_font = get_font(110)
-    sub_font = get_font(60)
-    body_font = get_font(48)
+    title_font = get_font(105)
+    sub_font = get_font(55)
+    draw.text((PAGE_WIDTH // 2, 380), f"30 Cozy Coloring Adventures Inside!", fill="black", font=title_font, anchor="mm")
+    draw.text((PAGE_WIDTH // 2, 500), f"Peek inside to see what you will color with the {subject}!", fill="#555555", font=sub_font, anchor="mm")
 
-    draw.text((PAGE_WIDTH // 2, 400), "Fuel Your Child's Imagination!", fill="black", font=title_font, anchor="mm")
-    draw.text((PAGE_WIDTH // 2, 540), "More Free Adventures & Printable Books Coming Daily", fill="#555555", font=sub_font, anchor="mm")
-
-    tiles = [
-        "Kids Safari Animals",
-        "Speed & Race Cars",
-        "Fantasy Unicorns",
-        "Ocean Explorers"
-    ]
+    thumb_w, thumb_h = 750, 970
     cols, rows = 2, 2
-    box_w, box_h = 850, 700
-    start_x = (PAGE_WIDTH - (cols * box_w + 150)) // 2
-    start_y = 800
+    spacing_x = 180
+    spacing_y = 120
+    start_x = (PAGE_WIDTH - (cols * thumb_w + spacing_x)) // 2
+    start_y = 660
 
-    for idx, name in enumerate(tiles):
+    for idx, sample_page in enumerate(sample_pages[:4]):
         c = idx % 2
         r = idx // 2
-        x0 = start_x + c * (box_w + 150)
-        y0 = start_y + r * (box_h + 150)
-        x1, y1 = x0 + box_w, y0 + box_h
-        draw.rounded_rectangle([x0, y0, x1, y1], radius=30, outline="black", width=8)
-        draw.text(((x0 + x1) // 2, (y0 + y1) // 2 - 30), name, fill="black", font=get_font(58), anchor="mm")
-        draw.text(((x0 + x1) // 2, (y0 + y1) // 2 + 50), "Coloring Adventure", fill="#666666", font=get_font(40), anchor="mm")
+        x0 = start_x + c * (thumb_w + spacing_x)
+        y0 = start_y + r * (thumb_h + spacing_y)
 
-    draw.text((PAGE_WIDTH // 2, 2750), "Share your completed artwork with family & friends!", fill="#333333", font=body_font, anchor="mm")
-    draw.text((PAGE_WIDTH // 2, 2870), "Printed on demand for young creative minds.", fill="#777777", font=get_font(42), anchor="mm")
+        # Draw subtle drop shadow for thumbnail
+        draw.rounded_rectangle([x0 + 15, y0 + 15, x0 + thumb_w + 15, y0 + thumb_h + 15], radius=25, fill="#dddddd")
+
+        # Downsample real rendered page to thumbnail
+        thumb = sample_page.resize((thumb_w, thumb_h), Image.Resampling.LANCZOS)
+        img.paste(thumb, (x0, y0))
+
+        # Neat outer thumbnail border
+        draw.rounded_rectangle([x0, y0, x0 + thumb_w, y0 + thumb_h], radius=25, outline="black", width=6)
+
+    # Commercial bottom banner
+    draw.text((PAGE_WIDTH // 2, 2900), "Perfect for crayons, colored pencils, and soft markers.", fill="#333333", font=get_font(52), anchor="mm")
+    draw.text((PAGE_WIDTH // 2, 3010), "Proudly printed for young artists. Share your artwork with family!", fill="#777777", font=get_font(44), anchor="mm")
 
     return img
 
@@ -422,7 +511,7 @@ def build_book():
         plan = json.load(f)
 
     subject = plan["subject"]
-    category = plan.get("category", "Trending Kids Characters")
+    category = plan.get("category", "Cozy Kids Characters")
     character_dna = plan["character_dna"]
     scenes = plan["scenes"]
 
@@ -440,25 +529,40 @@ def build_book():
 
     time.sleep(3)
 
+    sample_thumbnails = []
+
+    # Insert 30 coloring sheets with procedural activity breaks at pages 8, 16, and 24
     for i, scene in enumerate(scenes[:30], start=1):
+        if i == 8:
+            pages.append(generate_procedural_maze_page(subject))
+        elif i == 16:
+            pages.append(generate_procedural_dot_to_dot_page(subject))
+        elif i == 24:
+            pages.append(generate_procedural_spot_differences_page(subject))
+
         page_img = generate_vector_interior_page(character_dna, scene, i)
         pages.append(page_img)
+
+        # Capture pages 3, 11, 19, 27 for the back cover showcase
+        if i in [3, 11, 19, 27]:
+            sample_thumbnails.append(page_img)
+
         time.sleep(2)
 
     pages.append(generate_certificate_page(subject))
-    pages.append(generate_promotional_back_cover(subject))
+    pages.append(generate_retail_back_cover_with_thumbnails(subject, sample_thumbnails))
 
     safe_slug = re.sub(r"[^a-zA-Z0-9_-]", "_", subject.strip().lower())
     safe_slug = re.sub(r"_+", "_", safe_slug)
     filename = f"Digital_Coloring_Book_{safe_slug}.pdf"
 
-    # Multi-page PDF compilation called on the first image object
+    # Multi-page PDF compilation call on pages[0]
     pages[0].save(
         filename, "PDF", resolution=300, save_all=True, append_images=pages[1:]
     )
     print("=====================================================")
     print(f"Successfully generated high-end book: {filename}")
-    print(f"Total compiled pages: {len(pages)} (4 front matter + 30 coloring sheets + 1 certificate + 1 back cover)")
+    print(f"Total compiled pages: {len(pages)} (Front matter + 30 coloring sheets + 3 activities + certificate + back cover)")
     print("=====================================================")
 
 if __name__ == "__main__":
