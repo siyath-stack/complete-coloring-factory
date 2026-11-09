@@ -12,37 +12,36 @@ API_URL = f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/run/{T
 HISTORY_FILE = "used_topics.json"
 DAILY_PLAN_FILE = "daily_book_plan.json"
 
-# Strict anatomical and habitat anchors for key coloring book subjects
 SPECIES_DNA_REGISTRY = {
     "friendly baby axolotl": {
         "category": "Freshwater & Sea Life",
-        "dna": "adorable baby aquatic axolotl, Mexican walking fish, exactly 6 pink feathery external gills (3 on each side of head), wide smiling amphibian face, smooth skin, tiny front and back legs with cute digits, swimming in clear freshwater. STRICTLY NO mammalian ears, NO fur, NO dog snout, NO bird wings, NO feathers on body, NO horns, NO dry land",
-        "habitat_keywords": "clear freshwater lagoon, smooth river stones, gentle floating bubbles, underwater water-lily pads"
+        "dna": "adorable chubby baby axolotl, Bobbie Goods cozy line art style, exactly 6 rounded feathery external gills (3 on each side), wide gentle smiling mouth, smooth squishy body, tiny cute paws. STRICTLY NO mammal ears, NO wings, NO fur, NO horns",
+        "habitat_keywords": "clear freshwater lagoon with floating lily pads, river stones, and gentle bubbles"
     },
     "cute baby capybara": {
         "category": "Kids Animals",
-        "dna": "adorable baby capybara, blunt square snout, small rounded ears high on head, webbed paws, semi-aquatic rodent, chunky oval body, no tail, gentle calm smiling expression. STRICTLY NO tree climbing, NO swinging by tail, NO monkey paws, NO buck teeth",
-        "habitat_keywords": "warm riverbank, sunny grassy meadow, calm freshwater pond, floating lotus flowers"
+        "dna": "adorable chubby baby capybara, Bobbie Goods cozy line art style, blunt rounded snout, tiny rounded ears, chunky squishy oval body, webbed paws, sweet calm smile, no tail. STRICTLY NO climbing trees, NO swinging by tail, NO sharp teeth",
+        "habitat_keywords": "warm grassy riverbank, sunny clover meadow, calm freshwater pond"
     },
     "chubby red panda explorer": {
         "category": "Woodland Wildlife",
-        "dna": "cute chubby baby red panda, white markings on muzzle and eyebrow spots, rounded fluffy ears, thick ringed bushy tail, small paws with soft pads, joyful playful expression. STRICTLY NO scales, NO fins, NO wings",
-        "habitat_keywords": "mossy forest logs, green bamboo stalks, sunny mountain meadow, wildflowers"
+        "dna": "cute chubby baby red panda, Bobbie Goods cozy line art style, fluffy rounded cheeks, thick bushy striped tail, small paws, sweet friendly smile. STRICTLY NO scales, NO fins, NO wings",
+        "habitat_keywords": "soft mossy logs, sunny bamboo glade, mountain wildflowers"
     },
     "playful sea otter pup": {
         "category": "Freshwater & Sea Life",
-        "dna": "cute baby sea otter, small rounded ears, whisker pads, sleek aquatic body, floating happily on back in water, holding paws over chest. STRICTLY NO dry desert, NO bird wings, NO dog ears",
-        "habitat_keywords": "calm coastal waters, kelp canopy, smooth river pebbles, sunny seaside rocks"
+        "dna": "cute baby sea otter, Bobbie Goods cozy line art style, round chubby head, whisker dots, sleek rounded body, floating happily on back in water hugging a smooth river pebble. STRICTLY NO wings, NO dog ears",
+        "habitat_keywords": "calm coastal bay, gentle floating kelp, sunny water ripples"
     },
     "little construction excavator": {
         "category": "Kids Vehicles",
-        "dna": "cute smiling cartoon construction excavator, friendly eyes on vehicle cab, sturdy digging boom arm, large front scoop bucket, rugged continuous crawler tracks. STRICTLY NO animal parts, NO fur",
-        "habitat_keywords": "friendly sandbox construction site, smooth gravel ramps, safety cones, soft dirt mounds"
+        "dna": "cute smiling cartoon construction excavator, Bobbie Goods cozy vehicle style, friendly cartoon eyes on cab, rounded scoop bucket, chunky rolling crawler tracks. STRICTLY NO realistic sharp machinery",
+        "habitat_keywords": "friendly sandbox construction site, smooth dirt ramps, safety cones"
     },
     "friendly baby dragon": {
         "category": "Fantasy & Fairytale",
-        "dna": "adorable baby fairytale dragon, chubby round belly, tiny rounded wings, soft smiling muzzle, two small rounded horn nubs, cute playful cartoon eyes. STRICTLY NO scary fangs, NO fire destruction, NO sharp spines",
-        "habitat_keywords": "magical wildflower valley, gentle rolling hills, rainbow clouds, ancient stone bridges"
+        "dna": "adorable chubby baby dragon, Bobbie Goods cozy style, soft rounded belly, tiny rounded wings, smooth head with two small rounded horn nubs, sweet joyful face. STRICTLY NO scary fangs, NO fire",
+        "habitat_keywords": "magical wildflower meadow, gentle rolling hills, rainbow clouds"
     }
 }
 
@@ -79,7 +78,7 @@ def query_cloudflare_text(prompt, max_retries=3):
 
 def discover_trending_subject():
     prompt = (
-        "You are an expert children's coloring book editor analyzing Amazon KDP and Etsy trends. "
+        "You are an expert children's coloring book editor analyzing Bobbie Goods and Amazon KDP trends. "
         "Suggest 8 trending, adorable character subjects across Kids Animals, Vehicles, and Fantasy "
         "(e.g., 'friendly baby axolotl', 'cute baby capybara', 'chubby red panda explorer', 'playful sea otter pup'). "
         "Return ONLY a clean JSON array of strings: [\"topic 1\", \"topic 2\", ...]. No markdown, no commentary."
@@ -97,13 +96,13 @@ def discover_trending_subject():
 def generate_scenes_for_subject(subject, dna_info):
     habitat_context = dna_info.get("habitat_keywords", "natural habitat")
     prompt = (
-        f"You are writing a 30-page children's coloring book featuring: '{subject}'. "
-        f"Natural habitat and context: {habitat_context}. "
-        "Write 30 distinct, charming, age-appropriate coloring scenes (pages 1 to 30) for toddlers and young kids. "
+        f"You are writing a 30-page cozy children's coloring book featuring: '{subject}' in a Bobbie Goods cute cozy style. "
+        f"Natural habitat context: {habitat_context}. "
+        "Write 30 distinct, charming, age-appropriate coloring scenes (pages 1 to 30) for toddlers and kids. "
         "STRICT HABITAT AND ANATOMY RULES: "
-        "1. Scenes MUST match this character's natural physical anatomy and setting (e.g., axolotls/otters MUST stay in water ponds/lagoons, "
-        "capybaras on riverbanks/meadows, excavators on friendly construction sand piles). NEVER put fully aquatic creatures on dry land. "
-        "2. Add playful kid-friendly moments: floating with bubbles, smelling floating blossoms, wearing tiny party hats, waving hello, looking at the moon. "
+        "1. Scenes MUST match this character's natural physical anatomy and setting (aquatic animals stay in ponds/lagoons, "
+        "capybaras on riverbanks/meadows). NEVER put fully aquatic creatures on dry land. "
+        "2. Add playful cozy moments: floating with bubbles, smelling blossoms, drinking boba juice, baking cookies, hugging teddy bears, looking at the crescent moon. "
         "3. Pair every action with a simple 1-line interactive coloring prompt for a toddler (e.g., 'Can you count the 3 floating bubbles?'). "
         "Return ONLY a JSON array of 30 objects: [{\"action\": \"...\", \"micro_prompt\": \"...\"}]. No markdown or preamble."
     )
@@ -117,27 +116,26 @@ def generate_scenes_for_subject(subject, dna_info):
     except Exception:
         pass
 
-    # Generic aquatic/ground resilient fallback scenes
     return [
-        {"action": f"waving hello with a cheerful warm smile in {habitat_context}", "micro_prompt": "Can you wave hello and color my big smile?"},
-        {"action": "happily swimming and splashing with tiny water ripples", "micro_prompt": "Color the gentle splashing water ripples bright blue!"},
+        {"action": f"waving hello with a sweet warm smile in {habitat_context}", "micro_prompt": "Can you wave hello and color my big smile?"},
+        {"action": "happily floating with tiny water ripples and bubbles", "micro_prompt": "Color the gentle splashing water ripples bright blue!"},
         {"action": "peacefully balancing a sweet little blossom flower on head", "micro_prompt": "Find the tiny flower! What color will you make it?"},
         {"action": "resting peacefully beside smooth rounded river pebbles", "micro_prompt": "Count the smooth river stones: 1, 2, 3!"},
         {"action": "chatting with a friendly smiling baby fish companion", "micro_prompt": "Color the little fish friend sunny yellow!"},
-        {"action": "wearing a cute wide-brimmed sun hat decorated with ribbon", "micro_prompt": "Make the explorer hat colorful!"},
+        {"action": "wearing a cozy wide-brimmed sun hat decorated with ribbon", "micro_prompt": "Make the explorer hat colorful!"},
         {"action": "blowing giant round translucent bubbles into the clear water", "micro_prompt": "Count the 3 giant floating bubbles: 1, 2, 3!"},
         {"action": "curiously watching a friendly smiling butterfly fluttering past", "micro_prompt": "Color both wings of the cute butterfly!"},
         {"action": "gently floating with eyes closed in peaceful relaxation", "micro_prompt": "So relaxing! Color the gentle water waves!"},
         {"action": "building a neat stack of smooth rounded river stones", "micro_prompt": "Count the rounded stones in the stack!"},
-        {"action": "holding a small cluster of floating water balloons", "micro_prompt": "Make each balloon a different rainbow color!"},
+        {"action": "holding a small cluster of floating balloons", "micro_prompt": "Make each balloon a different rainbow color!"},
         {"action": "sitting side by side with a gentle smiling baby turtle", "micro_prompt": "Color the cute pattern on the turtle shell!"},
-        {"action": "wearing a playful paper party hat surrounded by floating confetti", "micro_prompt": "Party time! Color all the party confetti!"},
-        {"action": "peeking playfully from behind a friendly broad freshwater water-lily pad", "micro_prompt": "Play peekaboo! What color will you make the leaf?"},
-        {"action": "splashing playfully with feet creating cheerful water droplets", "micro_prompt": "Splish splash! Color the cute water droplets!"},
-        {"action": "snuggling cozy beside its mother on soft mossy riverbed", "micro_prompt": "Give baby and mommy a warm, cozy color!"},
+        {"action": "wearing a playful party hat surrounded by floating confetti", "micro_prompt": "Party time! Color all the party confetti!"},
+        {"action": "peeking playfully from behind a friendly broad river lily pad", "micro_prompt": "Play peekaboo! What color will you make the leaf?"},
+        {"action": "splashing playfully creating cheerful water droplets", "micro_prompt": "Splish splash! Color the cute water droplets!"},
+        {"action": "snuggling cozy beside its mother on soft mossy ground", "micro_prompt": "Give baby and mommy a warm, cozy color!"},
         {"action": "sipping sweet juice through a fun striped straw from a round fruit cup", "micro_prompt": "Color the stripes on the straw: red and blue!"},
         {"action": "carrying a little woven basket filled with sweet ripe berries", "micro_prompt": "Color the sweet strawberries bright red!"},
-        {"action": "curiously inspecting a friendly little snail on a freshwater plant", "micro_prompt": "Find the tiny swirl on the snail shell!"},
+        {"action": "curiously inspecting a friendly little snail on a water plant", "micro_prompt": "Find the tiny swirl on the snail shell!"},
         {"action": "making a funny silly face in the reflection of a calm water pool", "micro_prompt": "Smile! Color the funny water reflection!"},
         {"action": "proudly wearing a junior nature explorer medal ribbon", "micro_prompt": "Color the star badge shiny gold!"},
         {"action": "happily sharing a sweet melon slice with a friendly little songbird", "micro_prompt": "Good friends share! Color the sweet fruit!"},
@@ -172,7 +170,6 @@ def plan_daily_book():
 
     print(f"Selected Unique Trending Topic: '{chosen_subject}'")
 
-    # Resolve DNA info
     matched_dna = None
     for k, v in SPECIES_DNA_REGISTRY.items():
         if k in chosen_subject or chosen_subject in k:
@@ -181,16 +178,16 @@ def plan_daily_book():
 
     if not matched_dna:
         matched_dna = {
-            "category": "Kids Characters",
-            "dna": f"adorable kawaii {chosen_subject}, chubby cheeks, large expressive cartoon eyes with dual highlights, rounded body, simplified anatomy, smiling friendly face",
-            "habitat_keywords": "pleasant natural habitat, gentle landscape, sunny day"
+            "category": "Cozy Kids Characters",
+            "dna": f"adorable chubby {chosen_subject}, Bobbie Goods cozy line art style, chunky squishy proportions, large expressive eyes, simplified smooth anatomy, friendly happy face",
+            "habitat_keywords": "pleasant cozy setting, sunny day"
         }
 
     scenes = generate_scenes_for_subject(chosen_subject, matched_dna)
 
     daily_plan = {
         "subject": chosen_subject,
-        "category": matched_dna.get("category", "Kids Characters"),
+        "category": matched_dna.get("category", "Cozy Kids Characters"),
         "character_dna": matched_dna["dna"],
         "habitat_keywords": matched_dna.get("habitat_keywords", ""),
         "scenes": scenes
