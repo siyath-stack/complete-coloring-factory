@@ -47,7 +47,7 @@ def save_history(history):
         json.dump(history, f, indent=2)
 
 # ---------------------------------------------------------------------------
-# GEMINI RESEARCH ENGINE (Retries gemini-3.8-flash on 503 Spikes)
+# GEMINI RESEARCH ENGINE (Retries gemini-3.8-flash with Exponential Backoff)
 # ---------------------------------------------------------------------------
 def generate_daily_plan():
     if not GEMINI_API_KEY:
@@ -89,4 +89,42 @@ TASK:
     for attempt in range(1, max_retries + 1):
         try:
             response = client.models.generate_content(
-                
+                model=model_name,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    response_mime_type="application/json",
+                    response_schema=DailyBookPlan,
+                    temperature=0.95,
+                ),
+            )
+            if response and response.text:
+                print(f"Successfully generated plan using '{model_name}'.")
+                break
+        except Exception as e:
+            wait_time = 5 * (2 ** (attempt - 1))
+            print(f"[Notice] {model_name} attempt {attempt}/{max_retries} failed ({e}). Retrying in {wait_time}s...")
+            time.sleep(wait_time)
+
+    if not response or not response.text:
+        raise RuntimeError(f"Failed to generate plan after {max_retries} retries with {model_name}.")
+
+    plan_data = json.loads(response.text)
+
+    # Save today's plan
+    with open(DAILY_PLAN_FILE, "w", encoding="utf-8") as f:
+        json.dump(plan_data, f, indent=2)
+
+    # Record topic history
+    history.append(plan_data["subject"])
+    save_history(history)
+
+    print("=====================================================")
+    print(f"Gemini Selected Subject: '{plan_data['subject']}'")
+    print(f"Category: {plan_data['category']} ({plan_data['target_age']})")
+    print(f"Character DNA Anchor: {plan_data['character_dna']}")
+    print(f"Total Scenes Generated: {len(plan_data['scenes'])}")
+    print(f"Saved to '{DAILY_PLAN_FILE}'. Total recorded topics: {len(history)}")
+    print("=====================================================")
+
+if __name__ == "__main__":
+    generate_daily_plan()
