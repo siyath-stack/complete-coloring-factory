@@ -46,7 +46,7 @@ def save_history(history):
         json.dump(history, f, indent=2)
 
 # ---------------------------------------------------------------------------
-# GEMINI RESEARCH ENGINE (Handles 503 Spikes with Backoff)
+# GEMINI RESEARCH ENGINE (Handles 503 Spikes with Exponential Backoff)
 # ---------------------------------------------------------------------------
 def generate_daily_plan():
     if not GEMINI_API_KEY:
