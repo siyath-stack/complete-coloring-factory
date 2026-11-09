@@ -79,9 +79,9 @@ TASK:
 6. Provide an engaging 1-line educational micro-prompt for every page (counting items, tracing, or coloring specifics).
 """
 
-    print("Querying Gemini 2.5 Flash for book plan and creative randomization...")
+    print("Querying Gemini 3.8 Flash for book plan and creative randomization...")
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model="gemini-3.8-flash",
         contents=prompt,
         config=types.GenerateContentConfig(
             response_mime_type="application/json",
