@@ -136,10 +136,9 @@ def create_blank_page():
     return Image.new("RGB", (PAGE_WIDTH, PAGE_HEIGHT), "white")
 
 # ---------------------------------------------------------------------------
-# PROCEDURAL ACTIVITY PAGES (Zero Neurons Consumed)
+# PROCEDURAL ACTIVITY PAGES (0 Neurons Consumed)
 # ---------------------------------------------------------------------------
 def generate_procedural_maze_page(subject):
-    """Draws a clean, solvable labyrinth maze page."""
     img = create_blank_page()
     draw = ImageDraw.Draw(img)
 
@@ -151,19 +150,16 @@ def generate_procedural_maze_page(subject):
     draw.text((PAGE_WIDTH // 2, 320), "PUZZLE ADVENTURE: THE MAZE!", fill="black", font=title_font, anchor="mm")
     draw.text((PAGE_WIDTH // 2, 430), f"Help the baby {subject} find the bubble party!", fill="#444444", font=sub_font, anchor="mm")
 
-    # Generate a clean 10x10 maze grid
     cols, rows = 10, 10
     cell_w, cell_h = 170, 170
     start_x = (PAGE_WIDTH - (cols * cell_w)) // 2
     start_y = 650
 
-    # Draw outer maze boundary with Start & Finish openings
     draw.line([(start_x + cell_w, start_y), (start_x + cols * cell_w, start_y)], fill="black", width=12)
     draw.line([(start_x, start_y + rows * cell_h), (start_x + (cols - 1) * cell_w, start_y + rows * cell_h)], fill="black", width=12)
     draw.line([(start_x, start_y), (start_x, start_y + rows * cell_h)], fill="black", width=12)
     draw.line([(start_x + cols * cell_w, start_y), (start_x + cols * cell_w, start_y + rows * cell_h)], fill="black", width=12)
 
-    # Internal maze corridors
     random.seed(42)
     for r in range(rows):
         for c in range(cols):
@@ -174,7 +170,6 @@ def generate_procedural_maze_page(subject):
             if random.random() > 0.50 and r < rows - 1 and c > 0:
                 draw.line([(x, y + cell_h), (x + cell_w, y + cell_h)], fill="black", width=10)
 
-    # Markers for Start and Finish
     draw.text((start_x + cell_w // 2, start_y - 70), "START ★", fill="black", font=get_font(60), anchor="mm")
     draw.text((start_x + (cols - 1) * cell_w + cell_w // 2, start_y + rows * cell_h + 70), "FINISH 🎈", fill="black", font=get_font(60), anchor="mm")
 
@@ -183,7 +178,6 @@ def generate_procedural_maze_page(subject):
     return img
 
 def generate_procedural_dot_to_dot_page(subject):
-    """Draws a clean connect-the-dots star/flower illustration."""
     img = create_blank_page()
     draw = ImageDraw.Draw(img)
 
@@ -222,7 +216,6 @@ def generate_procedural_dot_to_dot_page(subject):
     return img
 
 def generate_procedural_spot_differences_page(subject):
-    """Draws two side-by-side framed activity scenes with subtle differences."""
     img = create_blank_page()
     draw = ImageDraw.Draw(img)
 
@@ -371,7 +364,6 @@ def generate_vector_interior_page(character_dna, scene_data, page_num):
     micro_prompt = scene_data["micro_prompt"]
     print(f"Generating page {page_num}/30: {action[:42]}...")
 
-    # Bobbie Goods Cozy Line Art Benchmark
     prompt = (
         f"A cozy coloring book page for toddlers and kids. "
         f"Subject: {character_dna}. "
@@ -458,7 +450,6 @@ def generate_certificate_page(subject):
     return img
 
 def generate_retail_back_cover_with_thumbnails(subject, sample_pages):
-    """Generates an authentic retail back cover featuring 4 live rendered page thumbnails."""
     print("Generating retail showcase back cover with live interior thumbnails...")
     img = create_blank_page()
     draw = ImageDraw.Draw(img)
@@ -483,17 +474,11 @@ def generate_retail_back_cover_with_thumbnails(subject, sample_pages):
         x0 = start_x + c * (thumb_w + spacing_x)
         y0 = start_y + r * (thumb_h + spacing_y)
 
-        # Draw subtle drop shadow for thumbnail
         draw.rounded_rectangle([x0 + 15, y0 + 15, x0 + thumb_w + 15, y0 + thumb_h + 15], radius=25, fill="#dddddd")
-
-        # Downsample real rendered page to thumbnail
         thumb = sample_page.resize((thumb_w, thumb_h), Image.Resampling.LANCZOS)
         img.paste(thumb, (x0, y0))
-
-        # Neat outer thumbnail border
         draw.rounded_rectangle([x0, y0, x0 + thumb_w, y0 + thumb_h], radius=25, outline="black", width=6)
 
-    # Commercial bottom banner
     draw.text((PAGE_WIDTH // 2, 2900), "Perfect for crayons, colored pencils, and soft markers.", fill="#333333", font=get_font(52), anchor="mm")
     draw.text((PAGE_WIDTH // 2, 3010), "Proudly printed for young artists. Share your artwork with family!", fill="#777777", font=get_font(44), anchor="mm")
 
@@ -528,7 +513,6 @@ def build_book():
     ]
 
     time.sleep(3)
-
     sample_thumbnails = []
 
     # Insert 30 coloring sheets with procedural activity breaks at pages 8, 16, and 24
@@ -543,7 +527,7 @@ def build_book():
         page_img = generate_vector_interior_page(character_dna, scene, i)
         pages.append(page_img)
 
-        # Capture pages 3, 11, 19, 27 for the back cover showcase
+        # Grab pages 3, 11, 19, 27 for the back cover showcase spread
         if i in [3, 11, 19, 27]:
             sample_thumbnails.append(page_img)
 
@@ -556,7 +540,7 @@ def build_book():
     safe_slug = re.sub(r"_+", "_", safe_slug)
     filename = f"Digital_Coloring_Book_{safe_slug}.pdf"
 
-    # Multi-page PDF compilation call on pages[0]
+    # Save complete multi-page PDF
     pages[0].save(
         filename, "PDF", resolution=300, save_all=True, append_images=pages[1:]
     )
