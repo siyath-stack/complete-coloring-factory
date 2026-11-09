@@ -1,129 +1,129 @@
 {
-  "subject": "Fluffy Baby Highland Calf",
-  "category": "Cozy Highland Meadow Adventures",
-  "target_age": "Ages 3-6",
-  "character_dna": "Bobbie Goods aesthetic featuring ultra-thick, clean, monoline line art with bold contours and zero cross-hatching. Chunky, rounded proportions: a round chubby body, stubby short legs with neat split hooves, an oversized fluffy shaggy fringe of hair sweeping over the forehead, tiny soft horn nubs, wide sleepy-happy oval eyes, a broad rounded snout with gentle dimpled nostrils, and wide floppy ears adorned with a simple corduroy collar and round brass bell. High cuteness, easy-to-color broad open shapes.",
-  "habitat_rules": "Strictly grounded terrestrial setting in the rolling Scottish countryside. Environments include cozy wooden barns with golden hay, soft clover meadows, shallow stone-pebble brooks, and low mossy stone walls. The calf stays firmly on the ground or seated on grass/blankets; never climbing trees, never swimming deep water, and never using human-like elevated furniture.",
+  "subject": "Pip the Playful Sea Otter Pup",
+  "category": "Cozy Coastal Cove Explorers",
+  "target_age": "Ages 2-5 Toddler Bold & Easy",
+  "character_dna": "Ultra-thick 6pt smooth outlines with oversized rounded head, chubby bean-shaped body, stubby flippers, tiny rounded ears, simple button nose, two sweet whisker dots per cheek, huge circular eyes, completely free of human clothing or human anatomical features.",
+  "habitat_rules": "Crystal-clear calm coastal cove, glassy surface water, gentle smooth wave curves, giant wide kelp fronds, and rounded sea boulders; zero intricate background textures or clutter.",
   "scenes": [
     {
-      "action": "Hamish the baby highland calf waking up in a warm bed of golden hay inside the rustic timber barn, stretching his front hooves with a gentle morning yawn.",
-      "micro_prompt": "Color the 3 sleepy little sparrows perched on the barn window sill!"
+      "action": "Pip floats on his back in calm water, rubbing his sleepy eyes with both chubby flipper paws.",
+      "micro_prompt": "Count the 2 warm morning sunbeams shining down!"
     },
     {
-      "action": "Hamish standing contentedly beside his mama cow while she lovingly grooms his fluffy forehead fringe smooth.",
-      "micro_prompt": "Count and color the 4 sturdy wooden fence posts behind them!"
+      "action": "Pip stretches his little body long and straight, pointing both flippers high into the open sky.",
+      "micro_prompt": "Color Pip's round belly with your favorite warm crayon!"
     },
     {
-      "action": "Hamish dipping his snout into a small wooden pail filled with warm morning milk and rolled oats.",
-      "micro_prompt": "Find and color the 2 crunchy carrots resting next to the pail!"
+      "action": "Pip splashes clear water onto his face, sending two big cartoon droplets into the air.",
+      "micro_prompt": "Count the 2 big splashing water drops!"
     },
     {
-      "action": "Hamish sitting happily on a wooden stool while brushing his shaggy fur with a chunky wooden hairbrush.",
-      "micro_prompt": "Count the 5 soft tufts of fluff floating softly in the air!"
+      "action": "Pip floats comfortably while holding a smooth clam shell flat on his tummy.",
+      "micro_prompt": "Color the breakfast clam shell bright pastel pink!"
     },
     {
-      "action": "Hamish tying a soft corduroy ribbon with a polished brass jingle bell around his fuzzy neck.",
-      "micro_prompt": "Trace and color the round bell on Hamish's collar!"
+      "action": "Pip selects a perfectly round smooth cracking stone to balance on his chest.",
+      "micro_prompt": "Trace the big round circle stone with your finger!"
     },
     {
-      "action": "Hamish stepping out through the Dutch barn doors into the bright morning sunshine and dewy pasture.",
-      "micro_prompt": "Color the 4 warm morning sunbeams shining through the barn door!"
+      "action": "Pip tucks his favorite smooth cracking stone safely into his natural armpit pouch.",
+      "micro_prompt": "Can you find and color the hidden stone?"
     },
     {
-      "action": "Hamish trotting down a gentle dirt lane bordered by wild purple heather and sweet clover blossoms.",
-      "micro_prompt": "Count and color the 3 friendly bumblebees humming along the path!"
+      "action": "Pip dives gently under a single soft wave, showing his cute little tail and back paws.",
+      "micro_prompt": "Trace along the 3 gentle wave lines!"
     },
     {
-      "action": "Hamish leaning his nose over a low split-rail fence to say good morning to a fluffy white lamb.",
-      "micro_prompt": "Count the 4 fluffy wool curls on the little lamb's back!"
+      "action": "Pip surfaces beside a smiling five-pointed starfish resting on a flat sea boulder.",
+      "micro_prompt": "Count the 5 soft points on the smiling starfish!"
     },
     {
-      "action": "Hamish gently sniffing an oversized white dandelion clock in the center of the green pasture.",
-      "micro_prompt": "Color the 6 delicate dandelion seeds drifting away in the breeze!"
+      "action": "Pip peeks playfully over the edge of a wide, rubbery kelp frond.",
+      "micro_prompt": "Color the giant kelp leaf a bright leafy green!"
     },
     {
-      "action": "Hamish splashing his two front hooves in the shallow, sparkling water of a tiny pebble-lined meadow brook.",
-      "micro_prompt": "Count and color the 5 smooth river pebbles under the clear water!"
+      "action": "Pip rolls sideways across the water like a happy little floating log.",
+      "micro_prompt": "Follow the curved arrow to show Pip rolling over!"
     },
     {
-      "action": "Hamish standing beside the brook watching three cheerful ducklings paddle downstream in a tidy row.",
-      "micro_prompt": "Color the 3 tiny ducklings swimming through the ripples!"
+      "action": "Pip greets a tiny friendly hermit crab carrying a simple striped shell on a rock.",
+      "micro_prompt": "Count the 3 bold stripes on the hermit crab's shell!"
     },
     {
-      "action": "Hamish balancing a big, polished red apple on top of his shaggy fringe like a little crown.",
-      "micro_prompt": "Find and color the 2 clover leaves resting between his hooves!"
+      "action": "Pip blows out a gentle breath, creating three floating round bubbles in the air.",
+      "micro_prompt": "Count the 3 floating round bubbles: 1, 2, 3!"
     },
     {
-      "action": "Hamish playfully rolling onto his side on a thick, soft hill covered in sunny yellow buttercups.",
-      "micro_prompt": "Find and color the special 4-leaf clover hidden in the patch!"
+      "action": "Pip balances a tiny round pebble right on the tip of his dark button nose.",
+      "micro_prompt": "Color Pip's nose deep black and color the pebble bright yellow!"
     },
     {
-      "action": "Hamish meeting a tiny round hedgehog friend who is carrying a ripe red woodland strawberry.",
-      "micro_prompt": "Count the 5 cute little quills on the hedgehog's back!"
+      "action": "Pip holds front flippers with a friendly baby harbor seal as they float together.",
+      "micro_prompt": "Count the 2 smiling animal best friends!"
     },
     {
-      "action": "Hamish trotting merrily across the pasture following a spotted meadow butterfly fluttering ahead.",
-      "micro_prompt": "Color the 4 polka dots on the butterfly's wings!"
+      "action": "Pip gently nudges a smooth, round floating sea melon with his paws.",
+      "micro_prompt": "Color the floating round sea melon bright purple!"
     },
     {
-      "action": "Hamish resting his chin atop a low drystone wall to peek curiously into a neighboring apple orchard.",
-      "micro_prompt": "Count and color the 6 round apples hanging from the orchard branch!"
+      "action": "Pip happily claps his two front flippers together, creating two circular ripples in the cove.",
+      "micro_prompt": "Trace the 2 circular ripple rings around Pip!"
     },
     {
-      "action": "Hamish playing peek-a-boo by ducking behind an antique, rounded metal milk can on the farm trail.",
-      "micro_prompt": "Color the 3 daisy blooms growing around the base of the milk can!"
+      "action": "Pip plays peek-a-boo behind a wide, fan-shaped sea sponge.",
+      "micro_prompt": "Color the big sea fan with your favorite bright color!"
     },
     {
-      "action": "Hamish leaning against a smooth wooden gate, gazing up at fluffy white clouds shaped like little farm animals.",
-      "micro_prompt": "Count the 3 puffy sheep-shaped clouds floating across the sky!"
+      "action": "Pip slides smoothly down a slick, gentle rock slide into a tiny splash pool.",
+      "micro_prompt": "Trace the smooth slide line from top to bottom!"
     },
     {
-      "action": "Hamish carefully looping stems of field daisies and bluebells together to craft a lush summer flower garland.",
-      "micro_prompt": "Count and color the 5 bright daisy blossoms in his flower garland!"
+      "action": "Pip munches on a long ribbon of fresh crunchy sea lettuce for lunch.",
+      "micro_prompt": "Count the 3 tasty ruffled leaves Pip is holding!"
     },
     {
-      "action": "Hamish sharing sweet crisp apple slices with his lamb and duckling pals on a gingham picnic blanket spread across the grass.",
-      "micro_prompt": "Count the 6 apple wedges placed neatly on the picnic plate!"
+      "action": "Pip carefully stacks three flat round stones in a neat tower on his tummy.",
+      "micro_prompt": "Count the 3 stacked stones from bottom to top!"
     },
     {
-      "action": "Hamish playfully dipping a hoof in blueberry berry juice to stamp neat heart-shaped hoof prints onto a flat gray river rock.",
-      "micro_prompt": "Color the 4 heart-shaped hoof prints stamped on the flat stone!"
+      "action": "Pip arranges four smooth colorful seashells along the edge of a floating driftwood stick.",
+      "micro_prompt": "Count the 4 pretty seashells in a neat row!"
     },
     {
-      "action": "Hamish taking a long, refreshing drink from a clean cedar-wood trough filled with fresh natural spring water.",
-      "micro_prompt": "Trace the 3 circular water ripples floating across the wooden trough!"
+      "action": "Pip sips sweet fresh coconut water from a hollow shell using a thick striped straw.",
+      "micro_prompt": "Color the straw with alternating red and white stripes!"
     },
     {
-      "action": "Hamish enjoying a gentle forehead scratch from a friendly, smiling garden scarecrow in straw overalls.",
-      "micro_prompt": "Color the 3 square patches sewn onto the scarecrow's blue overalls!"
+      "action": "Pip proudly discovers a perfectly round, glowing pearl nestled inside an open scallop shell.",
+      "micro_prompt": "Color the glowing round pearl shiny golden yellow!"
     },
     {
-      "action": "Hamish resting under the cool canopy of a massive pasture oak tree, happily chewing on a sweet clover stalk.",
-      "micro_prompt": "Count and color the 5 smooth acorns scattered in the shade!"
+      "action": "Pip gives a big joyful kick with his back flippers, creating a tiny fountain spray above him.",
+      "micro_prompt": "Count the 4 water drops sprinkling down like rain!"
     },
     {
-      "action": "Hamish proudly showing off his completed wildflower crown to his mama cow with a little happy hoof tap.",
-      "micro_prompt": "Color the 4 joyful sparkle stars around Hamish's head!"
+      "action": "Pip wears a simple crown made of braided kelp and three sunny yellow buttercup flowers.",
+      "micro_prompt": "Count the 3 buttercup flowers sitting atop Pip's crown!"
     },
     {
-      "action": "Hamish watching the huge warm orange sun begin to set behind the distant purple mountain peaks.",
-      "micro_prompt": "Count the 3 flying birds winging their way home across the sky!"
+      "action": "Pip watches the large, smooth evening sun sink gently down to touch the water line.",
+      "micro_prompt": "Color the big evening sun a glowing warm orange!"
     },
     {
-      "action": "Hamish walking down the twilight path toward the barn while glowing fireflies begin to light up the grass.",
-      "micro_prompt": "Count and color the 7 glowing fireflies dancing around the fence!"
+      "action": "Pip loops a long ribbon of thick kelp around his waist like a safe bedtime anchor.",
+      "micro_prompt": "Trace the kelp ribbon wrapped around Pip's waist!"
     },
     {
-      "action": "Hamish being lovingly tucked into his fresh sweet-smelling hay stall with a soft plaid wool blanket.",
-      "micro_prompt": "Color the 4 cozy woven stripes across Hamish's bedtime blanket!"
+      "action": "Pip rests his chin on his paws and gazes up at the very first evening star.",
+      "micro_prompt": "Color the big single evening star bright sparkle yellow!"
     },
     {
-      "action": "Hamish peering through the open upper half of the barn door at the glowing crescent moon and shimmering evening stars.",
-      "micro_prompt": "Count and color the 5 sparkling stars twinkling in the night sky!"
+      "action": "Pip lets out a huge sleepy yawn and places both soft paws gently over his cheeks.",
+      "micro_prompt": "Count Pip's 2 sleepy, closed crescent eyes!"
     },
     {
-      "action": "Hamish curled up into a snug, fluffy round ball in his hay bed, eyes closed peacefully, fast asleep dreaming of clover fields.",
-      "micro_prompt": "Trace the 3 floating 'Zzz' sleep letters drifting above Hamish's nose!"
+      "action": "Pip sleeps peacefully wrapped in soft kelp beneath a smiling crescent moon and three tiny stars.",
+      "micro_prompt": "Count the 3 sleepy little stars shining down on Pip!"
     }
   ]
 }
