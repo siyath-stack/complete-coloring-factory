@@ -1,12 +1,13 @@
 import os
 import json
-from datetime import datetime
+import time
 from pydantic import BaseModel, Field
 
 # Google GenAI SDK
 try:
     from google import genai
     from google.genai import types
+    from google.genai.errors import APIError
 except ImportError:
     raise ImportError("Please install the Google GenAI SDK: pip install google-genai pydantic")
 
@@ -15,7 +16,7 @@ HISTORY_FILE = "used_topics.json"
 DAILY_PLAN_FILE = "daily_book_plan.json"
 
 # ---------------------------------------------------------------------------
-# STRUCTURED PYDANTIC OUTPUT SCHEMA (Guarantees 100% valid JSON)
+# STRUCTURED PYDANTIC OUTPUT SCHEMA
 # ---------------------------------------------------------------------------
 class ScenePlan(BaseModel):
     action: str = Field(description="Visual action and setting in Bobbie Goods cozy line art style")
@@ -46,7 +47,7 @@ def save_history(history):
         json.dump(history, f, indent=2)
 
 # ---------------------------------------------------------------------------
-# GEMINI RESEARCH & STORYTELLING ENGINE
+# GEMINI RESEARCH ENGINE (With Automatic Retry & Fallbacks)
 # ---------------------------------------------------------------------------
 def generate_daily_plan():
     if not GEMINI_API_KEY:
@@ -79,24 +80,46 @@ TASK:
 6. Provide an engaging 1-line educational micro-prompt for every page (counting items, tracing, or coloring specifics).
 """
 
-    print("Querying Gemini 3.8 Flash for book plan and creative randomization...")
-    response = client.models.generate_content(
-        model="gemini-3.8-flash",
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            response_mime_type="application/json",
-            response_schema=DailyBookPlan,
-            temperature=0.95,  # High temperature for creative diversity
-        ),
-    )
+    # Candidate models to iterate through if a 503 high-demand spike occurs
+    candidate_models = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
+    response = None
+
+    for model_name in candidate_models:
+        print(f"Attempting book plan generation with '{model_name}'...")
+        for attempt in range(1, 4):
+            try:
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        response_mime_type="application/json",
+                        response_schema=DailyBookPlan,
+                        temperature=0.95,
+                    ),
+                )
+                if response and response.text:
+                    print(f"Successfully generated plan using '{model_name}'.")
+                    break
+            except APIError as e:
+                print(f"[503/API Notice] {model_name} attempt {attempt} failed: {e}. Retrying in {5 * attempt}s...")
+                time.sleep(5 * attempt)
+            except Exception as e:
+                print(f"[Notice] {model_name} attempt {attempt} failed: {e}. Retrying in {5 * attempt}s...")
+                time.sleep(5 * attempt)
+
+        if response and response.text:
+            break
+
+    if not response or not response.text:
+        raise RuntimeError("Failed to generate plan after retrying across available Gemini models.")
 
     plan_data = json.loads(response.text)
 
-    # Save today's complete plan
+    # Save today's plan
     with open(DAILY_PLAN_FILE, "w", encoding="utf-8") as f:
         json.dump(plan_data, f, indent=2)
 
-    # Record subject in history
+    # Record topic history
     history.append(plan_data["subject"])
     save_history(history)
 
