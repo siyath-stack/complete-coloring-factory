@@ -1,42 +1,43 @@
 {
-  "subject": "friendly baby axolotl",
-  "category": "Trending Kids Characters",
-  "character_dna": "adorable kawaii friendly baby axolotl, chubby cheeks, large expressive cartoon eyes with dual highlights, rounded body, simplified anatomy, smiling friendly face",
+  "subject": "chubby red panda explorer",
+  "category": "Woodland Wildlife",
+  "character_dna": "cute chubby baby red panda, Bobbie Goods cozy line art style, fluffy rounded cheeks, thick bushy striped tail, small paws, sweet friendly smile. STRICTLY NO scales, NO fins, NO wings",
+  "habitat_keywords": "soft mossy logs, sunny bamboo glade, mountain wildflowers",
   "scenes": [
     {
-      "action": "waving hello with a cheerful warm smile standing in a sunny meadow",
+      "action": "waving hello with a sweet warm smile in soft mossy logs, sunny bamboo glade, mountain wildflowers",
       "micro_prompt": "Can you wave hello and color my big smile?"
     },
     {
-      "action": "happily splashing in a calm clear water pond with tiny water ripples",
-      "micro_prompt": "Color the splashing water ripples bright blue!"
+      "action": "happily floating with tiny water ripples and bubbles",
+      "micro_prompt": "Color the gentle splashing water ripples bright blue!"
     },
     {
       "action": "peacefully balancing a sweet little blossom flower on head",
       "micro_prompt": "Find the tiny flower! What color will you make it?"
     },
     {
-      "action": "sitting on a grassy riverbank eating fresh sweet green clover",
-      "micro_prompt": "Color the clover leaves bright green!"
+      "action": "resting peacefully beside smooth rounded river pebbles",
+      "micro_prompt": "Count the smooth river stones: 1, 2, 3!"
     },
     {
-      "action": "perched beside a calm pond chatting with a friendly smiling duckling",
-      "micro_prompt": "Can you color the baby duckling sunny yellow?"
+      "action": "chatting with a friendly smiling baby fish companion",
+      "micro_prompt": "Color the little fish friend sunny yellow!"
     },
     {
-      "action": "wearing a cute wide-brimmed sun hat decorated with a ribbon",
+      "action": "wearing a cozy wide-brimmed sun hat decorated with ribbon",
       "micro_prompt": "Make the explorer hat colorful!"
     },
     {
-      "action": "blowing giant round iridescent soap bubbles into the sunny sky",
+      "action": "blowing giant round translucent bubbles into the clear water",
       "micro_prompt": "Count the 3 giant floating bubbles: 1, 2, 3!"
     },
     {
-      "action": "curiously watching a friendly smiling butterfly land on a leaf",
+      "action": "curiously watching a friendly smiling butterfly fluttering past",
       "micro_prompt": "Color both wings of the cute butterfly!"
     },
     {
-      "action": "gently floating in warm water with eyes closed in pure joy",
+      "action": "gently floating with eyes closed in peaceful relaxation",
       "micro_prompt": "So relaxing! Color the gentle water waves!"
     },
     {
@@ -44,7 +45,7 @@
       "micro_prompt": "Count the rounded stones in the stack!"
     },
     {
-      "action": "holding a small cluster of colorful balloons tied to wrist",
+      "action": "holding a small cluster of floating balloons",
       "micro_prompt": "Make each balloon a different rainbow color!"
     },
     {
@@ -52,19 +53,19 @@
       "micro_prompt": "Color the cute pattern on the turtle shell!"
     },
     {
-      "action": "wearing a playful paper party hat surrounded by floating confetti",
+      "action": "wearing a playful party hat surrounded by floating confetti",
       "micro_prompt": "Party time! Color all the party confetti!"
     },
     {
-      "action": "peeking playfully from behind a friendly broad river lily leaf",
+      "action": "peeking playfully from behind a friendly broad river lily pad",
       "micro_prompt": "Play peekaboo! What color will you make the leaf?"
     },
     {
-      "action": "splashing playfully with feet in warm mud puddle with rain boots",
-      "micro_prompt": "Splish splash! Color the cute little boots!"
+      "action": "splashing playfully creating cheerful water droplets",
+      "micro_prompt": "Splish splash! Color the cute water droplets!"
     },
     {
-      "action": "snuggling cozy beside its mother on soft mossy grass",
+      "action": "snuggling cozy beside its mother on soft mossy ground",
       "micro_prompt": "Give baby and mommy a warm, cozy color!"
     },
     {
@@ -76,12 +77,12 @@
       "micro_prompt": "Color the sweet strawberries bright red!"
     },
     {
-      "action": "curiously inspecting a friendly little ladybug on a dandelion",
-      "micro_prompt": "Find the tiny spots on the ladybug!"
+      "action": "curiously inspecting a friendly little snail on a water plant",
+      "micro_prompt": "Find the tiny swirl on the snail shell!"
     },
     {
-      "action": "making a funny silly face in the reflection of a calm water puddle",
-      "micro_prompt": "Smile! Color the funny puddle reflection!"
+      "action": "making a funny silly face in the reflection of a calm water pool",
+      "micro_prompt": "Smile! Color the funny water reflection!"
     },
     {
       "action": "proudly wearing a junior nature explorer medal ribbon",
@@ -96,27 +97,27 @@
       "micro_prompt": "Color the shiny smooth river stone!"
     },
     {
-      "action": "dancing happily with cute musical notes floating in the air",
+      "action": "dancing happily with cute musical notes floating in the water",
       "micro_prompt": "Color the musical notes your favorite color!"
     },
     {
-      "action": "flying a colorful diamond-shaped kite high against puffy clouds",
-      "micro_prompt": "Count the puffy clouds in the sky!"
+      "action": "watching a colorful diamond-shaped kite in the bright sky above",
+      "micro_prompt": "Color the kite with bright rainbow patterns!"
     },
     {
-      "action": "curled up cozy on a soft blanket of warm moss",
-      "micro_prompt": "So cozy! Color the soft grass blanket!"
+      "action": "curled up cozy on a soft blanket of gentle green moss",
+      "micro_prompt": "So cozy! Color the soft water moss blanket!"
     },
     {
       "action": "taking a joyful victory bow with paws outstretched in excitement",
       "micro_prompt": "Ta-da! You're doing an amazing job coloring!"
     },
     {
-      "action": "sitting peacefully on a riverbank gazing at a smiling crescent moon",
+      "action": "gazing at a smiling crescent moon and twinkling night stars",
       "micro_prompt": "Count the 4 twinkling stars in the sky!"
     },
     {
-      "action": "curled up fast asleep with a little leaf blanket under starry night sky",
+      "action": "curled up fast asleep with a little leaf blanket under starry sky",
       "micro_prompt": "Sweet dreams! Color the peaceful night scene!"
     },
     {
