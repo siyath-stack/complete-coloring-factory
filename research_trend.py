@@ -18,14 +18,14 @@ DAILY_PLAN_FILE = "daily_book_plan.json"
 # STRUCTURED PYDANTIC OUTPUT SCHEMA
 # ---------------------------------------------------------------------------
 class ScenePlan(BaseModel):
-    action: str = Field(description="Visual action and setting in bold & easy coloring book style with zero background clutter")
+    action: str = Field(description="Visual action and setting in simple Monkey.pdf line art style with zero background clutter")
     micro_prompt: str = Field(description="A 1-line interactive coloring/counting prompt for kids (e.g. 'Count the 3 floating bubbles!')")
 
 class DailyBookPlan(BaseModel):
-    subject: str = Field(description="Unique character subject (e.g. 'cheerful baby axolotl')")
+    subject: str = Field(description="Unique character subject (e.g. 'cheerful baby sea otter')")
     category: str = Field(description="Niche category (e.g. 'Freshwater Lagoon Explorers')")
     target_age: str = Field(description="Target age bracket (e.g. 'Ages 2-5 Toddler Bold & Easy')")
-    character_dna: str = Field(description="Strict visual style anchor enforcing thick 6pt outlines, simple squishy shapes, and zero human features")
+    character_dna: str = Field(description="Strict visual style anchor enforcing thick 6pt outlines, simple squishy cartoon shapes, and zero human features")
     habitat_rules: str = Field(description="Habitat and background constraints")
     scenes: list[ScenePlan] = Field(description="Exactly 30 sequential scenes telling a morning-to-night story arc")
 
@@ -58,18 +58,19 @@ def generate_daily_plan():
 
     prompt = f"""
 You are the Creative Director of a top-selling Amazon KDP and Etsy children's coloring book brand, 
-celebrated for the viral 'Bold & Easy / Bobbie Goods' aesthetic with ultra-thick lines and large open spaces.
+celebrated for ultra-simple, high-contrast toddler line art in the exact style of 'Monkey.pdf'.
 
 TASK:
 1. Brainstorm an adorable, commercially viral animal or vehicle subject for today's coloring book.
 2. Rotate across diverse niches: 
-   - Cozy Animals (e.g., baby axolotl, capybara, red panda, sea otter pup, highland cow)
+   - Cozy Animals (e.g., baby sea otter, capybara, red panda, axolotl, highland cow, koala)
    - Friendly Vehicles (e.g., cute excavator, cheerful tugboat, little camper van)
-   - Whimsical Fantasy (e.g., baby dragon, tiny cloud pegasus, forest gnome)
+   - Whimsical Fantasy (e.g., baby dragon, tiny cloud pegasus, friendly forest gnome)
 3. DO NOT repeat any of these previously published subjects: [{recent_history_str}].
-4. ENFORCE STRICT BOLD & EASY DESIGN RULES:
-   - Ultra-thick 6pt black outlines, single simple central character, zero fine details, zero background clutter.
-   - NO human characters, NO human faces, NO adults, NO children under any circumstance.
+4. ENFORCE STRICT MONKEY.PDF SIMPLICITY RULES:
+   - Style of Monkey.pdf: ultra-thick 6pt smooth 2D outlines, single central character, simple squishy shapes, wide open spaces for coloring.
+   - ZERO fur hatching, ZERO wood grain, ZERO texture lines, ZERO shading, ZERO background clutter.
+   - ABSOLUTELY NO human characters, NO human faces, NO adults, NO children under any circumstance.
    - Aquatic creatures MUST stay in clear water/lagoons; ground animals MUST stay on riverbanks/meadows.
 5. SCRIPT A 30-SCENE STORYTELLING ARC (morning to evening):
    - Pages 1 to 6: Morning wake-up, breakfast snack, getting ready.
