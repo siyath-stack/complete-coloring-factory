@@ -1,129 +1,129 @@
 {
-  "subject": "Mochi the Chubby Baby Harp Seal",
-  "category": "Arctic Coastal Pals",
+  "subject": "Barnaby the Baby Capybara",
+  "category": "Cozy Riverbank Explorers",
   "target_age": "Ages 2-5 Toddler Bold & Easy",
-  "character_dna": "Ultra-chubby teardrop-shaped baby harp seal, oversized round black eyes with small catchlights, cute round black button nose, two tiny dot whisker pads, two small smooth side flippers, tiny split tail flipper, smooth continuous 6pt vector outlines, zero fur hatching, zero shading, purely kawaii 2D design.",
-  "habitat_rules": "Crisp white arctic ice floe setting, flat smooth horizon line, zero complex ice textures, zero cross-hatching, zero background clutter, maximum one simple prop per scene.",
+  "character_dna": "adorable chubby baby capybara pup, round squishy body, tiny rounded ears, blunt snout, short legs, no tail, 2D vector line art",
+  "habitat_rules": "Cozy grassy riverbank with gentle water ripples and simple flowers",
   "scenes": [
     {
-      "action": "Mochi stretches two front flippers while sitting on a smooth ice block with 1 fluffy cloud pillow.",
-      "micro_prompt": "Color Mochi's 1 fluffy cloud pillow sky blue!"
+      "action": "Barnaby the Baby Capybara holding a chunky toddler toothbrush in a simple background.",
+      "micro_prompt": "Page 1: Color the toothbrush bright yellow!"
     },
     {
-      "action": "Mochi rubs one sleepy eye while 1 smiling morning sun beams in the corner.",
-      "micro_prompt": "Count the 1 happy sun smiling down!"
+      "action": "Barnaby the Baby Capybara munching on one single oversized strawberry in a simple background.",
+      "micro_prompt": "Page 2: Trace the 3 tiny seeds on the strawberry!"
     },
     {
-      "action": "Mochi slides happily on round belly down 1 smooth gentle snow ramp.",
-      "micro_prompt": "Trace the smooth line of Mochi's fun slide!"
+      "action": "Barnaby the Baby Capybara balancing a smooth round apple on head in a simple background.",
+      "micro_prompt": "Page 3: Count the 1 big apple on top!"
     },
     {
-      "action": "Mochi sits upright happily holding 1 little smiling fish for breakfast.",
-      "micro_prompt": "Color the 1 tasty breakfast fish bright orange!"
+      "action": "Barnaby the Baby Capybara wearing a cheerful wide-brimmed sunhat in a simple background.",
+      "micro_prompt": "Page 4: Color the sunhat with your favorite crayon!"
     },
     {
-      "action": "Mochi sips clear fresh water from 1 smooth open clam shell.",
-      "micro_prompt": "Count the 3 little water drops splashing from the shell!"
+      "action": "Barnaby the Baby Capybara patting one simple floating beach ball in a simple background.",
+      "micro_prompt": "Page 5: Color the 3 stripes on the beach ball!"
     },
     {
-      "action": "Mochi proudly balances 1 warm striped winter beanie on head.",
-      "micro_prompt": "Color the 2 stripes on the warm cozy beanie!"
+      "action": "Barnaby the Baby Capybara patting one little rubber ducky in water in a simple background.",
+      "micro_prompt": "Page 6: Count the 1 cute rubber ducky!"
     },
     {
-      "action": "Mochi waves a friendly flipper at 1 smiling baby walrus friend peeking above ice.",
-      "micro_prompt": "Count the walrus friend's 2 little rounded tusks!"
+      "action": "Barnaby the Baby Capybara holding the string of one round balloon in a simple background.",
+      "micro_prompt": "Page 7: Color the round balloon bright red!"
     },
     {
-      "action": "Mochi balances 1 striped bouncy beach ball right on nose tip.",
-      "micro_prompt": "Color the 3 chunky stripes on the bouncy ball!"
+      "action": "Barnaby the Baby Capybara Patting a smooth round river stone in a simple background.",
+      "micro_prompt": "Page 8: Count the 1 smooth stone underfoot!"
     },
     {
-      "action": "Mochi pushes 1 giant round snowball across the flat snowy ground.",
-      "micro_prompt": "Trace around the 1 giant round snowball!"
+      "action": "Barnaby the Baby Capybara patting a fluffy star-shaped pillow in a simple background.",
+      "micro_prompt": "Page 9: Color the star pillow soft blue!"
     },
     {
-      "action": "Mochi leans forward admiring 1 floating five-petal ice lily flower.",
-      "micro_prompt": "Count the 5 smooth petals on the pretty flower!"
+      "action": "Barnaby the Baby Capybara looking up at a single smiling crescent moon in a simple background.",
+      "micro_prompt": "Page 10: Count the 1 glowing crescent moon!"
     },
     {
-      "action": "Mochi slaps a flipper into a shallow puddle making 3 big round droplets fly.",
-      "micro_prompt": "Count and color the 3 jumping water droplets!"
+      "action": "Barnaby the Baby Capybara holding a chunky toddler toothbrush in a simple background.",
+      "micro_prompt": "Page 11: Color the toothbrush bright yellow!"
     },
     {
-      "action": "Mochi peeks out cheerfully from inside 1 round igloo doorway.",
-      "micro_prompt": "Trace the curved arch of the cozy igloo door!"
+      "action": "Barnaby the Baby Capybara munching on one single oversized strawberry in a simple background.",
+      "micro_prompt": "Page 12: Trace the 3 tiny seeds on the strawberry!"
     },
     {
-      "action": "Mochi holds the string of 1 bright heart-shaped floating balloon.",
-      "micro_prompt": "Color the 1 floating heart balloon cherry red!"
+      "action": "Barnaby the Baby Capybara balancing a smooth round apple on head in a simple background.",
+      "micro_prompt": "Page 13: Count the 1 big apple on top!"
     },
     {
-      "action": "Mochi sits beside 1 cute baby puffin bird singing with open beaks.",
-      "micro_prompt": "Count the 2 singing arctic friends!"
+      "action": "Barnaby the Baby Capybara wearing a cheerful wide-brimmed sunhat in a simple background.",
+      "micro_prompt": "Page 14: Color the sunhat with your favorite crayon!"
     },
     {
-      "action": "Mochi curiously examines 1 shiny round pebble sitting on the ice.",
-      "micro_prompt": "Color the 1 shiny round pebble golden yellow!"
+      "action": "Barnaby the Baby Capybara patting one simple floating beach ball in a simple background.",
+      "micro_prompt": "Page 15: Color the 3 stripes on the beach ball!"
     },
     {
-      "action": "Mochi sits proudly aboard 1 simple wooden runner sled.",
-      "micro_prompt": "Trace the 2 straight runners under the sled!"
+      "action": "Barnaby the Baby Capybara patting one little rubber ducky in water in a simple background.",
+      "micro_prompt": "Page 16: Count the 1 cute rubber ducky!"
     },
     {
-      "action": "Mochi reaches up toward 3 floating round soap bubbles in the air.",
-      "micro_prompt": "Count the 3 floating round bubbles!"
+      "action": "Barnaby the Baby Capybara holding the string of one round balloon in a simple background.",
+      "micro_prompt": "Page 17: Color the round balloon bright red!"
     },
     {
-      "action": "Mochi sits very still balancing 1 square ice cube neatly on head.",
-      "micro_prompt": "Color the 1 cool square ice cube light cyan!"
+      "action": "Barnaby the Baby Capybara Patting a smooth round river stone in a simple background.",
+      "micro_prompt": "Page 18: Count the 1 smooth stone underfoot!"
     },
     {
-      "action": "Mochi dips a flipper into 1 painter palette with 3 paint spots.",
-      "micro_prompt": "Count the 3 round paint spots on the palette!"
+      "action": "Barnaby the Baby Capybara patting a fluffy star-shaped pillow in a simple background.",
+      "micro_prompt": "Page 19: Color the star pillow soft blue!"
     },
     {
-      "action": "Mochi enjoys an afternoon treat holding 1 round ice pop on a wooden stick.",
-      "micro_prompt": "Color the 1 yummy ice pop berry purple!"
+      "action": "Barnaby the Baby Capybara looking up at a single smiling crescent moon in a simple background.",
+      "micro_prompt": "Page 20: Count the 1 glowing crescent moon!"
     },
     {
-      "action": "Mochi taps playfully on 1 small round toy marching drum.",
-      "micro_prompt": "Trace the 2 drumsticks tapping a happy beat!"
+      "action": "Barnaby the Baby Capybara holding a chunky toddler toothbrush in a simple background.",
+      "micro_prompt": "Page 21: Color the toothbrush bright yellow!"
     },
     {
-      "action": "Mochi smiles wearing 1 floral headband adorned with 4 simple daisies.",
-      "micro_prompt": "Count the 4 cheerful daisies on Mochi's head!"
+      "action": "Barnaby the Baby Capybara munching on one single oversized strawberry in a simple background.",
+      "micro_prompt": "Page 22: Trace the 3 tiny seeds on the strawberry!"
     },
     {
-      "action": "Mochi holds the handle of 1 open polka-dot umbrella overhead.",
-      "micro_prompt": "Color the 4 big polka dots on the umbrella!"
+      "action": "Barnaby the Baby Capybara balancing a smooth round apple on head in a simple background.",
+      "micro_prompt": "Page 23: Count the 1 big apple on top!"
     },
     {
-      "action": "Mochi watches 1 diamond-shaped kite flying high in the gentle breeze.",
-      "micro_prompt": "Trace the straight edges of the 1 diamond kite!"
+      "action": "Barnaby the Baby Capybara wearing a cheerful wide-brimmed sunhat in a simple background.",
+      "micro_prompt": "Page 24: Color the sunhat with your favorite crayon!"
     },
     {
-      "action": "Mochi blows happily into 1 curled party noisemaker horn.",
-      "micro_prompt": "Color the 3 spiral stripes on the party horn!"
+      "action": "Barnaby the Baby Capybara patting one simple floating beach ball in a simple background.",
+      "micro_prompt": "Page 25: Color the 3 stripes on the beach ball!"
     },
     {
-      "action": "Mochi sits calmly watching 1 large round setting sun touch the horizon.",
-      "micro_prompt": "Color the 1 warm round setting sun!"
+      "action": "Barnaby the Baby Capybara patting one little rubber ducky in water in a simple background.",
+      "micro_prompt": "Page 26: Count the 1 cute rubber ducky!"
     },
     {
-      "action": "Mochi gazes upward toward 1 smiling crescent moon in the quiet sky.",
-      "micro_prompt": "Trace the gentle curve of the 1 sleepy crescent moon!"
+      "action": "Barnaby the Baby Capybara holding the string of one round balloon in a simple background.",
+      "micro_prompt": "Page 27: Color the round balloon bright red!"
     },
     {
-      "action": "Mochi hugs 1 little stuffed penguin plushie tight against tummy.",
-      "micro_prompt": "Color Mochi's 1 soft bedtime penguin friend!"
+      "action": "Barnaby the Baby Capybara Patting a smooth round river stone in a simple background.",
+      "micro_prompt": "Page 28: Count the 1 smooth stone underfoot!"
     },
     {
-      "action": "Mochi lets out a big wide yawn beneath 3 twinkling five-point stars.",
-      "micro_prompt": "Count the 3 bright bedtime stars twinkling above!"
+      "action": "Barnaby the Baby Capybara patting a fluffy star-shaped pillow in a simple background.",
+      "micro_prompt": "Page 29: Color the star pillow soft blue!"
     },
     {
-      "action": "Mochi curls into a sleepy round ball tucked under 1 warm patchwork blanket.",
-      "micro_prompt": "Color the cozy blanket to wish Mochi sweet dreams!"
+      "action": "Barnaby the Baby Capybara looking up at a single smiling crescent moon in a simple background.",
+      "micro_prompt": "Page 30: Count the 1 glowing crescent moon!"
     }
   ]
 }
