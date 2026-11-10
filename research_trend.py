@@ -4,7 +4,6 @@ import time
 import random
 from pydantic import BaseModel, Field
 
-# Google GenAI SDK
 try:
     from google import genai
     from google.genai import types
@@ -15,11 +14,8 @@ GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 HISTORY_FILE = "used_topics.json"
 DAILY_PLAN_FILE = "daily_book_plan.json"
 
-# ---------------------------------------------------------------------------
-# STRUCTURED PYDANTIC OUTPUT SCHEMA
-# ---------------------------------------------------------------------------
 class ScenePlan(BaseModel):
-    action: str = Field(description="Visual action and setting in simple Monkey.pdf line art style with 1 simple prop and zero background clutter")
+    action: str = Field(description="Visual action in simple Monkey.pdf line art style with 1 simple prop and zero background clutter")
     micro_prompt: str = Field(description="A 1-line interactive coloring/counting prompt for kids matching the exact action (e.g. 'Count the 3 floating bubbles!')")
 
 class DailyBookPlan(BaseModel):
@@ -30,9 +26,6 @@ class DailyBookPlan(BaseModel):
     habitat_rules: str = Field(description="Habitat and background constraints")
     scenes: list[ScenePlan] = Field(description="Exactly 30 sequential scenes telling a morning-to-night story arc")
 
-# ---------------------------------------------------------------------------
-# TOPIC HISTORY TRACKING
-# ---------------------------------------------------------------------------
 def load_history():
     if os.path.exists(HISTORY_FILE):
         try:
@@ -46,12 +39,9 @@ def save_history(history):
     with open(HISTORY_FILE, "w", encoding="utf-8") as f:
         json.dump(history, f, indent=2)
 
-# ---------------------------------------------------------------------------
-# GEMINI RESEARCH ENGINE (With Robust Exponential Backoff & 404 Auto-Skip)
-# ---------------------------------------------------------------------------
 def generate_daily_plan():
     if not GEMINI_API_KEY:
-        raise ValueError("Missing GEMINI_API_KEY environment variable. Please add it to your secrets or environment.")
+        raise ValueError("Missing GEMINI_API_KEY environment variable.")
 
     client = genai.Client(api_key=GEMINI_API_KEY)
     history = load_history()
@@ -62,28 +52,18 @@ You are the Creative Director of a top-selling Amazon KDP and Etsy children's co
 celebrated for ultra-simple, high-contrast toddler line art in the exact style of 'Monkey.pdf'.
 
 TASK:
-1. Brainstorm an adorable, commercially viral animal or vehicle subject for today's coloring book.
-2. Rotate across diverse niches: 
-   - Cozy Animals (e.g., baby sea otter, capybara, red panda, axolotl, highland cow, koala)
-   - Friendly Vehicles (e.g., cute excavator, cheerful tugboat, little camper van)
-   - Whimsical Fantasy (e.g., baby dragon, tiny cloud pegasus, friendly forest gnome)
-3. DO NOT repeat any of these previously published subjects: [{recent_history_str}].
-4. ENFORCE STRICT MONKEY.PDF SIMPLICITY & SPECIES ACCURACY RULES:
+1. Brainstorm an adorable animal or vehicle subject for today's coloring book.
+2. DO NOT repeat any of these previously published subjects: [{recent_history_str}].
+3. ENFORCE STRICT MONKEY.PDF SIMPLICITY RULES:
    - Style of Monkey.pdf: ultra-thick 6pt smooth 2D outlines, single central character, simple squishy shapes, wide open spaces for coloring.
    - Pair the character with EXACTLY 1 simple prop per scene (e.g., a single leaf, a balloon, a star, a banana, a straw, a drum).
    - Character DNA MUST specify exact anatomical features to anchor the species across all pages.
    - ZERO fur hatching, ZERO wood grain, ZERO texture lines, ZERO shading, ZERO background clutter.
    - ABSOLUTELY NO human characters, NO human faces, NO adults, NO children under any circumstance.
    - Captions (micro_prompt) MUST 100% align with the visual scene action!
-5. SCRIPT A 30-SCENE STORYTELLING ARC (morning to evening):
-   - Pages 1 to 6: Morning wake-up, breakfast snack, getting ready.
-   - Pages 7 to 18: Midday outdoor adventures, meeting animal friends, playing simple games.
-   - Pages 19 to 25: Afternoon hobbies, crafts, snacks, and celebration.
-   - Pages 26 to 30: Winding down, gazing at the stars/moon, cozy bedtime sleep.
-6. Provide an engaging 1-line educational micro-prompt for every page (counting items, tracing, or coloring specifics).
+4. SCRIPT A 30-SCENE STORYTELLING ARC (morning to evening).
 """
 
-    # Primary model is gemini-3.8-flash; secondary fallback is gemini-2.0-flash
     candidate_models = ["gemini-3.8-flash", "gemini-2.0-flash"]
     plan_data = None
 
@@ -108,26 +88,22 @@ TASK:
                     break
             except Exception as e:
                 err_msg = str(e)
-                # If a model string is deprecated or returns 404, immediately skip to next candidate
                 if "NOT_FOUND" in err_msg or "404" in err_msg:
-                    print(f"[Notice] Model '{model_name}' returned NOT_FOUND (404). Trying next model...")
+                    print(f"[Notice] Model '{model_name}' returned 404. Skipping...")
                     break
-
                 wait_time = min(60, (2 ** attempt) + random.uniform(1, 4))
-                print(f"[Notice] {model_name} attempt {attempt}/{max_retries} failed ({e}). Retrying in {wait_time:.1f}s...")
+                print(f"[Notice] Retry attempt {attempt}/{max_retries} in {wait_time:.1f}s...")
                 time.sleep(wait_time)
 
         if plan_data:
             break
 
     if not plan_data:
-        raise RuntimeError("Failed to generate plan across candidate models. Check API status or network permissions.")
+        raise RuntimeError("Failed to generate plan across candidate models.")
 
-    # Save plan output
     with open(DAILY_PLAN_FILE, "w", encoding="utf-8") as f:
         json.dump(plan_data, f, indent=2)
 
-    # Record history
     history.append(plan_data["subject"])
     save_history(history)
 
@@ -136,7 +112,6 @@ TASK:
     print(f"Category: {plan_data['category']} ({plan_data['target_age']})")
     print(f"Character DNA: {plan_data['character_dna']}")
     print(f"Total Scenes Generated: {len(plan_data['scenes'])}")
-    print(f"Saved to '{DAILY_PLAN_FILE}'.")
     print("=====================================================")
 
 if __name__ == "__main__":
