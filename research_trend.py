@@ -1,6 +1,7 @@
 import os
 import json
 import time
+import random
 from pydantic import BaseModel, Field
 
 # Google GenAI SDK
@@ -46,7 +47,7 @@ def save_history(history):
         json.dump(history, f, indent=2)
 
 # ---------------------------------------------------------------------------
-# GEMINI RESEARCH ENGINE (With Multi-Model Fallback & Backoff Protection)
+# GEMINI RESEARCH ENGINE (With Robust Exponential Backoff & 404 Auto-Skip)
 # ---------------------------------------------------------------------------
 def generate_daily_plan():
     if not GEMINI_API_KEY:
@@ -82,13 +83,13 @@ TASK:
 6. Provide an engaging 1-line educational micro-prompt for every page (counting items, tracing, or coloring specifics).
 """
 
-    # Priority list of models to fall back through if one is at capacity (503)
-    candidate_models = ["gemini-2.5-flash", "gemini-1.5-flash"]
+    # Primary model is gemini-3.8-flash; secondary fallback is gemini-2.0-flash
+    candidate_models = ["gemini-3.8-flash", "gemini-2.0-flash"]
     plan_data = None
 
     for model_name in candidate_models:
-        print(f"Attempting book generation with model: '{model_name}'...")
-        max_retries = 3
+        print(f"Attempting book architecture generation with model: '{model_name}'...")
+        max_retries = 6
 
         for attempt in range(1, max_retries + 1):
             try:
@@ -106,15 +107,21 @@ TASK:
                     print(f"Successfully generated daily plan using '{model_name}'!")
                     break
             except Exception as e:
-                wait_time = 3 * attempt
-                print(f"[Notice] {model_name} attempt {attempt}/{max_retries} failed ({e}). Retrying in {wait_time}s...")
+                err_msg = str(e)
+                # If a model string is deprecated or returns 404, immediately skip to next candidate
+                if "NOT_FOUND" in err_msg or "404" in err_msg:
+                    print(f"[Notice] Model '{model_name}' returned NOT_FOUND (404). Trying next model...")
+                    break
+
+                wait_time = min(60, (2 ** attempt) + random.uniform(1, 4))
+                print(f"[Notice] {model_name} attempt {attempt}/{max_retries} failed ({e}). Retrying in {wait_time:.1f}s...")
                 time.sleep(wait_time)
 
         if plan_data:
             break
 
     if not plan_data:
-        raise RuntimeError("Failed to generate plan across all fallback models. Check network connectivity or API key permissions.")
+        raise RuntimeError("Failed to generate plan across candidate models. Check API status or network permissions.")
 
     # Save plan output
     with open(DAILY_PLAN_FILE, "w", encoding="utf-8") as f:
