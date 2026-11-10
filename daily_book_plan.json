@@ -1,129 +1,129 @@
 {
-  "subject": "Pip the Playful Sea Otter Pup",
-  "category": "Cozy Coastal Cove Explorers",
-  "target_age": "Ages 2-5 Toddler Bold & Easy",
-  "character_dna": "Ultra-thick 6pt smooth outlines with oversized rounded head, chubby bean-shaped body, stubby flippers, tiny rounded ears, simple button nose, two sweet whisker dots per cheek, huge circular eyes, completely free of human clothing or human anatomical features.",
-  "habitat_rules": "Crystal-clear calm coastal cove, glassy surface water, gentle smooth wave curves, giant wide kelp fronds, and rounded sea boulders; zero intricate background textures or clutter.",
+  "subject": "Kip the Chubby Baby Koala",
+  "category": "Cozy Australian Bushland Friends",
+  "target_age": "Ages 1-4 Toddler Bold & Easy",
+  "character_dna": "Ultra-thick 6pt smooth continuous black outlines, circular squishy silhouette, oversized round ears with smooth bubble curves, large oval button nose, giant round shiny eyes, stubby arms and legs, zero fur hatching, zero cross-hatching, zero wood grain, wide open coloring areas.",
+  "habitat_rules": "Minimalist sunny eucalyptus grove with giant rounded leaves, smooth bark-free tree branches, chunky smooth river pebbles, simple puffy clouds, zero background clutter, zero fine grass hatching, absolutely zero human presence.",
   "scenes": [
     {
-      "action": "Pip floats on his back in calm water, rubbing his sleepy eyes with both chubby flipper paws.",
-      "micro_prompt": "Count the 2 warm morning sunbeams shining down!"
+      "action": "Kip yawning peacefully on a thick horizontal tree branch with both stubby arms stretched upward.",
+      "micro_prompt": "Color Kip's big round ears soft gray!"
     },
     {
-      "action": "Pip stretches his little body long and straight, pointing both flippers high into the open sky.",
-      "micro_prompt": "Color Pip's round belly with your favorite warm crayon!"
+      "action": "Kip bending his round body forward to touch his stubby little toes on the branch.",
+      "micro_prompt": "Count Kip's 2 chubby little feet!"
     },
     {
-      "action": "Pip splashes clear water onto his face, sending two big cartoon droplets into the air.",
-      "micro_prompt": "Count the 2 big splashing water drops!"
+      "action": "Kip holding a single giant smooth eucalyptus leaf with both paws and taking a happy nibble.",
+      "micro_prompt": "Color the big breakfast leaf bright green!"
     },
     {
-      "action": "Pip floats comfortably while holding a smooth clam shell flat on his tummy.",
-      "micro_prompt": "Color the breakfast clam shell bright pastel pink!"
+      "action": "Kip curiously tapping a single giant round dewdrop clinging to the tip of a leaf.",
+      "micro_prompt": "Trace the round outline of the water drop with your finger!"
     },
     {
-      "action": "Pip selects a perfectly round smooth cracking stone to balance on his chest.",
-      "micro_prompt": "Trace the big round circle stone with your finger!"
+      "action": "Kip sitting upright and happily rubbing his round full tummy with one paw.",
+      "micro_prompt": "Color Kip's cozy tummy warm cream!"
     },
     {
-      "action": "Pip tucks his favorite smooth cracking stone safely into his natural armpit pouch.",
-      "micro_prompt": "Can you find and color the hidden stone?"
+      "action": "Kip gently sliding down a smooth, curved tree trunk with a joyful smile on his face.",
+      "micro_prompt": "Draw a smooth slide line down the trunk!"
     },
     {
-      "action": "Pip dives gently under a single soft wave, showing his cute little tail and back paws.",
-      "micro_prompt": "Trace along the 3 gentle wave lines!"
+      "action": "Kip sitting on the soft grass watching a chunky cartoon butterfly flutter right in front of his nose.",
+      "micro_prompt": "Count the 2 round wings on the friendly butterfly!"
     },
     {
-      "action": "Pip surfaces beside a smiling five-pointed starfish resting on a flat sea boulder.",
-      "micro_prompt": "Count the 5 soft points on the smiling starfish!"
+      "action": "Kip bending down to sniff a giant simple five-petal bush blossom resting on the ground.",
+      "micro_prompt": "Color the 5 flower petals bright pink!"
     },
     {
-      "action": "Pip peeks playfully over the edge of a wide, rubbery kelp frond.",
-      "micro_prompt": "Color the giant kelp leaf a bright leafy green!"
+      "action": "Kip waving a stubby paw in greeting toward a friendly little baby kangaroo sitting nearby.",
+      "micro_prompt": "Wave hello and color the bouncy joey friend brown!"
     },
     {
-      "action": "Pip rolls sideways across the water like a happy little floating log.",
-      "micro_prompt": "Follow the curved arrow to show Pip rolling over!"
+      "action": "Kip rolling a smooth, perfectly round pebble forward along the flat meadow ground.",
+      "micro_prompt": "Count the 1 big rolling pebble!"
     },
     {
-      "action": "Pip greets a tiny friendly hermit crab carrying a simple striped shell on a rock.",
-      "micro_prompt": "Count the 3 bold stripes on the hermit crab's shell!"
+      "action": "Kip holding an oversized rounded leaf over his head like a playful sun umbrella.",
+      "micro_prompt": "Color the giant leaf umbrella your favorite green!"
     },
     {
-      "action": "Pip blows out a gentle breath, creating three floating round bubbles in the air.",
-      "micro_prompt": "Count the 3 floating round bubbles: 1, 2, 3!"
+      "action": "Kip dipping one chubby foot into a shallow puddle, creating two simple ripple circles.",
+      "micro_prompt": "Count the 2 round ripples in the splash puddle!"
     },
     {
-      "action": "Pip balances a tiny round pebble right on the tip of his dark button nose.",
-      "micro_prompt": "Color Pip's nose deep black and color the pebble bright yellow!"
+      "action": "Kip balancing happily on one foot atop a flat, wide river stone.",
+      "micro_prompt": "Trace the smooth round stone under Kip's foot!"
     },
     {
-      "action": "Pip holds front flippers with a friendly baby harbor seal as they float together.",
-      "micro_prompt": "Count the 2 smiling animal best friends!"
+      "action": "Kip smiling affectionately down at a friendly garden snail with a spiral shell resting beside him.",
+      "micro_prompt": "Trace the spiral swirl on the snail shell!"
     },
     {
-      "action": "Pip gently nudges a smooth, round floating sea melon with his paws.",
-      "micro_prompt": "Color the floating round sea melon bright purple!"
+      "action": "Kip gently blowing at three giant, fluffy dandelion seeds drifting through the air.",
+      "micro_prompt": "Count the 3 floating dandelion puffs: 1, 2, 3!"
     },
     {
-      "action": "Pip happily claps his two front flippers together, creating two circular ripples in the cove.",
-      "micro_prompt": "Trace the 2 circular ripple rings around Pip!"
+      "action": "Kip playing peek-a-boo by poking his chubby face out from behind a thick smooth tree trunk.",
+      "micro_prompt": "Color Kip's big shiny oval nose black!"
     },
     {
-      "action": "Pip plays peek-a-boo behind a wide, fan-shaped sea sponge.",
-      "micro_prompt": "Color the big sea fan with your favorite bright color!"
+      "action": "Kip wrapping both short arms around a low branch in a big, loving hug.",
+      "micro_prompt": "Color the smooth tree trunk light brown!"
     },
     {
-      "action": "Pip slides smoothly down a slick, gentle rock slide into a tiny splash pool.",
-      "micro_prompt": "Trace the smooth slide line from top to bottom!"
+      "action": "Kip balancing a single heart-shaped leaf on the very top of his head while giggling.",
+      "micro_prompt": "Color the silly leaf hat sunny yellow!"
     },
     {
-      "action": "Pip munches on a long ribbon of fresh crunchy sea lettuce for lunch.",
-      "micro_prompt": "Count the 3 tasty ruffled leaves Pip is holding!"
+      "action": "Kip sitting comfortably while holding two giant sweet berries in his lap for an afternoon snack.",
+      "micro_prompt": "Count the 2 juicy round berries!"
     },
     {
-      "action": "Pip carefully stacks three flat round stones in a neat tower on his tummy.",
+      "action": "Kip proudly holding a simple string looped with three smooth eucalyptus leaves.",
+      "micro_prompt": "Count the 3 leaves on Kip's craft necklace!"
+    },
+    {
+      "action": "Kip doing a silly wiggle dance with arms raised and rosy round cheeks beaming.",
+      "micro_prompt": "Color Kip's happy cheeks cheerful pink!"
+    },
+    {
+      "action": "Kip stacking three smooth, rounded stones into a neat little balance tower.",
       "micro_prompt": "Count the 3 stacked stones from bottom to top!"
     },
     {
-      "action": "Pip arranges four smooth colorful seashells along the edge of a floating driftwood stick.",
-      "micro_prompt": "Count the 4 pretty seashells in a neat row!"
+      "action": "Kip playfully tapping the top of a smooth hollow log like a drum using both hands.",
+      "micro_prompt": "Tap your finger two times on the play log drum!"
     },
     {
-      "action": "Pip sips sweet fresh coconut water from a hollow shell using a thick striped straw.",
-      "micro_prompt": "Color the straw with alternating red and white stripes!"
+      "action": "Kip holding out one open palm as a chubby little round songbird perches upon it.",
+      "micro_prompt": "Color the sweet little songbird sky blue!"
     },
     {
-      "action": "Pip proudly discovers a perfectly round, glowing pearl nestled inside an open scallop shell.",
-      "micro_prompt": "Color the glowing round pearl shiny golden yellow!"
+      "action": "Kip watching a single soft feather gently float downward toward his paws.",
+      "micro_prompt": "Trace the floating trail of the feather!"
     },
     {
-      "action": "Pip gives a big joyful kick with his back flippers, creating a tiny fountain spray above him.",
-      "micro_prompt": "Count the 4 water drops sprinkling down like rain!"
+      "action": "Kip slowly climbing back up into the cozy fork of his low tree branch as the sun sets.",
+      "micro_prompt": "Color the big round setting sun warm orange!"
     },
     {
-      "action": "Pip wears a simple crown made of braided kelp and three sunny yellow buttercup flowers.",
-      "micro_prompt": "Count the 3 buttercup flowers sitting atop Pip's crown!"
+      "action": "Kip sitting nestled in the tree fork, pointing a chubby finger up at the first evening star.",
+      "micro_prompt": "Count the 1 bright evening star in the sky!"
     },
     {
-      "action": "Pip watches the large, smooth evening sun sink gently down to touch the water line.",
-      "micro_prompt": "Color the big evening sun a glowing warm orange!"
+      "action": "Kip looking up happily with sleepy eyes at a smiling crescent moon above his branch.",
+      "micro_prompt": "Color the big crescent moon butter yellow!"
     },
     {
-      "action": "Pip loops a long ribbon of thick kelp around his waist like a safe bedtime anchor.",
-      "micro_prompt": "Trace the kelp ribbon wrapped around Pip's waist!"
+      "action": "Kip curling up in the tree nook, pulling a giant soft leaf over his shoulders like a blanket.",
+      "micro_prompt": "Color Kip's cozy bedtime blanket soft green!"
     },
     {
-      "action": "Pip rests his chin on his paws and gazes up at the very first evening star.",
-      "micro_prompt": "Color the big single evening star bright sparkle yellow!"
-    },
-    {
-      "action": "Pip lets out a huge sleepy yawn and places both soft paws gently over his cheeks.",
-      "micro_prompt": "Count Pip's 2 sleepy, closed crescent eyes!"
-    },
-    {
-      "action": "Pip sleeps peacefully wrapped in soft kelp beneath a smiling crescent moon and three tiny stars.",
-      "micro_prompt": "Count the 3 sleepy little stars shining down on Pip!"
+      "action": "Kip fast asleep with peaceful closed curved eyes while three little Z bubbles drift up into the night.",
+      "micro_prompt": "Count the 3 sleepy bedtime Zs: 1, 2, 3!"
     }
   ]
 }
