@@ -1,129 +1,129 @@
 {
-  "subject": "Puff the Friendly Baby Dragon",
-  "category": "Whimsical Fantasy Friends",
-  "target_age": "Ages 2-5 Toddler Bold & Easy",
-  "character_dna": "adorable chubby baby dragon, pear-shaped squishy body, two tiny rounded smooth horns, three smooth rounded spinal bumps, tiny rounded fairy wings, smooth tail ending in a soft heart-shaped tip, oversized curious round eyes, happy smiling mouth, zero scales, zero texture lines, ultra-thick 6pt smooth 2D vector outlines",
-  "habitat_rules": "Minimalist fairytale meadows and smooth rolling hills, big fluffy cartoon clouds, simple oversized flowers, zero background clutter, zero shading, wide open coloring areas with thick clean borders",
+  "subject": "Barnaby the Chubby Baby Wombat",
+  "category": "Cozy Australian Bushland Friends",
+  "target_age": "Ages 1-4 Toddler Bold & Easy",
+  "character_dna": "ultra-adorable chubby baby common wombat, stout barrel-shaped body, oversized rounded head, large smooth oval nose pad, small rounded ears, stubby legs with 5 rounded toes, tailless rump with no visible tail, huge shiny circular cartoon eyes, 2D vector line art with ultra-thick 6pt smooth continuous contours and zero internal hatching or fur textures",
+  "habitat_rules": "Australian grassy woodland and smooth burrow settings rendered with extreme minimalism; maximum 1 to 3 ultra-simple background elements per page (e.g., single flower, smooth flat rock, crescent moon); absolutely zero wood grain, zero dirt texture, zero grass hatching, and zero human elements",
   "scenes": [
     {
-      "action": "Puff sits up in a soft nest made of fluffy clouds, stretching both chubby arms wide with a happy morning smile.",
-      "micro_prompt": "Color Puff's cozy cloud bed pure white and draw 1 happy sun above him!"
+      "action": "Barnaby sitting up on a soft grassy mound inside his burrow, gently rubbing one sleepy eye with a chubby paw.",
+      "micro_prompt": "Color Barnaby's cozy tummy and trace the 1 smiling morning flower!"
     },
     {
-      "action": "Puff lets out a cute morning yawn while a single tiny heart-shaped puff of warm steam floats from his snout.",
-      "micro_prompt": "Trace the cute heart puff and color it your favorite bright red!"
+      "action": "Barnaby standing on his stubby hind legs and stretching both chubby front paws high into the air with a happy smile.",
+      "micro_prompt": "Trace the 2 curved stretch lines above Barnaby's chubby paws!"
     },
     {
-      "action": "Puff happily splashes his face with clean water from a smooth round wooden washbasin.",
-      "micro_prompt": "Count the 3 bouncy water droplets splashing out of the basin!"
+      "action": "Barnaby happily washing his face over a smooth flat stone bowl filled with 3 floating water droplets.",
+      "micro_prompt": "Count the 3 shiny water droplets and color them sky blue!"
     },
     {
-      "action": "Puff sits happily holding a giant sweet strawberry with both paws, ready for breakfast.",
-      "micro_prompt": "Color the big juicy strawberry red and count the 4 tiny seeds on it!"
+      "action": "Barnaby sitting down and happily munching on 2 large smooth eucalyptus leaves for breakfast.",
+      "micro_prompt": "Count the 2 big crispy leaves and color them bright green!"
     },
     {
-      "action": "Puff stands proudly wearing a cute wide-brimmed sun hat on his head between his two tiny horns.",
-      "micro_prompt": "Color the sunny hat bright yellow with bold green stripes!"
+      "action": "Barnaby holding a wide smooth baby comb in his stubby paw, tidying up his round chubby cheeks.",
+      "micro_prompt": "Color Barnaby's big smooth nose pad with your favorite dark color!"
     },
     {
-      "action": "Puff holds a chunky toddler toothbrush in one paw, smiling brightly with sparkling clean teeth.",
-      "micro_prompt": "Trace the smooth straight handle of Puff's little toothbrush!"
+      "action": "Barnaby waddling out of his smooth rounded burrow entrance into the morning sunshine beneath 1 happy smiling sun.",
+      "micro_prompt": "Color the 1 cheerful morning sun with bright sunny yellow!"
     },
     {
-      "action": "Puff hops merrily across 3 flat round stepping stones over a gentle trickling stream.",
-      "micro_prompt": "Count the 3 smooth stepping stones as you color each one gray!"
+      "action": "Barnaby happily marching along a smooth path, leaving 3 distinct round paw prints behind him.",
+      "micro_prompt": "Count the 3 round paw prints on the ground from 1 to 3!"
     },
     {
-      "action": "Puff bends down to gently sniff a giant cartoon daisy that has a friendly little ladybug resting on one petal.",
-      "micro_prompt": "Color the ladybug bright red and count its 2 black spots!"
+      "action": "Barnaby carefully stacking 4 smooth round pebbles into a neat little tower.",
+      "micro_prompt": "Count all 4 smooth stones stacked high in a neat row!"
     },
     {
-      "action": "Puff giggles as he chases 2 friendly butterflies fluttering over a smooth grassy mound.",
-      "micro_prompt": "Count the 2 fluttery butterflies and color their wings bright purple!"
+      "action": "Barnaby bending forward to sniff 3 big open daisy flowers blooming on thick smooth stems.",
+      "micro_prompt": "Count the 3 big blooming daisies and color their centers bright orange!"
     },
     {
-      "action": "Puff crouches low to wave a warm hello to a smiling baby turtle peeking from its smooth round shell.",
-      "micro_prompt": "Color the baby turtle's shell bright green and wave hello back!"
+      "action": "Barnaby sitting on his rump and waving a chubby paw at 1 friendly little butterfly resting on a flat rock.",
+      "micro_prompt": "Color the 1 lovely butterfly resting peacefully on the smooth rock!"
     },
     {
-      "action": "Puff gently blows through a round wand, creating 3 large floating soap bubbles in the air.",
-      "micro_prompt": "Count the 3 big floating bubbles and trace their round circles!"
+      "action": "Barnaby tucking his stubby paws inward and rolling happily like a soft round ball down a gentle grassy slope.",
+      "micro_prompt": "Trace the smooth curved rolling line showing Barnaby's tumble!"
     },
     {
-      "action": "Puff balances a smooth round river pebble on the tip of his snout with his eyes crossed playfully.",
-      "micro_prompt": "Color the smooth balancing pebble blue and draw a happy smile on Puff!"
+      "action": "Barnaby playfully peeking his cute round face out from behind 1 wide, smooth tree trunk.",
+      "micro_prompt": "Color Barnaby's chubby round cheeks with a sweet rosy pink!"
     },
     {
-      "action": "Puff happily rolls a large striped bouncy ball across the flat grassy hill with his chubby paws.",
-      "micro_prompt": "Color the ball with 2 alternating bright colors like orange and blue!"
+      "action": "Barnaby sitting politely and offering 2 big wild bush berries to a tiny friendly lizard resting beside him.",
+      "micro_prompt": "Count the 2 juicy round berries Barnaby is sharing with his pal!"
     },
     {
-      "action": "Puff sits cross-legged sharing a juicy triangular watermelon slice with a cheerful little songbird.",
-      "micro_prompt": "Count the 3 black seeds inside the juicy pink watermelon slice!"
+      "action": "Barnaby stomping his stubby paws into 1 shallow mud puddle, sending 3 bold splash droplets flying.",
+      "micro_prompt": "Count the 3 big splash droplets jumping out of the puddle!"
     },
     {
-      "action": "Puff stomps both feet in a warm shallow puddle, sending cheerful splashes into the air.",
-      "micro_prompt": "Color the puddle sky blue and trace the 4 big splashing water drops!"
+      "action": "Barnaby sitting very still while balancing 1 giant smooth acorn cap right on top of his head.",
+      "micro_prompt": "Color the 1 giant acorn cap sitting balanced on Barnaby's head!"
     },
     {
-      "action": "Puff hovers just a few inches above the soft lawn, fluttering his tiny round wings with joyful wide eyes.",
-      "micro_prompt": "Color Puff's 2 little fluttering wings a soft pastel pink!"
+      "action": "Barnaby covering both of his large shiny eyes with his chubby front paws, playing a fun game of peek-a-boo.",
+      "micro_prompt": "Can you see Barnaby? Color his 2 cute little rounded ears!"
     },
     {
-      "action": "Puff peeks playfully from behind a wide, smooth tree trunk during a cheerful game of hide-and-seek.",
-      "micro_prompt": "Color the smooth tree trunk brown and spot Puff's 2 peeking eyes!"
+      "action": "Barnaby happily trotting along, chasing 3 big fluffy dandelion seeds floating through the calm air.",
+      "micro_prompt": "Count the 3 fluffy dandelion seeds drifting through the sky!"
     },
     {
-      "action": "Puff sits proudly next to a tall tower made of 4 smooth wooden toy blocks stacked in a straight line.",
-      "micro_prompt": "Count the 4 stacked toy blocks from bottom to top: 1, 2, 3, 4!"
+      "action": "Barnaby resting his chubby elbows on 1 hollow log while admiring 2 round mushroom caps sprouting beside it.",
+      "micro_prompt": "Count the 2 spotted mushroom caps and color them bright red!"
     },
     {
-      "action": "Puff holds a paintbrush in his paw, painting a smiling cartoon sun onto a simple artist easel.",
-      "micro_prompt": "Trace the circular sun on the easel and color its happy rays orange!"
+      "action": "Barnaby holding a smooth little twig in his paw and drawing a big simple heart outline in the smooth dirt.",
+      "micro_prompt": "Trace the big beautiful heart that Barnaby drew in the dirt!"
     },
     {
-      "action": "Puff happily sips sweet flower juice through a striped bendy straw from a smooth coconut cup.",
-      "micro_prompt": "Color the fun bendy straw with alternating red and white stripes!"
+      "action": "Barnaby proudly holding up a bouquet of 4 tall, smooth buttercup flowers tied with a simple ribbon.",
+      "micro_prompt": "Count the 4 tall buttercup flowers Barnaby is holding so proudly!"
     },
     {
-      "action": "Puff holds the strings of 3 big heart-shaped balloons that gently float above his head.",
-      "micro_prompt": "Count the 3 heart balloons and color each one a different pretty color!"
+      "action": "Barnaby sitting on his round bottom happily nibbling on 1 giant juicy slice of crescent watermelon.",
+      "micro_prompt": "Count the 3 watermelon seeds and color the juicy melon bright pink!"
     },
     {
-      "action": "Puff dances happily on a flat garden rock, kicking up his chubby little dragon feet.",
-      "micro_prompt": "Trace the smooth oval shape of the dancing rock under Puff's feet!"
+      "action": "Barnaby wearing a cute handmade party crown crafted from 3 large oak leaves.",
+      "micro_prompt": "Count the 3 big leafy points on Barnaby's adorable green crown!"
     },
     {
-      "action": "Puff admires a delicious party cupcake sitting on a wooden plate, topped with 1 plump cherry.",
-      "micro_prompt": "Color the frosting sweet pink and color the 1 cherry bright red!"
+      "action": "Barnaby dancing with pure joy atop a wide smooth tree stump, raising both chubby paws high.",
+      "micro_prompt": "Trace the 2 happy musical notes floating around Barnaby as he dances!"
     },
     {
-      "action": "Puff catches a single smooth autumn leaf between his two front paws as it gently drifts down.",
-      "micro_prompt": "Color the lovely falling leaf warm golden yellow!"
+      "action": "Barnaby clapping his stubby paws together to pop 2 large floating soap bubbles.",
+      "micro_prompt": "Count the 2 big round bubbles floating right above Barnaby's nose!"
     },
     {
-      "action": "Puff wears a crown made of 5 simple round buttercup flowers neatly resting between his horns.",
-      "micro_prompt": "Count the 5 yellow flowers nestled inside Puff's pretty flower crown!"
+      "action": "Barnaby sitting down and giving a great big warm hug to 1 little plush toy wombat.",
+      "micro_prompt": "Color Barnaby and his 1 cuddly little plush toy friend!"
     },
     {
-      "action": "Puff sits quietly on top of a gentle hill, watching the big round sun slowly begin to set.",
-      "micro_prompt": "Color the giant setting sun warm orange as day turns into evening!"
+      "action": "Barnaby sitting quietly on a gentle grassy hill, peacefully watching the evening sun go down behind 1 smooth hill.",
+      "micro_prompt": "Color the warm sunset sky using your favorite relaxing shades!"
     },
     {
-      "action": "Puff points up at the darkening evening sky where 3 bright twinkly stars have just appeared.",
-      "micro_prompt": "Count the 3 shiny night stars and color them bright golden yellow!"
+      "action": "Barnaby waddling slowly back along the smooth path toward his warm rounded burrow doorway.",
+      "micro_prompt": "Trace the dotted walking path guiding Barnaby safely back home!"
     },
     {
-      "action": "Puff sits cozily holding a warm ceramic mug of milk with both paws, blowing gently on the steam.",
-      "micro_prompt": "Color Puff's favorite bedtime mug warm teal and trace the 2 swirl steam lines!"
+      "action": "Barnaby standing at the entrance of his burrow, gazing up at 1 smiling crescent moon and 3 twinkling stars.",
+      "micro_prompt": "Count the 3 shining stars beside the 1 sleepy crescent moon!"
     },
     {
-      "action": "Puff hugs a soft star-shaped plush pillow tightly against his chubby tummy while rubbing one sleepy eye.",
-      "micro_prompt": "Color the cuddly star pillow soft yellow and trace its 5 rounded points!"
+      "action": "Barnaby tucked halfway into his cozy bed of dry eucalyptus leaves, letting out a big wide sleepy yawn.",
+      "micro_prompt": "Trace Barnaby's big round open mouth as he gives a sleepy yawn!"
     },
     {
-      "action": "Puff sleeps curled up tightly in a soft blanket nest, resting peacefully beneath a smiling crescent moon.",
-      "micro_prompt": "Color the smiling crescent moon soft yellow and whisper sweet dreams to Puff!"
+      "action": "Barnaby curled into a peaceful round ball fast asleep in his burrow, dreaming under 3 floating letter Z marks.",
+      "micro_prompt": "Count the 3 floating Z letters and whisper sweet dreams to Barnaby!"
     }
   ]
 }
