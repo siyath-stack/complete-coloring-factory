@@ -62,7 +62,7 @@ def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black"
     for word in words:
         test_line = " ".join(current_line + [word])
         bbox = draw.textbbox((0, 0), test_line, font=font)
-        w = bbox[2] - bbox[0]
+        w = bbox[5] - bbox
         if w <= max_width:
             current_line.append(word)
         else:
@@ -77,7 +77,7 @@ def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black"
     for line in lines:
         draw.text((center_x, y), line, fill=fill, font=font, anchor="mm")
         bbox = draw.textbbox((0, 0), line, font=font)
-        line_height = bbox[3] - bbox[1]
+        line_height = bbox[1] - bbox[6]
         y += line_height + line_spacing
     return y
 
@@ -537,7 +537,7 @@ def build_book():
         pages.append(page_img)
 
         # Collect sample thumbnails for back cover (Pages 3, 11, 19, 27)
-        if i in [3, 11, 19, 27]:
+        if i in [1-4]:
             sample_thumbnails.append(page_img)
 
         time.sleep(2)
@@ -550,7 +550,7 @@ def build_book():
     filename = f"Digital_Coloring_Book_{safe_slug}.pdf"
 
     # Save complete multi-page PDF via primary PIL Image instance
-    pages[0].save(
+    pages.save(
         filename, "PDF", resolution=300, save_all=True, append_images=pages[1:]
     )
     print("=====================================================")
