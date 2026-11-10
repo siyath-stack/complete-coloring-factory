@@ -9,6 +9,9 @@ import base64
 from io import BytesIO
 from PIL import Image, ImageEnhance, ImageDraw, ImageFont
 
+# ---------------------------------------------------------------------------
+# CONFIGURATION & MODEL SETUP
+# ---------------------------------------------------------------------------
 ACCOUNT_ID = os.environ.get("CLOUDFLARE_ACCOUNT_ID")
 API_TOKEN = os.environ.get("CLOUDFLARE_API_TOKEN")
 
@@ -20,6 +23,9 @@ PAGE_HEIGHT = 3300
 
 session = requests.Session()
 
+# ---------------------------------------------------------------------------
+# FONT & TEXT UTILITIES
+# ---------------------------------------------------------------------------
 def get_font(size):
     system_font_paths = [
         "Roboto-Regular.ttf",
@@ -77,6 +83,9 @@ def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black"
         y += line_height + line_spacing
     return y
 
+# ---------------------------------------------------------------------------
+# ADAPTIVE LINE-ART CLEANER (Clamps grays to pure white, thickens outlines)
+# ---------------------------------------------------------------------------
 def clean_line_art_adaptive(gray_img):
     """
     Hard binary thresholding: Forces any pixel > 130 to pure white (#FFFFFF)
@@ -121,6 +130,9 @@ def fetch_cloudflare_image(prompt, model, max_retries=6):
 def create_blank_page():
     return Image.new("RGB", (PAGE_WIDTH, PAGE_HEIGHT), "white")
 
+# ---------------------------------------------------------------------------
+# PROCEDURAL ACTIVITY PAGES (0 Neurons Consumed)
+# ---------------------------------------------------------------------------
 def generate_procedural_maze_page(subject):
     img = create_blank_page()
     draw = ImageDraw.Draw(img)
@@ -229,6 +241,9 @@ def generate_procedural_spot_differences_page(subject):
     draw.text((PAGE_WIDTH // 2, PAGE_HEIGHT - 65), "- Activity Page 3 -", fill="#777777", font=get_font(44), anchor="mm")
     return img
 
+# ---------------------------------------------------------------------------
+# COLORING PAGES & MONKEY.PDF SIMPLICITY GENERATION
+# ---------------------------------------------------------------------------
 def generate_cover_page(subject, category):
     print(f"Generating full-color cover for '{subject}'...")
     prompt = (
@@ -445,6 +460,9 @@ def generate_retail_back_cover_with_thumbnails(subject, sample_pages):
     draw.text((PAGE_WIDTH // 2, 3010), "Proudly printed for young artists. Share your artwork with family!", fill="#777777", font=get_font(44), anchor="mm")
     return img
 
+# ---------------------------------------------------------------------------
+# MAIN COMPILER
+# ---------------------------------------------------------------------------
 def build_book():
     plan_file = "daily_book_plan.json"
     if not os.path.exists(plan_file):
@@ -496,7 +514,8 @@ def build_book():
     safe_slug = re.sub(r"_+", "_", safe_slug)
     filename = f"Digital_Coloring_Book_{safe_slug}.pdf"
 
-    pages.save(
+    # SAVE METHOD CALLED ON THE FIRST IMAGE OBJECT (pages[0]), NOT THE CONTAINER LIST
+    pages[0].save(
         filename, "PDF", resolution=300, save_all=True, append_images=pages[1:]
     )
     print("=====================================================")
