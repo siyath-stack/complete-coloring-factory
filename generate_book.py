@@ -48,6 +48,7 @@ def get_font(size):
     return ImageFont.load_default()
 
 def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black", max_width=1800, line_spacing=18):
+    """Wraps and centers text using safe tuple unpacking (right - left for width, bottom - top for height)."""
     words = text.split()
     lines = []
     current_line = []
@@ -55,7 +56,8 @@ def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black"
     for word in words:
         test_line = " ".join(current_line + [word])
         bbox = draw.textbbox((0, 0), test_line, font=font)
-        w = bbox[11] - bbox
+        left, top, right, bottom = bbox
+        w = right - left
         if w <= max_width:
             current_line.append(word)
         else:
@@ -70,7 +72,8 @@ def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black"
     for line in lines:
         draw.text((center_x, y), line, fill=fill, font=font, anchor="mm")
         bbox = draw.textbbox((0, 0), line, font=font)
-        line_height = bbox[12] - bbox[13]
+        left, top, right, bottom = bbox
+        line_height = bottom - top
         y += line_height + line_spacing
     return y
 
@@ -331,9 +334,8 @@ def generate_vector_interior_page(character_dna, scene_data, page_num):
     micro_prompt = scene_data["micro_prompt"]
     print(f"Generating page {page_num}/30: {action[:42]}...")
 
-    clean_action = re.sub(r"\b(Mochi|Kip|Koko|Pip|Hamish|Bobbie)\b", "the character", action, flags=re.IGNORECASE)
+    clean_action = re.sub(r"\b(Barnaby|Mochi|Kip|Koko|Pip|Hamish|Bobbie)\b", "the character", action, flags=re.IGNORECASE)
 
-    # Injects micro_prompt into the image prompt so the drawn prop ALWAYS matches the text caption!
     prompt = (
         f"A simple vector coloring book page for toddlers, exact style of Monkey.pdf. "
         f"Subject: {character_dna}. "
@@ -399,7 +401,7 @@ def generate_certificate_page(subject):
     draw.line([(PAGE_WIDTH // 2 - 700, 1400), (PAGE_WIDTH // 2 + 700, 1400)], fill="black", width=6)
     draw.text((PAGE_WIDTH // 2, 1480), "Super Colorist", fill="#777777", font=get_font(45), anchor="mm")
 
-    subject_str = subject if subject.lower().startswith("the ") or subject.lower().startswith("mochi") or subject.lower().startswith("kip") else f"the {subject}"
+    subject_str = subject if subject.lower().startswith("the ") or subject.lower().startswith("barnaby") or subject.lower().startswith("mochi") or subject.lower().startswith("kip") else f"the {subject}"
     desc = f"For creatively completing all simple coloring adventures with {subject_str}!"
     draw_wrapped_centered_text(draw, desc, PAGE_WIDTH // 2, 1780, body_font, fill="black", max_width=1750)
 
@@ -420,7 +422,7 @@ def generate_retail_back_cover_with_thumbnails(subject, sample_pages):
     sub_font = get_font(55)
     draw.text((PAGE_WIDTH // 2, 380), "30 Simple Coloring Pages Inside!", fill="black", font=title_font, anchor="mm")
 
-    subject_str = subject if subject.lower().startswith("the ") or subject.lower().startswith("mochi") or subject.lower().startswith("kip") else f"the {subject}"
+    subject_str = subject if subject.lower().startswith("the ") or subject.lower().startswith("barnaby") or subject.lower().startswith("mochi") or subject.lower().startswith("kip") else f"the {subject}"
     draw.text((PAGE_WIDTH // 2, 500), f"Peek inside to see what you will color with {subject_str}!", fill="#555555", font=sub_font, anchor="mm")
 
     thumb_w, thumb_h = 750, 970
@@ -482,7 +484,7 @@ def build_book():
         page_img = generate_vector_interior_page(character_dna, scene, i)
         pages.append(page_img)
 
-        if i in [12, 14-16]:
+        if i in (3, 11, 19, 27):
             sample_thumbnails.append(page_img)
 
         time.sleep(2)
