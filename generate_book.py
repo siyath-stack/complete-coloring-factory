@@ -54,7 +54,7 @@ def get_font(size):
     return ImageFont.load_default()
 
 def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black", max_width=1800, line_spacing=18):
-    """Wraps and centers text using correct 4-tuple indexing (bbox[1]-bbox for width, bbox[2]-bbox[3] for height)."""
+    """Wraps and centers text using correct 4-tuple indexing (right-left for width, bottom-top for height)."""
     words = text.split()
     lines = []
     current_line = []
@@ -62,7 +62,7 @@ def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black"
     for word in words:
         test_line = " ".join(current_line + [word])
         bbox = draw.textbbox((0, 0), test_line, font=font)
-        w = bbox[1] - bbox
+        w = bbox[2] - bbox[0]  # right - left
         if w <= max_width:
             current_line.append(word)
         else:
@@ -77,7 +77,7 @@ def draw_wrapped_centered_text(draw, text, center_x, start_y, font, fill="black"
     for line in lines:
         draw.text((center_x, y), line, fill=fill, font=font, anchor="mm")
         bbox = draw.textbbox((0, 0), line, font=font)
-        line_height = bbox[2] - bbox[3]
+        line_height = bbox[3] - bbox[1]  # bottom - top
         y += line_height + line_spacing
     return y
 
@@ -369,7 +369,6 @@ def generate_vector_interior_page(character_dna, scene_data, page_num):
     micro_prompt = scene_data["micro_prompt"]
     print(f"Generating page {page_num}/30: {action[:42]}...")
 
-    # Strict "Monkey.pdf" prompt targeting ultra-bold 6pt outlines and zero background clutter
     prompt = (
         f"A simple vector coloring book page for toddlers, exact style of Monkey.pdf. "
         f"Subject: {character_dna}. "
@@ -483,7 +482,7 @@ def generate_retail_back_cover_with_thumbnails(subject, sample_pages):
         draw.rounded_rectangle([x0, y0, x0 + thumb_w, y0 + thumb_h], radius=25, outline="black", width=6)
 
     draw.text((PAGE_WIDTH // 2, 2900), "Perfect for crayons, colored pencils, and soft markers.", fill="#333333", font=get_font(52), anchor="mm")
-    draw.text((PAGE_WIDTH // 2, 3010), "Proudly printed for young artists. Share your artwork with family!", fill="#777777", font=font, anchor="mm")
+    draw.text((PAGE_WIDTH // 2, 3010), "Proudly printed for young artists. Share your artwork with family!", fill="#777777", font=get_font(44), anchor="mm")
 
     return img
 
@@ -531,7 +530,7 @@ def build_book():
         pages.append(page_img)
 
         # Collect sample thumbnails for back cover (Pages 3, 11, 19, 27)
-        if i in [2, 4-6]:
+        if i in [3, 11, 19, 27]:
             sample_thumbnails.append(page_img)
 
         time.sleep(2)
@@ -543,8 +542,8 @@ def build_book():
     safe_slug = re.sub(r"_+", "_", safe_slug)
     filename = f"Digital_Coloring_Book_{safe_slug}.pdf"
 
-    # Save complete multi-page PDF via primary image instance
-    pages.save(
+    # Save complete multi-page PDF via primary PIL Image instance
+    pages[0].save(
         filename, "PDF", resolution=300, save_all=True, append_images=pages[1:]
     )
     print("=====================================================")
