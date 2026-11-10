@@ -1,129 +1,129 @@
 {
-  "subject": "Kip the Chubby Baby Koala",
-  "category": "Cozy Australian Bushland Friends",
-  "target_age": "Ages 1-4 Toddler Bold & Easy",
-  "character_dna": "Ultra-thick 6pt smooth continuous black outlines, circular squishy silhouette, oversized round ears with smooth bubble curves, large oval button nose, giant round shiny eyes, stubby arms and legs, zero fur hatching, zero cross-hatching, zero wood grain, wide open coloring areas.",
-  "habitat_rules": "Minimalist sunny eucalyptus grove with giant rounded leaves, smooth bark-free tree branches, chunky smooth river pebbles, simple puffy clouds, zero background clutter, zero fine grass hatching, absolutely zero human presence.",
+  "subject": "Puff the Friendly Baby Dragon",
+  "category": "Whimsical Fantasy Friends",
+  "target_age": "Ages 2-5 Toddler Bold & Easy",
+  "character_dna": "adorable chubby baby dragon, pear-shaped squishy body, two tiny rounded smooth horns, three smooth rounded spinal bumps, tiny rounded fairy wings, smooth tail ending in a soft heart-shaped tip, oversized curious round eyes, happy smiling mouth, zero scales, zero texture lines, ultra-thick 6pt smooth 2D vector outlines",
+  "habitat_rules": "Minimalist fairytale meadows and smooth rolling hills, big fluffy cartoon clouds, simple oversized flowers, zero background clutter, zero shading, wide open coloring areas with thick clean borders",
   "scenes": [
     {
-      "action": "Kip yawning peacefully on a thick horizontal tree branch with both stubby arms stretched upward.",
-      "micro_prompt": "Color Kip's big round ears soft gray!"
+      "action": "Puff sits up in a soft nest made of fluffy clouds, stretching both chubby arms wide with a happy morning smile.",
+      "micro_prompt": "Color Puff's cozy cloud bed pure white and draw 1 happy sun above him!"
     },
     {
-      "action": "Kip bending his round body forward to touch his stubby little toes on the branch.",
-      "micro_prompt": "Count Kip's 2 chubby little feet!"
+      "action": "Puff lets out a cute morning yawn while a single tiny heart-shaped puff of warm steam floats from his snout.",
+      "micro_prompt": "Trace the cute heart puff and color it your favorite bright red!"
     },
     {
-      "action": "Kip holding a single giant smooth eucalyptus leaf with both paws and taking a happy nibble.",
-      "micro_prompt": "Color the big breakfast leaf bright green!"
+      "action": "Puff happily splashes his face with clean water from a smooth round wooden washbasin.",
+      "micro_prompt": "Count the 3 bouncy water droplets splashing out of the basin!"
     },
     {
-      "action": "Kip curiously tapping a single giant round dewdrop clinging to the tip of a leaf.",
-      "micro_prompt": "Trace the round outline of the water drop with your finger!"
+      "action": "Puff sits happily holding a giant sweet strawberry with both paws, ready for breakfast.",
+      "micro_prompt": "Color the big juicy strawberry red and count the 4 tiny seeds on it!"
     },
     {
-      "action": "Kip sitting upright and happily rubbing his round full tummy with one paw.",
-      "micro_prompt": "Color Kip's cozy tummy warm cream!"
+      "action": "Puff stands proudly wearing a cute wide-brimmed sun hat on his head between his two tiny horns.",
+      "micro_prompt": "Color the sunny hat bright yellow with bold green stripes!"
     },
     {
-      "action": "Kip gently sliding down a smooth, curved tree trunk with a joyful smile on his face.",
-      "micro_prompt": "Draw a smooth slide line down the trunk!"
+      "action": "Puff holds a chunky toddler toothbrush in one paw, smiling brightly with sparkling clean teeth.",
+      "micro_prompt": "Trace the smooth straight handle of Puff's little toothbrush!"
     },
     {
-      "action": "Kip sitting on the soft grass watching a chunky cartoon butterfly flutter right in front of his nose.",
-      "micro_prompt": "Count the 2 round wings on the friendly butterfly!"
+      "action": "Puff hops merrily across 3 flat round stepping stones over a gentle trickling stream.",
+      "micro_prompt": "Count the 3 smooth stepping stones as you color each one gray!"
     },
     {
-      "action": "Kip bending down to sniff a giant simple five-petal bush blossom resting on the ground.",
-      "micro_prompt": "Color the 5 flower petals bright pink!"
+      "action": "Puff bends down to gently sniff a giant cartoon daisy that has a friendly little ladybug resting on one petal.",
+      "micro_prompt": "Color the ladybug bright red and count its 2 black spots!"
     },
     {
-      "action": "Kip waving a stubby paw in greeting toward a friendly little baby kangaroo sitting nearby.",
-      "micro_prompt": "Wave hello and color the bouncy joey friend brown!"
+      "action": "Puff giggles as he chases 2 friendly butterflies fluttering over a smooth grassy mound.",
+      "micro_prompt": "Count the 2 fluttery butterflies and color their wings bright purple!"
     },
     {
-      "action": "Kip rolling a smooth, perfectly round pebble forward along the flat meadow ground.",
-      "micro_prompt": "Count the 1 big rolling pebble!"
+      "action": "Puff crouches low to wave a warm hello to a smiling baby turtle peeking from its smooth round shell.",
+      "micro_prompt": "Color the baby turtle's shell bright green and wave hello back!"
     },
     {
-      "action": "Kip holding an oversized rounded leaf over his head like a playful sun umbrella.",
-      "micro_prompt": "Color the giant leaf umbrella your favorite green!"
+      "action": "Puff gently blows through a round wand, creating 3 large floating soap bubbles in the air.",
+      "micro_prompt": "Count the 3 big floating bubbles and trace their round circles!"
     },
     {
-      "action": "Kip dipping one chubby foot into a shallow puddle, creating two simple ripple circles.",
-      "micro_prompt": "Count the 2 round ripples in the splash puddle!"
+      "action": "Puff balances a smooth round river pebble on the tip of his snout with his eyes crossed playfully.",
+      "micro_prompt": "Color the smooth balancing pebble blue and draw a happy smile on Puff!"
     },
     {
-      "action": "Kip balancing happily on one foot atop a flat, wide river stone.",
-      "micro_prompt": "Trace the smooth round stone under Kip's foot!"
+      "action": "Puff happily rolls a large striped bouncy ball across the flat grassy hill with his chubby paws.",
+      "micro_prompt": "Color the ball with 2 alternating bright colors like orange and blue!"
     },
     {
-      "action": "Kip smiling affectionately down at a friendly garden snail with a spiral shell resting beside him.",
-      "micro_prompt": "Trace the spiral swirl on the snail shell!"
+      "action": "Puff sits cross-legged sharing a juicy triangular watermelon slice with a cheerful little songbird.",
+      "micro_prompt": "Count the 3 black seeds inside the juicy pink watermelon slice!"
     },
     {
-      "action": "Kip gently blowing at three giant, fluffy dandelion seeds drifting through the air.",
-      "micro_prompt": "Count the 3 floating dandelion puffs: 1, 2, 3!"
+      "action": "Puff stomps both feet in a warm shallow puddle, sending cheerful splashes into the air.",
+      "micro_prompt": "Color the puddle sky blue and trace the 4 big splashing water drops!"
     },
     {
-      "action": "Kip playing peek-a-boo by poking his chubby face out from behind a thick smooth tree trunk.",
-      "micro_prompt": "Color Kip's big shiny oval nose black!"
+      "action": "Puff hovers just a few inches above the soft lawn, fluttering his tiny round wings with joyful wide eyes.",
+      "micro_prompt": "Color Puff's 2 little fluttering wings a soft pastel pink!"
     },
     {
-      "action": "Kip wrapping both short arms around a low branch in a big, loving hug.",
-      "micro_prompt": "Color the smooth tree trunk light brown!"
+      "action": "Puff peeks playfully from behind a wide, smooth tree trunk during a cheerful game of hide-and-seek.",
+      "micro_prompt": "Color the smooth tree trunk brown and spot Puff's 2 peeking eyes!"
     },
     {
-      "action": "Kip balancing a single heart-shaped leaf on the very top of his head while giggling.",
-      "micro_prompt": "Color the silly leaf hat sunny yellow!"
+      "action": "Puff sits proudly next to a tall tower made of 4 smooth wooden toy blocks stacked in a straight line.",
+      "micro_prompt": "Count the 4 stacked toy blocks from bottom to top: 1, 2, 3, 4!"
     },
     {
-      "action": "Kip sitting comfortably while holding two giant sweet berries in his lap for an afternoon snack.",
-      "micro_prompt": "Count the 2 juicy round berries!"
+      "action": "Puff holds a paintbrush in his paw, painting a smiling cartoon sun onto a simple artist easel.",
+      "micro_prompt": "Trace the circular sun on the easel and color its happy rays orange!"
     },
     {
-      "action": "Kip proudly holding a simple string looped with three smooth eucalyptus leaves.",
-      "micro_prompt": "Count the 3 leaves on Kip's craft necklace!"
+      "action": "Puff happily sips sweet flower juice through a striped bendy straw from a smooth coconut cup.",
+      "micro_prompt": "Color the fun bendy straw with alternating red and white stripes!"
     },
     {
-      "action": "Kip doing a silly wiggle dance with arms raised and rosy round cheeks beaming.",
-      "micro_prompt": "Color Kip's happy cheeks cheerful pink!"
+      "action": "Puff holds the strings of 3 big heart-shaped balloons that gently float above his head.",
+      "micro_prompt": "Count the 3 heart balloons and color each one a different pretty color!"
     },
     {
-      "action": "Kip stacking three smooth, rounded stones into a neat little balance tower.",
-      "micro_prompt": "Count the 3 stacked stones from bottom to top!"
+      "action": "Puff dances happily on a flat garden rock, kicking up his chubby little dragon feet.",
+      "micro_prompt": "Trace the smooth oval shape of the dancing rock under Puff's feet!"
     },
     {
-      "action": "Kip playfully tapping the top of a smooth hollow log like a drum using both hands.",
-      "micro_prompt": "Tap your finger two times on the play log drum!"
+      "action": "Puff admires a delicious party cupcake sitting on a wooden plate, topped with 1 plump cherry.",
+      "micro_prompt": "Color the frosting sweet pink and color the 1 cherry bright red!"
     },
     {
-      "action": "Kip holding out one open palm as a chubby little round songbird perches upon it.",
-      "micro_prompt": "Color the sweet little songbird sky blue!"
+      "action": "Puff catches a single smooth autumn leaf between his two front paws as it gently drifts down.",
+      "micro_prompt": "Color the lovely falling leaf warm golden yellow!"
     },
     {
-      "action": "Kip watching a single soft feather gently float downward toward his paws.",
-      "micro_prompt": "Trace the floating trail of the feather!"
+      "action": "Puff wears a crown made of 5 simple round buttercup flowers neatly resting between his horns.",
+      "micro_prompt": "Count the 5 yellow flowers nestled inside Puff's pretty flower crown!"
     },
     {
-      "action": "Kip slowly climbing back up into the cozy fork of his low tree branch as the sun sets.",
-      "micro_prompt": "Color the big round setting sun warm orange!"
+      "action": "Puff sits quietly on top of a gentle hill, watching the big round sun slowly begin to set.",
+      "micro_prompt": "Color the giant setting sun warm orange as day turns into evening!"
     },
     {
-      "action": "Kip sitting nestled in the tree fork, pointing a chubby finger up at the first evening star.",
-      "micro_prompt": "Count the 1 bright evening star in the sky!"
+      "action": "Puff points up at the darkening evening sky where 3 bright twinkly stars have just appeared.",
+      "micro_prompt": "Count the 3 shiny night stars and color them bright golden yellow!"
     },
     {
-      "action": "Kip looking up happily with sleepy eyes at a smiling crescent moon above his branch.",
-      "micro_prompt": "Color the big crescent moon butter yellow!"
+      "action": "Puff sits cozily holding a warm ceramic mug of milk with both paws, blowing gently on the steam.",
+      "micro_prompt": "Color Puff's favorite bedtime mug warm teal and trace the 2 swirl steam lines!"
     },
     {
-      "action": "Kip curling up in the tree nook, pulling a giant soft leaf over his shoulders like a blanket.",
-      "micro_prompt": "Color Kip's cozy bedtime blanket soft green!"
+      "action": "Puff hugs a soft star-shaped plush pillow tightly against his chubby tummy while rubbing one sleepy eye.",
+      "micro_prompt": "Color the cuddly star pillow soft yellow and trace its 5 rounded points!"
     },
     {
-      "action": "Kip fast asleep with peaceful closed curved eyes while three little Z bubbles drift up into the night.",
-      "micro_prompt": "Count the 3 sleepy bedtime Zs: 1, 2, 3!"
+      "action": "Puff sleeps curled up tightly in a soft blanket nest, resting peacefully beneath a smiling crescent moon.",
+      "micro_prompt": "Color the smiling crescent moon soft yellow and whisper sweet dreams to Puff!"
     }
   ]
 }
