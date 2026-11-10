@@ -1,129 +1,129 @@
 {
-  "subject": "Barnaby the Chubby Baby Wombat",
-  "category": "Cozy Australian Bushland Friends",
-  "target_age": "Ages 1-4 Toddler Bold & Easy",
-  "character_dna": "ultra-adorable chubby baby common wombat, stout barrel-shaped body, oversized rounded head, large smooth oval nose pad, small rounded ears, stubby legs with 5 rounded toes, tailless rump with no visible tail, huge shiny circular cartoon eyes, 2D vector line art with ultra-thick 6pt smooth continuous contours and zero internal hatching or fur textures",
-  "habitat_rules": "Australian grassy woodland and smooth burrow settings rendered with extreme minimalism; maximum 1 to 3 ultra-simple background elements per page (e.g., single flower, smooth flat rock, crescent moon); absolutely zero wood grain, zero dirt texture, zero grass hatching, and zero human elements",
+  "subject": "Mochi the Chubby Baby Harp Seal",
+  "category": "Arctic Coastal Pals",
+  "target_age": "Ages 2-5 Toddler Bold & Easy",
+  "character_dna": "Ultra-chubby teardrop-shaped baby harp seal, oversized round black eyes with small catchlights, cute round black button nose, two tiny dot whisker pads, two small smooth side flippers, tiny split tail flipper, smooth continuous 6pt vector outlines, zero fur hatching, zero shading, purely kawaii 2D design.",
+  "habitat_rules": "Crisp white arctic ice floe setting, flat smooth horizon line, zero complex ice textures, zero cross-hatching, zero background clutter, maximum one simple prop per scene.",
   "scenes": [
     {
-      "action": "Barnaby sitting up on a soft grassy mound inside his burrow, gently rubbing one sleepy eye with a chubby paw.",
-      "micro_prompt": "Color Barnaby's cozy tummy and trace the 1 smiling morning flower!"
+      "action": "Mochi stretches two front flippers while sitting on a smooth ice block with 1 fluffy cloud pillow.",
+      "micro_prompt": "Color Mochi's 1 fluffy cloud pillow sky blue!"
     },
     {
-      "action": "Barnaby standing on his stubby hind legs and stretching both chubby front paws high into the air with a happy smile.",
-      "micro_prompt": "Trace the 2 curved stretch lines above Barnaby's chubby paws!"
+      "action": "Mochi rubs one sleepy eye while 1 smiling morning sun beams in the corner.",
+      "micro_prompt": "Count the 1 happy sun smiling down!"
     },
     {
-      "action": "Barnaby happily washing his face over a smooth flat stone bowl filled with 3 floating water droplets.",
-      "micro_prompt": "Count the 3 shiny water droplets and color them sky blue!"
+      "action": "Mochi slides happily on round belly down 1 smooth gentle snow ramp.",
+      "micro_prompt": "Trace the smooth line of Mochi's fun slide!"
     },
     {
-      "action": "Barnaby sitting down and happily munching on 2 large smooth eucalyptus leaves for breakfast.",
-      "micro_prompt": "Count the 2 big crispy leaves and color them bright green!"
+      "action": "Mochi sits upright happily holding 1 little smiling fish for breakfast.",
+      "micro_prompt": "Color the 1 tasty breakfast fish bright orange!"
     },
     {
-      "action": "Barnaby holding a wide smooth baby comb in his stubby paw, tidying up his round chubby cheeks.",
-      "micro_prompt": "Color Barnaby's big smooth nose pad with your favorite dark color!"
+      "action": "Mochi sips clear fresh water from 1 smooth open clam shell.",
+      "micro_prompt": "Count the 3 little water drops splashing from the shell!"
     },
     {
-      "action": "Barnaby waddling out of his smooth rounded burrow entrance into the morning sunshine beneath 1 happy smiling sun.",
-      "micro_prompt": "Color the 1 cheerful morning sun with bright sunny yellow!"
+      "action": "Mochi proudly balances 1 warm striped winter beanie on head.",
+      "micro_prompt": "Color the 2 stripes on the warm cozy beanie!"
     },
     {
-      "action": "Barnaby happily marching along a smooth path, leaving 3 distinct round paw prints behind him.",
-      "micro_prompt": "Count the 3 round paw prints on the ground from 1 to 3!"
+      "action": "Mochi waves a friendly flipper at 1 smiling baby walrus friend peeking above ice.",
+      "micro_prompt": "Count the walrus friend's 2 little rounded tusks!"
     },
     {
-      "action": "Barnaby carefully stacking 4 smooth round pebbles into a neat little tower.",
-      "micro_prompt": "Count all 4 smooth stones stacked high in a neat row!"
+      "action": "Mochi balances 1 striped bouncy beach ball right on nose tip.",
+      "micro_prompt": "Color the 3 chunky stripes on the bouncy ball!"
     },
     {
-      "action": "Barnaby bending forward to sniff 3 big open daisy flowers blooming on thick smooth stems.",
-      "micro_prompt": "Count the 3 big blooming daisies and color their centers bright orange!"
+      "action": "Mochi pushes 1 giant round snowball across the flat snowy ground.",
+      "micro_prompt": "Trace around the 1 giant round snowball!"
     },
     {
-      "action": "Barnaby sitting on his rump and waving a chubby paw at 1 friendly little butterfly resting on a flat rock.",
-      "micro_prompt": "Color the 1 lovely butterfly resting peacefully on the smooth rock!"
+      "action": "Mochi leans forward admiring 1 floating five-petal ice lily flower.",
+      "micro_prompt": "Count the 5 smooth petals on the pretty flower!"
     },
     {
-      "action": "Barnaby tucking his stubby paws inward and rolling happily like a soft round ball down a gentle grassy slope.",
-      "micro_prompt": "Trace the smooth curved rolling line showing Barnaby's tumble!"
+      "action": "Mochi slaps a flipper into a shallow puddle making 3 big round droplets fly.",
+      "micro_prompt": "Count and color the 3 jumping water droplets!"
     },
     {
-      "action": "Barnaby playfully peeking his cute round face out from behind 1 wide, smooth tree trunk.",
-      "micro_prompt": "Color Barnaby's chubby round cheeks with a sweet rosy pink!"
+      "action": "Mochi peeks out cheerfully from inside 1 round igloo doorway.",
+      "micro_prompt": "Trace the curved arch of the cozy igloo door!"
     },
     {
-      "action": "Barnaby sitting politely and offering 2 big wild bush berries to a tiny friendly lizard resting beside him.",
-      "micro_prompt": "Count the 2 juicy round berries Barnaby is sharing with his pal!"
+      "action": "Mochi holds the string of 1 bright heart-shaped floating balloon.",
+      "micro_prompt": "Color the 1 floating heart balloon cherry red!"
     },
     {
-      "action": "Barnaby stomping his stubby paws into 1 shallow mud puddle, sending 3 bold splash droplets flying.",
-      "micro_prompt": "Count the 3 big splash droplets jumping out of the puddle!"
+      "action": "Mochi sits beside 1 cute baby puffin bird singing with open beaks.",
+      "micro_prompt": "Count the 2 singing arctic friends!"
     },
     {
-      "action": "Barnaby sitting very still while balancing 1 giant smooth acorn cap right on top of his head.",
-      "micro_prompt": "Color the 1 giant acorn cap sitting balanced on Barnaby's head!"
+      "action": "Mochi curiously examines 1 shiny round pebble sitting on the ice.",
+      "micro_prompt": "Color the 1 shiny round pebble golden yellow!"
     },
     {
-      "action": "Barnaby covering both of his large shiny eyes with his chubby front paws, playing a fun game of peek-a-boo.",
-      "micro_prompt": "Can you see Barnaby? Color his 2 cute little rounded ears!"
+      "action": "Mochi sits proudly aboard 1 simple wooden runner sled.",
+      "micro_prompt": "Trace the 2 straight runners under the sled!"
     },
     {
-      "action": "Barnaby happily trotting along, chasing 3 big fluffy dandelion seeds floating through the calm air.",
-      "micro_prompt": "Count the 3 fluffy dandelion seeds drifting through the sky!"
+      "action": "Mochi reaches up toward 3 floating round soap bubbles in the air.",
+      "micro_prompt": "Count the 3 floating round bubbles!"
     },
     {
-      "action": "Barnaby resting his chubby elbows on 1 hollow log while admiring 2 round mushroom caps sprouting beside it.",
-      "micro_prompt": "Count the 2 spotted mushroom caps and color them bright red!"
+      "action": "Mochi sits very still balancing 1 square ice cube neatly on head.",
+      "micro_prompt": "Color the 1 cool square ice cube light cyan!"
     },
     {
-      "action": "Barnaby holding a smooth little twig in his paw and drawing a big simple heart outline in the smooth dirt.",
-      "micro_prompt": "Trace the big beautiful heart that Barnaby drew in the dirt!"
+      "action": "Mochi dips a flipper into 1 painter palette with 3 paint spots.",
+      "micro_prompt": "Count the 3 round paint spots on the palette!"
     },
     {
-      "action": "Barnaby proudly holding up a bouquet of 4 tall, smooth buttercup flowers tied with a simple ribbon.",
-      "micro_prompt": "Count the 4 tall buttercup flowers Barnaby is holding so proudly!"
+      "action": "Mochi enjoys an afternoon treat holding 1 round ice pop on a wooden stick.",
+      "micro_prompt": "Color the 1 yummy ice pop berry purple!"
     },
     {
-      "action": "Barnaby sitting on his round bottom happily nibbling on 1 giant juicy slice of crescent watermelon.",
-      "micro_prompt": "Count the 3 watermelon seeds and color the juicy melon bright pink!"
+      "action": "Mochi taps playfully on 1 small round toy marching drum.",
+      "micro_prompt": "Trace the 2 drumsticks tapping a happy beat!"
     },
     {
-      "action": "Barnaby wearing a cute handmade party crown crafted from 3 large oak leaves.",
-      "micro_prompt": "Count the 3 big leafy points on Barnaby's adorable green crown!"
+      "action": "Mochi smiles wearing 1 floral headband adorned with 4 simple daisies.",
+      "micro_prompt": "Count the 4 cheerful daisies on Mochi's head!"
     },
     {
-      "action": "Barnaby dancing with pure joy atop a wide smooth tree stump, raising both chubby paws high.",
-      "micro_prompt": "Trace the 2 happy musical notes floating around Barnaby as he dances!"
+      "action": "Mochi holds the handle of 1 open polka-dot umbrella overhead.",
+      "micro_prompt": "Color the 4 big polka dots on the umbrella!"
     },
     {
-      "action": "Barnaby clapping his stubby paws together to pop 2 large floating soap bubbles.",
-      "micro_prompt": "Count the 2 big round bubbles floating right above Barnaby's nose!"
+      "action": "Mochi watches 1 diamond-shaped kite flying high in the gentle breeze.",
+      "micro_prompt": "Trace the straight edges of the 1 diamond kite!"
     },
     {
-      "action": "Barnaby sitting down and giving a great big warm hug to 1 little plush toy wombat.",
-      "micro_prompt": "Color Barnaby and his 1 cuddly little plush toy friend!"
+      "action": "Mochi blows happily into 1 curled party noisemaker horn.",
+      "micro_prompt": "Color the 3 spiral stripes on the party horn!"
     },
     {
-      "action": "Barnaby sitting quietly on a gentle grassy hill, peacefully watching the evening sun go down behind 1 smooth hill.",
-      "micro_prompt": "Color the warm sunset sky using your favorite relaxing shades!"
+      "action": "Mochi sits calmly watching 1 large round setting sun touch the horizon.",
+      "micro_prompt": "Color the 1 warm round setting sun!"
     },
     {
-      "action": "Barnaby waddling slowly back along the smooth path toward his warm rounded burrow doorway.",
-      "micro_prompt": "Trace the dotted walking path guiding Barnaby safely back home!"
+      "action": "Mochi gazes upward toward 1 smiling crescent moon in the quiet sky.",
+      "micro_prompt": "Trace the gentle curve of the 1 sleepy crescent moon!"
     },
     {
-      "action": "Barnaby standing at the entrance of his burrow, gazing up at 1 smiling crescent moon and 3 twinkling stars.",
-      "micro_prompt": "Count the 3 shining stars beside the 1 sleepy crescent moon!"
+      "action": "Mochi hugs 1 little stuffed penguin plushie tight against tummy.",
+      "micro_prompt": "Color Mochi's 1 soft bedtime penguin friend!"
     },
     {
-      "action": "Barnaby tucked halfway into his cozy bed of dry eucalyptus leaves, letting out a big wide sleepy yawn.",
-      "micro_prompt": "Trace Barnaby's big round open mouth as he gives a sleepy yawn!"
+      "action": "Mochi lets out a big wide yawn beneath 3 twinkling five-point stars.",
+      "micro_prompt": "Count the 3 bright bedtime stars twinkling above!"
     },
     {
-      "action": "Barnaby curled into a peaceful round ball fast asleep in his burrow, dreaming under 3 floating letter Z marks.",
-      "micro_prompt": "Count the 3 floating Z letters and whisper sweet dreams to Barnaby!"
+      "action": "Mochi curls into a sleepy round ball tucked under 1 warm patchwork blanket.",
+      "micro_prompt": "Color the cozy blanket to wish Mochi sweet dreams!"
     }
   ]
 }
