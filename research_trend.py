@@ -46,7 +46,7 @@ def save_history(history):
         json.dump(history, f, indent=2)
 
 # ---------------------------------------------------------------------------
-# GEMINI RESEARCH ENGINE (Handles 503 Spikes with Exponential Backoff)
+# GEMINI RESEARCH ENGINE (With Multi-Model Fallback & Backoff Protection)
 # ---------------------------------------------------------------------------
 def generate_daily_plan():
     if not GEMINI_API_KEY:
@@ -82,50 +82,54 @@ TASK:
 6. Provide an engaging 1-line educational micro-prompt for every page (counting items, tracing, or coloring specifics).
 """
 
-    model_name = "gemini-3.8-flash"
-    response = None
-    max_retries = 5
+    # Priority list of models to fall back through if one is at capacity (503)
+    candidate_models = ["gemini-2.5-flash", "gemini-1.5-flash"]
+    plan_data = None
 
-    print(f"Querying {model_name} for daily book architecture...")
+    for model_name in candidate_models:
+        print(f"Attempting book generation with model: '{model_name}'...")
+        max_retries = 3
 
-    for attempt in range(1, max_retries + 1):
-        try:
-            response = client.models.generate_content(
-                model=model_name,
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    response_mime_type="application/json",
-                    response_schema=DailyBookPlan,
-                    temperature=0.95,
-                ),
-            )
-            if response and response.text:
-                print(f"Successfully generated plan using '{model_name}'.")
-                break
-        except Exception as e:
-            wait_time = 5 * (2 ** (attempt - 1))
-            print(f"[Notice] {model_name} attempt {attempt}/{max_retries} failed ({e}). Retrying in {wait_time}s...")
-            time.sleep(wait_time)
+        for attempt in range(1, max_retries + 1):
+            try:
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        response_mime_type="application/json",
+                        response_schema=DailyBookPlan,
+                        temperature=0.95,
+                    ),
+                )
+                if response and response.text:
+                    plan_data = json.loads(response.text)
+                    print(f"Successfully generated daily plan using '{model_name}'!")
+                    break
+            except Exception as e:
+                wait_time = 3 * attempt
+                print(f"[Notice] {model_name} attempt {attempt}/{max_retries} failed ({e}). Retrying in {wait_time}s...")
+                time.sleep(wait_time)
 
-    if not response or not response.text:
-        raise RuntimeError(f"Failed to generate plan after {max_retries} retries with {model_name}.")
+        if plan_data:
+            break
 
-    plan_data = json.loads(response.text)
+    if not plan_data:
+        raise RuntimeError("Failed to generate plan across all fallback models. Check network connectivity or API key permissions.")
 
-    # Save today's plan
+    # Save plan output
     with open(DAILY_PLAN_FILE, "w", encoding="utf-8") as f:
         json.dump(plan_data, f, indent=2)
 
-    # Record topic history
+    # Record history
     history.append(plan_data["subject"])
     save_history(history)
 
     print("=====================================================")
-    print(f"Gemini Selected Subject: '{plan_data['subject']}'")
+    print(f"Selected Subject: '{plan_data['subject']}'")
     print(f"Category: {plan_data['category']} ({plan_data['target_age']})")
-    print(f"Character DNA Anchor: {plan_data['character_dna']}")
+    print(f"Character DNA: {plan_data['character_dna']}")
     print(f"Total Scenes Generated: {len(plan_data['scenes'])}")
-    print(f"Saved to '{DAILY_PLAN_FILE}'. Total recorded topics: {len(history)}")
+    print(f"Saved to '{DAILY_PLAN_FILE}'.")
     print("=====================================================")
 
 if __name__ == "__main__":
