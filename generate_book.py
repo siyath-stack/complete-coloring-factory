@@ -1,4 +1,3 @@
-name: Generate Daily Coloring Book
 
 on:
   schedule:
