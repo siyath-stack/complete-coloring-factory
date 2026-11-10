@@ -18,14 +18,14 @@ DAILY_PLAN_FILE = "daily_book_plan.json"
 # STRUCTURED PYDANTIC OUTPUT SCHEMA
 # ---------------------------------------------------------------------------
 class ScenePlan(BaseModel):
-    action: str = Field(description="Visual action and setting in simple Monkey.pdf line art style with zero background clutter")
+    action: str = Field(description="Visual action and setting in simple Monkey.pdf line art style with 1 simple prop and zero background clutter")
     micro_prompt: str = Field(description="A 1-line interactive coloring/counting prompt for kids matching the exact action (e.g. 'Count the 3 floating bubbles!')")
 
 class DailyBookPlan(BaseModel):
-    subject: str = Field(description="Unique character subject name and species (e.g. 'Kip the Chubby Baby Koala')")
-    category: str = Field(description="Niche category (e.g. 'Australian Bushland Explorers')")
+    subject: str = Field(description="Unique character subject name and species (e.g. 'cheerful baby sea otter')")
+    category: str = Field(description="Niche category (e.g. 'Freshwater Lagoon Explorers')")
     target_age: str = Field(description="Target age bracket (e.g. 'Ages 2-5 Toddler Bold & Easy')")
-    character_dna: str = Field(description="Strict anatomical definition anchor enforcing species accuracy (e.g. 'adorable chubby baby koala, fluffy round ears, large black oval nose, round tummy, no tail, 2D vector line art')")
+    character_dna: str = Field(description="Strict anatomical definition anchor enforcing species accuracy (e.g. 'adorable chubby baby sea otter, round squishy belly, small ears, simple whiskers, no human features, 2D vector line art')")
     habitat_rules: str = Field(description="Habitat and background constraints")
     scenes: list[ScenePlan] = Field(description="Exactly 30 sequential scenes telling a morning-to-night story arc")
 
@@ -63,15 +63,16 @@ celebrated for ultra-simple, high-contrast toddler line art in the exact style o
 TASK:
 1. Brainstorm an adorable, commercially viral animal or vehicle subject for today's coloring book.
 2. Rotate across diverse niches: 
-   - Cozy Animals (e.g., baby koala, baby sea otter, capybara, red panda, axolotl, highland cow)
+   - Cozy Animals (e.g., baby sea otter, capybara, red panda, axolotl, highland cow, koala)
    - Friendly Vehicles (e.g., cute excavator, cheerful tugboat, little camper van)
    - Whimsical Fantasy (e.g., baby dragon, tiny cloud pegasus, friendly forest gnome)
 3. DO NOT repeat any of these previously published subjects: [{recent_history_str}].
 4. ENFORCE STRICT MONKEY.PDF SIMPLICITY & SPECIES ACCURACY RULES:
    - Style of Monkey.pdf: ultra-thick 6pt smooth 2D outlines, single central character, simple squishy shapes, wide open spaces for coloring.
-   - Character DNA MUST specify exact animal anatomy (e.g., for Koalas: fluffy ears, large black oval nose, round belly, NO tail).
+   - Pair the character with EXACTLY 1 simple prop per scene (e.g., a single leaf, a balloon, a star, a banana, a straw, a drum).
+   - Character DNA MUST specify exact anatomical features to anchor the species across all pages.
    - ZERO fur hatching, ZERO wood grain, ZERO texture lines, ZERO shading, ZERO background clutter.
-   - ABSOLUTELY NO species drift (e.g., never draw monkeys/tails for koalas), NO human characters, NO adults, NO children under any circumstance.
+   - ABSOLUTELY NO human characters, NO human faces, NO adults, NO children under any circumstance.
    - Captions (micro_prompt) MUST 100% align with the visual scene action!
 5. SCRIPT A 30-SCENE STORYTELLING ARC (morning to evening):
    - Pages 1 to 6: Morning wake-up, breakfast snack, getting ready.
