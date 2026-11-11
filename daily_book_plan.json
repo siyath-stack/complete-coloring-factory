@@ -1,129 +1,129 @@
 {
-  "subject": "Barnaby the Baby Capybara",
-  "category": "Cozy Riverbank Explorers",
-  "target_age": "Ages 2-5 Toddler Bold & Easy",
-  "character_dna": "adorable chubby baby capybara pup, round squishy body, tiny rounded ears, blunt snout, short legs, no tail, 2D vector line art",
-  "habitat_rules": "Cozy grassy riverbank with gentle water ripples and simple flowers",
+  "subject": "Ollie the Chubby Baby Pygmy Hippo",
+  "category": "Muddy Riverbank Explorers",
+  "target_age": "Ages 1-4 Toddler Bold & Easy",
+  "character_dna": "Adorable chubby baby pygmy hippo, oversized round snout with two simple oval nostrils, tiny circular ears sticking out, round squishy bean-shaped body, four stubby peg legs, smooth blank skin with zero hatching or texture lines, ultra-thick 6pt outlines, wide open spaces for toddler coloring.",
+  "habitat_rules": "Pure solid white background, zero floor lines, zero landscape, zero mud or water splash textures. Ollie is paired with exactly 1 single bold prop per page.",
   "scenes": [
     {
-      "action": "Barnaby the Baby Capybara holding a chunky toddler toothbrush in a simple background.",
-      "micro_prompt": "Page 1: Color the toothbrush bright yellow!"
+      "action": "Chubby baby hippo Ollie sits and yawns widely next to a round alarm clock.",
+      "micro_prompt": "Color the big round alarm clock!"
     },
     {
-      "action": "Barnaby the Baby Capybara munching on one single oversized strawberry in a simple background.",
-      "micro_prompt": "Page 2: Trace the 3 tiny seeds on the strawberry!"
+      "action": "Baby hippo Ollie rubs his sleepy tummy while holding a giant toothbrush.",
+      "micro_prompt": "Color the stripes on the toothbrush!"
     },
     {
-      "action": "Barnaby the Baby Capybara balancing a smooth round apple on head in a simple background.",
-      "micro_prompt": "Page 3: Count the 1 big apple on top!"
+      "action": "Baby hippo Ollie splashes fresh water while holding a smooth bar of soap.",
+      "micro_prompt": "Color the clean bar of soap!"
     },
     {
-      "action": "Barnaby the Baby Capybara wearing a cheerful wide-brimmed sunhat in a simple background.",
-      "micro_prompt": "Page 4: Color the sunhat with your favorite crayon!"
+      "action": "Baby hippo Ollie sits eagerly holding a wide toddler spoon.",
+      "micro_prompt": "Color Ollie's favorite feeding spoon!"
     },
     {
-      "action": "Barnaby the Baby Capybara patting one simple floating beach ball in a simple background.",
-      "micro_prompt": "Page 5: Color the 3 stripes on the beach ball!"
+      "action": "Baby hippo Ollie happily munches on a large crisp apple.",
+      "micro_prompt": "Make the yummy apple bright red or green!"
     },
     {
-      "action": "Barnaby the Baby Capybara patting one little rubber ducky in water in a simple background.",
-      "micro_prompt": "Page 6: Count the 1 cute rubber ducky!"
+      "action": "Baby hippo Ollie balances a round straw sun hat on his head.",
+      "micro_prompt": "Color the round sun hat!"
     },
     {
-      "action": "Barnaby the Baby Capybara holding the string of one round balloon in a simple background.",
-      "micro_prompt": "Page 7: Color the round balloon bright red!"
+      "action": "Baby hippo Ollie cheerfully rolls a large striped beach ball forward.",
+      "micro_prompt": "Count the stripes on the big ball!"
     },
     {
-      "action": "Barnaby the Baby Capybara Patting a smooth round river stone in a simple background.",
-      "micro_prompt": "Page 8: Count the 1 smooth stone underfoot!"
+      "action": "Baby hippo Ollie sits down to sniff a single tall daisy flower.",
+      "micro_prompt": "Color the daisy petals bright yellow!"
     },
     {
-      "action": "Barnaby the Baby Capybara patting a fluffy star-shaped pillow in a simple background.",
-      "micro_prompt": "Page 9: Color the star pillow soft blue!"
+      "action": "Baby hippo Ollie marches happily carrying a tiny polka-dot umbrella.",
+      "micro_prompt": "Color the polka dots on the umbrella!"
     },
     {
-      "action": "Barnaby the Baby Capybara looking up at a single smiling crescent moon in a simple background.",
-      "micro_prompt": "Page 10: Count the 1 glowing crescent moon!"
+      "action": "Baby hippo Ollie wiggles joyfully inside a round inflatable swim ring.",
+      "micro_prompt": "Color the big squishy swim ring!"
     },
     {
-      "action": "Barnaby the Baby Capybara holding a chunky toddler toothbrush in a simple background.",
-      "micro_prompt": "Page 11: Color the toothbrush bright yellow!"
+      "action": "Baby hippo Ollie proudly bangs on a small marching drum.",
+      "micro_prompt": "Color the drum and drumstick!"
     },
     {
-      "action": "Barnaby the Baby Capybara munching on one single oversized strawberry in a simple background.",
-      "micro_prompt": "Page 12: Trace the 3 tiny seeds on the strawberry!"
+      "action": "Baby hippo Ollie gently blows air through a circular bubble wand.",
+      "micro_prompt": "Color the circle on the bubble wand!"
     },
     {
-      "action": "Barnaby the Baby Capybara balancing a smooth round apple on head in a simple background.",
-      "micro_prompt": "Page 13: Count the 1 big apple on top!"
+      "action": "Baby hippo Ollie looks up in wonder at a single giant floating bubble.",
+      "micro_prompt": "Color the giant floating bubble!"
     },
     {
-      "action": "Barnaby the Baby Capybara wearing a cheerful wide-brimmed sunhat in a simple background.",
-      "micro_prompt": "Page 14: Color the sunhat with your favorite crayon!"
+      "action": "Baby hippo Ollie snacks contentedly on a long crunchy carrot.",
+      "micro_prompt": "Color the crunchy orange carrot!"
     },
     {
-      "action": "Barnaby the Baby Capybara patting one simple floating beach ball in a simple background.",
-      "micro_prompt": "Page 15: Color the 3 stripes on the beach ball!"
+      "action": "Baby hippo Ollie curiously peeks through a round magnifying glass.",
+      "micro_prompt": "Color the magnifying glass handle!"
     },
     {
-      "action": "Barnaby the Baby Capybara patting one little rubber ducky in water in a simple background.",
-      "micro_prompt": "Page 16: Count the 1 cute rubber ducky!"
+      "action": "Baby hippo Ollie waddles forward pulling a little wheeled toy duck.",
+      "micro_prompt": "Color the happy little toy duck!"
     },
     {
-      "action": "Barnaby the Baby Capybara holding the string of one round balloon in a simple background.",
-      "micro_prompt": "Page 17: Color the round balloon bright red!"
+      "action": "Baby hippo Ollie holds tightly to the string of a floating heart balloon.",
+      "micro_prompt": "Color the floating heart balloon!"
     },
     {
-      "action": "Barnaby the Baby Capybara Patting a smooth round river stone in a simple background.",
-      "micro_prompt": "Page 18: Count the 1 smooth stone underfoot!"
+      "action": "Baby hippo Ollie happily sips cool juice through a crazy curly straw.",
+      "micro_prompt": "Trace and color the curly straw!"
     },
     {
-      "action": "Barnaby the Baby Capybara patting a fluffy star-shaped pillow in a simple background.",
-      "micro_prompt": "Page 19: Color the star pillow soft blue!"
+      "action": "Baby hippo Ollie giggles while balancing a pointy party hat.",
+      "micro_prompt": "Color the pointy party hat!"
     },
     {
-      "action": "Barnaby the Baby Capybara looking up at a single smiling crescent moon in a simple background.",
-      "micro_prompt": "Page 20: Count the 1 glowing crescent moon!"
+      "action": "Baby hippo Ollie sits down holding a single jumbo crayon.",
+      "micro_prompt": "Pick your favorite color for the jumbo crayon!"
     },
     {
-      "action": "Barnaby the Baby Capybara holding a chunky toddler toothbrush in a simple background.",
-      "micro_prompt": "Page 21: Color the toothbrush bright yellow!"
+      "action": "Baby hippo Ollie hops enthusiastically over a curled jump rope.",
+      "micro_prompt": "Color the wavy jump rope!"
     },
     {
-      "action": "Barnaby the Baby Capybara munching on one single oversized strawberry in a simple background.",
-      "micro_prompt": "Page 22: Trace the 3 tiny seeds on the strawberry!"
+      "action": "Baby hippo Ollie happily licks a delicious striped ice pop.",
+      "micro_prompt": "Color the sweet striped ice pop!"
     },
     {
-      "action": "Barnaby the Baby Capybara balancing a smooth round apple on head in a simple background.",
-      "micro_prompt": "Page 23: Count the 1 big apple on top!"
+      "action": "Baby hippo Ollie sits down to cuddle a soft round teddy bear.",
+      "micro_prompt": "Color the cuddly teddy bear!"
     },
     {
-      "action": "Barnaby the Baby Capybara wearing a cheerful wide-brimmed sunhat in a simple background.",
-      "micro_prompt": "Page 24: Color the sunhat with your favorite crayon!"
+      "action": "Baby hippo Ollie smiles happily with a classic yellow rubber ducky.",
+      "micro_prompt": "Color the cheerful rubber ducky!"
     },
     {
-      "action": "Barnaby the Baby Capybara patting one simple floating beach ball in a simple background.",
-      "micro_prompt": "Page 25: Color the 3 stripes on the beach ball!"
+      "action": "Baby hippo Ollie wraps himself snug inside a cozy hooded bath towel.",
+      "micro_prompt": "Color Ollie's warm hooded towel!"
     },
     {
-      "action": "Barnaby the Baby Capybara patting one little rubber ducky in water in a simple background.",
-      "micro_prompt": "Page 26: Count the 1 cute rubber ducky!"
+      "action": "Baby hippo Ollie rests quietly while holding an open bedtime storybook.",
+      "micro_prompt": "Color the open storybook!"
     },
     {
-      "action": "Barnaby the Baby Capybara holding the string of one round balloon in a simple background.",
-      "micro_prompt": "Page 27: Color the round balloon bright red!"
+      "action": "Baby hippo Ollie holds a warm baby bottle with two tiny hands.",
+      "micro_prompt": "Color the bedtime bottle!"
     },
     {
-      "action": "Barnaby the Baby Capybara Patting a smooth round river stone in a simple background.",
-      "micro_prompt": "Page 28: Count the 1 smooth stone underfoot!"
+      "action": "Baby hippo Ollie rests his heavy head on a soft fluffy pillow.",
+      "micro_prompt": "Color the cozy sleepy pillow!"
     },
     {
-      "action": "Barnaby the Baby Capybara patting a fluffy star-shaped pillow in a simple background.",
-      "micro_prompt": "Page 29: Color the star pillow soft blue!"
+      "action": "Baby hippo Ollie watches the gentle glow of a crescent moon nightlight.",
+      "micro_prompt": "Color the smiling moon lamp!"
     },
     {
-      "action": "Barnaby the Baby Capybara looking up at a single smiling crescent moon in a simple background.",
-      "micro_prompt": "Page 30: Count the 1 glowing crescent moon!"
+      "action": "Baby hippo Ollie sleeps peacefully while hugging a single soft plush star.",
+      "micro_prompt": "Color Ollie's sleepy night star!"
     }
   ]
 }
