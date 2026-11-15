@@ -1,129 +1,129 @@
 {
-  "subject": "Ollie the Chubby Baby Pygmy Hippo",
-  "category": "Muddy Riverbank Explorers",
+  "subject": "Pippin the Chubby Baby Platypus",
+  "category": "Freshwater Riverbank Adventures",
   "target_age": "Ages 1-4 Toddler Bold & Easy",
-  "character_dna": "Adorable chubby baby pygmy hippo, oversized round snout with two simple oval nostrils, tiny circular ears sticking out, round squishy bean-shaped body, four stubby peg legs, smooth blank skin with zero hatching or texture lines, ultra-thick 6pt outlines, wide open spaces for toddler coloring.",
-  "habitat_rules": "Pure solid white background, zero floor lines, zero landscape, zero mud or water splash textures. Ollie is paired with exactly 1 single bold prop per page.",
+  "character_dna": "Chubby bean-shaped baby platypus, smooth rounded duck-bill with two small dot nostrils, sweet circular dot eyes, flat oval beaver-like tail, short stubby paddle paws, completely smooth 2D vector silhouette, zero fur lines, zero cross-hatching, ultra-thick 6pt black contours.",
+  "habitat_rules": "Pure white background with zero background clutter, zero scenery or floor lines, single centered subject accompanied by strictly one chunky prop per page.",
   "scenes": [
     {
-      "action": "Chubby baby hippo Ollie sits and yawns widely next to a round alarm clock.",
-      "micro_prompt": "Color the big round alarm clock!"
+      "action": "Pippin sits upright rubbing one sleepy eye with a paddle paw while holding a simple ringing alarm clock.",
+      "micro_prompt": "Color the round alarm clock bells!"
     },
     {
-      "action": "Baby hippo Ollie rubs his sleepy tummy while holding a giant toothbrush.",
-      "micro_prompt": "Color the stripes on the toothbrush!"
+      "action": "Pippin stands happily holding a chunky toddler toothbrush against the flat duck-bill.",
+      "micro_prompt": "Color Pippin's big toothbrush!"
     },
     {
-      "action": "Baby hippo Ollie splashes fresh water while holding a smooth bar of soap.",
-      "micro_prompt": "Color the clean bar of soap!"
+      "action": "Pippin balances a single slippery bar of soap with tiny round suds on top of the chubby tummy.",
+      "micro_prompt": "Color the squishy bar of soap!"
     },
     {
-      "action": "Baby hippo Ollie sits eagerly holding a wide toddler spoon.",
-      "micro_prompt": "Color Ollie's favorite feeding spoon!"
+      "action": "Pippin peeks out from underneath a single folded bath towel draped over the head.",
+      "micro_prompt": "Color the warm cozy towel!"
     },
     {
-      "action": "Baby hippo Ollie happily munches on a large crisp apple.",
-      "micro_prompt": "Make the yummy apple bright red or green!"
+      "action": "Pippin holds a single giant juicy strawberry with both tiny paws to take a breakfast bite.",
+      "micro_prompt": "Color the sweet red strawberry!"
     },
     {
-      "action": "Baby hippo Ollie balances a round straw sun hat on his head.",
-      "micro_prompt": "Color the round sun hat!"
+      "action": "Pippin sips fresh morning juice through a single tall curved drinking straw.",
+      "micro_prompt": "Color the wiggly drinking straw!"
     },
     {
-      "action": "Baby hippo Ollie cheerfully rolls a large striped beach ball forward.",
-      "micro_prompt": "Count the stripes on the big ball!"
+      "action": "Pippin waddles forward proudly wearing a single oversized floppy sun hat.",
+      "micro_prompt": "Color the big floppy sun hat!"
     },
     {
-      "action": "Baby hippo Ollie sits down to sniff a single tall daisy flower.",
-      "micro_prompt": "Color the daisy petals bright yellow!"
+      "action": "Pippin bends down to sniff a single chunky five-petal daisy flower.",
+      "micro_prompt": "Color the petals of the cheerful daisy!"
     },
     {
-      "action": "Baby hippo Ollie marches happily carrying a tiny polka-dot umbrella.",
-      "micro_prompt": "Color the polka dots on the umbrella!"
+      "action": "Pippin playfully rolls a single large striped beach ball with one front paw.",
+      "micro_prompt": "Color the stripes on the big ball!"
     },
     {
-      "action": "Baby hippo Ollie wiggles joyfully inside a round inflatable swim ring.",
-      "micro_prompt": "Color the big squishy swim ring!"
+      "action": "Pippin stands on tiptoes holding the string of a single heart-shaped floating balloon.",
+      "micro_prompt": "Color the big floating heart balloon!"
     },
     {
-      "action": "Baby hippo Ollie proudly bangs on a small marching drum.",
-      "micro_prompt": "Color the drum and drumstick!"
+      "action": "Pippin wiggles inside a single circular striped donut swim ring.",
+      "micro_prompt": "Color the round donut swim ring!"
     },
     {
-      "action": "Baby hippo Ollie gently blows air through a circular bubble wand.",
-      "micro_prompt": "Color the circle on the bubble wand!"
+      "action": "Pippin rests big round swimming goggles over the eyes with a cheerful smile.",
+      "micro_prompt": "Color Pippin's fun swim goggles!"
     },
     {
-      "action": "Baby hippo Ollie looks up in wonder at a single giant floating bubble.",
-      "micro_prompt": "Color the giant floating bubble!"
+      "action": "Pippin floats on back with a classic yellow rubber duck perched safely on the tummy.",
+      "micro_prompt": "Color the cute little rubber duck!"
     },
     {
-      "action": "Baby hippo Ollie snacks contentedly on a long crunchy carrot.",
-      "micro_prompt": "Color the crunchy orange carrot!"
+      "action": "Pippin gently blows through a single circular bubble wand to release one giant bubble.",
+      "micro_prompt": "Color the giant floating soap bubble!"
     },
     {
-      "action": "Baby hippo Ollie curiously peeks through a round magnifying glass.",
-      "micro_prompt": "Color the magnifying glass handle!"
+      "action": "Pippin examines a perfectly smooth, round river pebble balanced on the wide flat tail.",
+      "micro_prompt": "Color the smooth shiny pebble!"
     },
     {
-      "action": "Baby hippo Ollie waddles forward pulling a little wheeled toy duck.",
-      "micro_prompt": "Color the happy little toy duck!"
+      "action": "Pippin happily munches on a single thick triangular slice of watermelon.",
+      "micro_prompt": "Color the juicy watermelon slice!"
     },
     {
-      "action": "Baby hippo Ollie holds tightly to the string of a floating heart balloon.",
-      "micro_prompt": "Color the floating heart balloon!"
+      "action": "Pippin marches forward enthusiastically tapping a single round toy drum.",
+      "micro_prompt": "Color Pippin's noisy marching drum!"
     },
     {
-      "action": "Baby hippo Ollie happily sips cool juice through a crazy curly straw.",
-      "micro_prompt": "Trace and color the curly straw!"
+      "action": "Pippin shakes a single round baby rattle held tightly in one front paddle paw.",
+      "micro_prompt": "Color the fun baby rattle!"
     },
     {
-      "action": "Baby hippo Ollie giggles while balancing a pointy party hat.",
-      "micro_prompt": "Color the pointy party hat!"
+      "action": "Pippin runs forward holding the ribbon of a single simple diamond-shaped kite.",
+      "micro_prompt": "Color the flying diamond kite!"
     },
     {
-      "action": "Baby hippo Ollie sits down holding a single jumbo crayon.",
-      "micro_prompt": "Pick your favorite color for the jumbo crayon!"
+      "action": "Pippin looks up happily as a single friendly monarch butterfly lands on the bill.",
+      "micro_prompt": "Color the gentle butterfly wings!"
     },
     {
-      "action": "Baby hippo Ollie hops enthusiastically over a curled jump rope.",
-      "micro_prompt": "Color the wavy jump rope!"
+      "action": "Pippin sits cozy underneath the rounded dome of a single polka-dot mushroom umbrella.",
+      "micro_prompt": "Color the dots on the mushroom umbrella!"
     },
     {
-      "action": "Baby hippo Ollie happily licks a delicious striped ice pop.",
-      "micro_prompt": "Color the sweet striped ice pop!"
+      "action": "Pippin cools off while licking a single twin-stick frozen ice pop.",
+      "micro_prompt": "Color the yummy frozen ice pop!"
     },
     {
-      "action": "Baby hippo Ollie sits down to cuddle a soft round teddy bear.",
-      "micro_prompt": "Color the cuddly teddy bear!"
+      "action": "Pippin holds a spinning four-blade toy pinwheel up to the gentle breeze.",
+      "micro_prompt": "Color the blades of the toy pinwheel!"
     },
     {
-      "action": "Baby hippo Ollie smiles happily with a classic yellow rubber ducky.",
-      "micro_prompt": "Color the cheerful rubber ducky!"
+      "action": "Pippin holds a single glowing paper lantern by a tiny curved wooden stick as evening falls.",
+      "micro_prompt": "Color the glowing paper lantern!"
     },
     {
-      "action": "Baby hippo Ollie wraps himself snug inside a cozy hooded bath towel.",
-      "micro_prompt": "Color Ollie's warm hooded towel!"
+      "action": "Pippin splashes gently while sitting inside a single deep round wooden washtub.",
+      "micro_prompt": "Color the warm wooden wash tub!"
     },
     {
-      "action": "Baby hippo Ollie rests quietly while holding an open bedtime storybook.",
-      "micro_prompt": "Color the open storybook!"
+      "action": "Pippin smiles drowsily while pulling a single pointy pom-pom nightcap over one ear.",
+      "micro_prompt": "Color the soft pointy nightcap!"
     },
     {
-      "action": "Baby hippo Ollie holds a warm baby bottle with two tiny hands.",
-      "micro_prompt": "Color the bedtime bottle!"
+      "action": "Pippin lovingly hugs a single round, button-eyed stuffed teddy bear.",
+      "micro_prompt": "Color Pippin's cuddle teddy bear!"
     },
     {
-      "action": "Baby hippo Ollie rests his heavy head on a soft fluffy pillow.",
-      "micro_prompt": "Color the cozy sleepy pillow!"
+      "action": "Pippin turns the single chunky page of an open bedtime picture book.",
+      "micro_prompt": "Color the open bedtime storybook!"
     },
     {
-      "action": "Baby hippo Ollie watches the gentle glow of a crescent moon nightlight.",
-      "micro_prompt": "Color the smiling moon lamp!"
+      "action": "Pippin reaches up high to touch a single glowing five-point bedtime star.",
+      "micro_prompt": "Color the bright shining star!"
     },
     {
-      "action": "Baby hippo Ollie sleeps peacefully while hugging a single soft plush star.",
-      "micro_prompt": "Color Ollie's sleepy night star!"
+      "action": "Pippin curls up fast asleep, resting the bill softly against a single crescent moon pillow.",
+      "micro_prompt": "Color the sleepy crescent moon pillow!"
     }
   ]
 }
