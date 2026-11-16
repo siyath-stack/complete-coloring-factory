@@ -1,129 +1,129 @@
 {
-  "subject": "Pippin the Chubby Baby Platypus",
-  "category": "Freshwater Riverbank Adventures",
+  "subject": "Poco the Chubby Baby Quokka",
+  "category": "Happy Island Critters Bold & Easy Toddler Coloring",
   "target_age": "Ages 1-4 Toddler Bold & Easy",
-  "character_dna": "Chubby bean-shaped baby platypus, smooth rounded duck-bill with two small dot nostrils, sweet circular dot eyes, flat oval beaver-like tail, short stubby paddle paws, completely smooth 2D vector silhouette, zero fur lines, zero cross-hatching, ultra-thick 6pt black contours.",
-  "habitat_rules": "Pure white background with zero background clutter, zero scenery or floor lines, single centered subject accompanied by strictly one chunky prop per page.",
+  "character_dna": "ultra-adorable chubby baby quokka, permanently smiling curved mouth, rounded puffy cheeks, tiny semi-circular ears, smooth round pear-shaped body, short stubby paws, small rounded tail, bold 6pt clean black vector outlines, zero fur texture lines, zero hatching, zero shading",
+  "habitat_rules": "pure stark white background, zero scenery, zero horizon lines, zero grass blades, zero environmental clutter, each scene features solely Poco and exactly one bold interactive prop",
   "scenes": [
     {
-      "action": "Pippin sits upright rubbing one sleepy eye with a paddle paw while holding a simple ringing alarm clock.",
-      "micro_prompt": "Color the round alarm clock bells!"
+      "action": "Poco sits up and stretches chubby arms wide, resting head on a single plump bedtime pillow.",
+      "micro_prompt": "Color Poco's big cozy pillow!"
     },
     {
-      "action": "Pippin stands happily holding a chunky toddler toothbrush against the flat duck-bill.",
-      "micro_prompt": "Color Pippin's big toothbrush!"
+      "action": "Poco smiles brightly while holding a single ringing alarm clock with round bells.",
+      "micro_prompt": "Color the 2 round bells on the clock!"
     },
     {
-      "action": "Pippin balances a single slippery bar of soap with tiny round suds on top of the chubby tummy.",
-      "micro_prompt": "Color the squishy bar of soap!"
+      "action": "Poco stands on stubby feet holding a single oversized toddler toothbrush.",
+      "micro_prompt": "Trace the straight lines of the toothbrush handle!"
     },
     {
-      "action": "Pippin peeks out from underneath a single folded bath towel draped over the head.",
-      "micro_prompt": "Color the warm cozy towel!"
+      "action": "Poco clutches a single tall drinking cup with a bendy straw.",
+      "micro_prompt": "Color the bendy straw with your favorite bright color!"
     },
     {
-      "action": "Pippin holds a single giant juicy strawberry with both tiny paws to take a breakfast bite.",
-      "micro_prompt": "Color the sweet red strawberry!"
+      "action": "Poco happily munches on a single oversized heart-shaped leaf.",
+      "micro_prompt": "Color the big leaf green!"
     },
     {
-      "action": "Pippin sips fresh morning juice through a single tall curved drinking straw.",
-      "micro_prompt": "Color the wiggly drinking straw!"
+      "action": "Poco balances a single round sun hat with a wide brim on its head.",
+      "micro_prompt": "Color the big round sun hat yellow!"
     },
     {
-      "action": "Pippin waddles forward proudly wearing a single oversized floppy sun hat.",
-      "micro_prompt": "Color the big floppy sun hat!"
+      "action": "Poco playfully holds a single shiny magnifying glass up to one eye.",
+      "micro_prompt": "Count the 1 big round circle of the glass!"
     },
     {
-      "action": "Pippin bends down to sniff a single chunky five-petal daisy flower.",
-      "micro_prompt": "Color the petals of the cheerful daisy!"
+      "action": "Poco giggles while holding the string of a single round floating balloon.",
+      "micro_prompt": "Color the floating balloon red!"
     },
     {
-      "action": "Pippin playfully rolls a single large striped beach ball with one front paw.",
-      "micro_prompt": "Color the stripes on the big ball!"
+      "action": "Poco sits happily holding a single giant daisy flower with bold round petals.",
+      "micro_prompt": "Count the 6 round petals on the daisy!"
     },
     {
-      "action": "Pippin stands on tiptoes holding the string of a single heart-shaped floating balloon.",
-      "micro_prompt": "Color the big floating heart balloon!"
+      "action": "Poco rolls a single large striped beach ball forward with two front paws.",
+      "micro_prompt": "Color the stripes on the big beach ball!"
     },
     {
-      "action": "Pippin wiggles inside a single circular striped donut swim ring.",
-      "micro_prompt": "Color the round donut swim ring!"
+      "action": "Poco marches proudly tapping a single toy drum with a small drumstick.",
+      "micro_prompt": "Tap the drum and color the drum shell blue!"
     },
     {
-      "action": "Pippin rests big round swimming goggles over the eyes with a cheerful smile.",
-      "micro_prompt": "Color Pippin's fun swim goggles!"
+      "action": "Poco carefully balances a single glossy red apple directly on its head.",
+      "micro_prompt": "Color the round apple bright red!"
     },
     {
-      "action": "Pippin floats on back with a classic yellow rubber duck perched safely on the tummy.",
-      "micro_prompt": "Color the cute little rubber duck!"
+      "action": "Poco hugs a single giant sweet strawberry against its round belly.",
+      "micro_prompt": "Color the big sweet strawberry!"
     },
     {
-      "action": "Pippin gently blows through a single circular bubble wand to release one giant bubble.",
-      "micro_prompt": "Color the giant floating soap bubble!"
+      "action": "Poco holds a single wand with a giant shimmering round bubble floating off it.",
+      "micro_prompt": "Color the 1 giant bubble purple!"
     },
     {
-      "action": "Pippin examines a perfectly smooth, round river pebble balanced on the wide flat tail.",
-      "micro_prompt": "Color the smooth shiny pebble!"
+      "action": "Poco pushes a single wooden toy train engine with big circular wheels.",
+      "micro_prompt": "Color the 2 big round wheels on the train!"
     },
     {
-      "action": "Pippin happily munches on a single thick triangular slice of watermelon.",
-      "micro_prompt": "Color the juicy watermelon slice!"
+      "action": "Poco holds a single sweet ice cream cone with one giant scoop on top.",
+      "micro_prompt": "Color the big scoop of ice cream pink!"
     },
     {
-      "action": "Pippin marches forward enthusiastically tapping a single round toy drum.",
-      "micro_prompt": "Color Pippin's noisy marching drum!"
+      "action": "Poco spins a single bold four-blade pinwheel by blowing gently on it.",
+      "micro_prompt": "Color the 4 blades of the toy pinwheel!"
     },
     {
-      "action": "Pippin shakes a single round baby rattle held tightly in one front paddle paw.",
-      "micro_prompt": "Color the fun baby rattle!"
+      "action": "Poco sits smiling with a single yellow rubber ducky balanced on its tummy.",
+      "micro_prompt": "Color the friendly rubber ducky bright yellow!"
     },
     {
-      "action": "Pippin runs forward holding the ribbon of a single simple diamond-shaped kite.",
-      "micro_prompt": "Color the flying diamond kite!"
+      "action": "Poco clutches the string of a single diamond-shaped flying kite.",
+      "micro_prompt": "Trace the 4 straight sides of the kite!"
     },
     {
-      "action": "Pippin looks up happily as a single friendly monarch butterfly lands on the bill.",
-      "micro_prompt": "Color the gentle butterfly wings!"
+      "action": "Poco holds a single carved wooden flute to its smiling mouth.",
+      "micro_prompt": "Count the 3 little round finger holes!"
     },
     {
-      "action": "Pippin sits cozy underneath the rounded dome of a single polka-dot mushroom umbrella.",
-      "micro_prompt": "Color the dots on the mushroom umbrella!"
+      "action": "Poco holds a single juicy wedge of watermelon using both chubby paws.",
+      "micro_prompt": "Color the sweet watermelon slice pink and green!"
     },
     {
-      "action": "Pippin cools off while licking a single twin-stick frozen ice pop.",
-      "micro_prompt": "Color the yummy frozen ice pop!"
+      "action": "Poco carries a single small woven picnic basket by the handle.",
+      "micro_prompt": "Color the sturdy handle of the basket!"
     },
     {
-      "action": "Pippin holds a spinning four-blade toy pinwheel up to the gentle breeze.",
-      "micro_prompt": "Color the blades of the toy pinwheel!"
+      "action": "Poco hugs a single soft plush teddy bear tight with both arms.",
+      "micro_prompt": "Color the teddy bear warm brown!"
     },
     {
-      "action": "Pippin holds a single glowing paper lantern by a tiny curved wooden stick as evening falls.",
-      "micro_prompt": "Color the glowing paper lantern!"
+      "action": "Poco holds a single opened storybook with blank bold pages.",
+      "micro_prompt": "Draw a happy smiley face on the open book page!"
     },
     {
-      "action": "Pippin splashes gently while sitting inside a single deep round wooden washtub.",
-      "micro_prompt": "Color the warm wooden wash tub!"
+      "action": "Poco stands wrapped snugly in a single thick hooded bath towel.",
+      "micro_prompt": "Color the warm hooded towel orange!"
     },
     {
-      "action": "Pippin smiles drowsily while pulling a single pointy pom-pom nightcap over one ear.",
-      "micro_prompt": "Color the soft pointy nightcap!"
+      "action": "Poco sips carefully from a single warm mug with steam rising in 2 simple wavy lines.",
+      "micro_prompt": "Color the cozy mug with purple!"
     },
     {
-      "action": "Pippin lovingly hugs a single round, button-eyed stuffed teddy bear.",
-      "micro_prompt": "Color Pippin's cuddle teddy bear!"
+      "action": "Poco holds a single glowing camping lantern with a simple curved handle.",
+      "micro_prompt": "Color the glowing lantern bright yellow!"
     },
     {
-      "action": "Pippin turns the single chunky page of an open bedtime picture book.",
-      "micro_prompt": "Color the open bedtime storybook!"
+      "action": "Poco hugs a single smiling crescent moon cushion against its chest.",
+      "micro_prompt": "Color the gentle crescent moon yellow!"
     },
     {
-      "action": "Pippin reaches up high to touch a single glowing five-point bedtime star.",
-      "micro_prompt": "Color the bright shining star!"
+      "action": "Poco wears a single pointy sleeping nightcap that flops over to one side.",
+      "micro_prompt": "Color the round pom-pom on the sleeping cap!"
     },
     {
-      "action": "Pippin curls up fast asleep, resting the bill softly against a single crescent moon pillow.",
-      "micro_prompt": "Color the sleepy crescent moon pillow!"
+      "action": "Poco is curled up fast asleep in a round ball, cuddling a single giant smiling star pillow.",
+      "micro_prompt": "Say goodnight to Poco and color the 5-point star!"
     }
   ]
 }
