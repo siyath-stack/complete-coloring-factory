@@ -1,129 +1,129 @@
 {
-  "subject": "Poco the Chubby Baby Quokka",
-  "category": "Happy Island Critters Bold & Easy Toddler Coloring",
-  "target_age": "Ages 1-4 Toddler Bold & Easy",
-  "character_dna": "ultra-adorable chubby baby quokka, permanently smiling curved mouth, rounded puffy cheeks, tiny semi-circular ears, smooth round pear-shaped body, short stubby paws, small rounded tail, bold 6pt clean black vector outlines, zero fur texture lines, zero hatching, zero shading",
-  "habitat_rules": "pure stark white background, zero scenery, zero horizon lines, zero grass blades, zero environmental clutter, each scene features solely Poco and exactly one bold interactive prop",
+  "subject": "Peanut the Chubby Baby Tapir",
+  "category": "Tropical Rainforest Friends",
+  "target_age": "Ages 1-4 Toddler Bold and Easy",
+  "character_dna": "Adorable chubby baby Malayan tapir with a round squishy body, tiny flexible prehensile mini-trunk, small rounded ears with smooth rims, four short stubby legs, no fur hatching, zero texture lines, ultra-thick 6pt outlines, wide open spaces for coloring, pure 2D vector style",
+  "habitat_rules": "Pure white blank background, completely empty canvas, zero floor lines, zero foliage, zero clutter, single central character interacting with exactly one bold prop",
   "scenes": [
     {
-      "action": "Poco sits up and stretches chubby arms wide, resting head on a single plump bedtime pillow.",
-      "micro_prompt": "Color Poco's big cozy pillow!"
+      "action": "Peanut sits upright stretching his tiny front hooves with a cute little alarm clock beside him.",
+      "micro_prompt": "Color the ringing alarm clock bright yellow!"
     },
     {
-      "action": "Poco smiles brightly while holding a single ringing alarm clock with round bells.",
-      "micro_prompt": "Color the 2 round bells on the clock!"
+      "action": "Peanut reaches his mini-trunk up towards a single smiling morning sun.",
+      "micro_prompt": "Can you color the happy morning sun?"
     },
     {
-      "action": "Poco stands on stubby feet holding a single oversized toddler toothbrush.",
-      "micro_prompt": "Trace the straight lines of the toothbrush handle!"
+      "action": "Peanut happily sips fresh water from one big round feeding bowl.",
+      "micro_prompt": "Color Peanut's round water bowl blue!"
     },
     {
-      "action": "Poco clutches a single tall drinking cup with a bendy straw.",
-      "micro_prompt": "Color the bendy straw with your favorite bright color!"
+      "action": "Peanut munches happily on a single thick slice of sweet watermelon.",
+      "micro_prompt": "Color the juicy watermelon slice pink and green!"
     },
     {
-      "action": "Poco happily munches on a single oversized heart-shaped leaf.",
-      "micro_prompt": "Color the big leaf green!"
+      "action": "Peanut sits proudly balancing a single pointy birthday party hat on his head.",
+      "micro_prompt": "Color the festive party hat with your favorite color!"
     },
     {
-      "action": "Poco balances a single round sun hat with a wide brim on its head.",
-      "micro_prompt": "Color the big round sun hat yellow!"
+      "action": "Peanut leans his cute trunk forward to sniff one large daisy flower.",
+      "micro_prompt": "Color the big flower petals bright orange!"
     },
     {
-      "action": "Poco playfully holds a single shiny magnifying glass up to one eye.",
-      "micro_prompt": "Count the 1 big round circle of the glass!"
+      "action": "Peanut balances a single shiny round apple right on top of his snout.",
+      "micro_prompt": "Can you color the big shiny apple red?"
     },
     {
-      "action": "Poco giggles while holding the string of a single round floating balloon.",
-      "micro_prompt": "Color the floating balloon red!"
+      "action": "Peanut pushes a single wooden toy pull-wagon with his front hooves.",
+      "micro_prompt": "Color the little toy wagon bright blue!"
     },
     {
-      "action": "Poco sits happily holding a single giant daisy flower with bold round petals.",
-      "micro_prompt": "Count the 6 round petals on the daisy!"
+      "action": "Peanut holds the string of a single big round floating balloon in his trunk.",
+      "micro_prompt": "Color the big floating balloon pretty purple!"
     },
     {
-      "action": "Poco rolls a single large striped beach ball forward with two front paws.",
-      "micro_prompt": "Color the stripes on the big beach ball!"
+      "action": "Peanut cheerfully steps one stubby foot into a single smooth splash puddle.",
+      "micro_prompt": "Color the round splash puddle sky blue!"
     },
     {
-      "action": "Poco marches proudly tapping a single toy drum with a small drumstick.",
-      "micro_prompt": "Tap the drum and color the drum shell blue!"
+      "action": "Peanut sits snugly tucked inside a single open square cardboard box.",
+      "micro_prompt": "Color the cozy cardboard box light brown!"
     },
     {
-      "action": "Poco carefully balances a single glossy red apple directly on its head.",
-      "micro_prompt": "Color the round apple bright red!"
+      "action": "Peanut sits happily sheltered beneath one wide open rain umbrella.",
+      "micro_prompt": "Color the big umbrella with bold rainbow stripes!"
     },
     {
-      "action": "Poco hugs a single giant sweet strawberry against its round belly.",
-      "micro_prompt": "Color the big sweet strawberry!"
+      "action": "Peanut rolls a single large patterned soccer ball with his snout.",
+      "micro_prompt": "Color the big round ball black and white!"
     },
     {
-      "action": "Poco holds a single wand with a giant shimmering round bubble floating off it.",
-      "micro_prompt": "Color the 1 giant bubble purple!"
+      "action": "Peanut holds a single giant juicy strawberry in his two front paws.",
+      "micro_prompt": "Color the sweet strawberry bright red!"
     },
     {
-      "action": "Poco pushes a single wooden toy train engine with big circular wheels.",
-      "micro_prompt": "Color the 2 big round wheels on the train!"
+      "action": "Peanut gently taps a single giant floating soap bubble with his nose.",
+      "micro_prompt": "Color the big shiny bubble soft blue!"
     },
     {
-      "action": "Poco holds a single sweet ice cream cone with one giant scoop on top.",
-      "micro_prompt": "Color the big scoop of ice cream pink!"
+      "action": "Peanut taps happily on a single round toy drum using one little drumstick.",
+      "micro_prompt": "Color the cheerful little toy drum red!"
     },
     {
-      "action": "Poco spins a single bold four-blade pinwheel by blowing gently on it.",
-      "micro_prompt": "Color the 4 blades of the toy pinwheel!"
+      "action": "Peanut balances one big wooden alphabet toy block between his front hooves.",
+      "micro_prompt": "Color the big toy block sunny yellow!"
     },
     {
-      "action": "Poco sits smiling with a single yellow rubber ducky balanced on its tummy.",
-      "micro_prompt": "Color the friendly rubber ducky bright yellow!"
+      "action": "Peanut affectionately cuddles a single small plush teddy bear against his chest.",
+      "micro_prompt": "Color the friendly little teddy bear brown!"
     },
     {
-      "action": "Poco clutches the string of a single diamond-shaped flying kite.",
-      "micro_prompt": "Trace the 4 straight sides of the kite!"
+      "action": "Peanut nibbles on the tip of one giant smooth tropical jungle leaf.",
+      "micro_prompt": "Color the giant snack leaf emerald green!"
     },
     {
-      "action": "Poco holds a single carved wooden flute to its smiling mouth.",
-      "micro_prompt": "Count the 3 little round finger holes!"
+      "action": "Peanut happily wears a single thick knitted winter scarf around his neck.",
+      "micro_prompt": "Color the warm cozy scarf bright red!"
     },
     {
-      "action": "Poco holds a single juicy wedge of watermelon using both chubby paws.",
-      "micro_prompt": "Color the sweet watermelon slice pink and green!"
+      "action": "Peanut blows gently on a single spinning four-petal toy pinwheel.",
+      "micro_prompt": "Color each petal of the pinwheel a different color!"
     },
     {
-      "action": "Poco carries a single small woven picnic basket by the handle.",
-      "micro_prompt": "Color the sturdy handle of the basket!"
+      "action": "Peanut happily holds a single peeled ripe banana ready for an evening snack.",
+      "micro_prompt": "Color the delicious ripe banana golden yellow!"
     },
     {
-      "action": "Poco hugs a single soft plush teddy bear tight with both arms.",
-      "micro_prompt": "Color the teddy bear warm brown!"
+      "action": "Peanut sits beside a single cheerful yellow rubber duckie.",
+      "micro_prompt": "Color the cute squeaky duckie bright yellow!"
     },
     {
-      "action": "Poco holds a single opened storybook with blank bold pages.",
-      "micro_prompt": "Draw a happy smiley face on the open book page!"
+      "action": "Peanut wraps himself warmly inside a single thick fluffy bath towel.",
+      "micro_prompt": "Color the cozy bath towel soft green!"
     },
     {
-      "action": "Poco stands wrapped snugly in a single thick hooded bath towel.",
-      "micro_prompt": "Color the warm hooded towel orange!"
+      "action": "Peanut holds a single oversized toddler toothbrush in his front hoof.",
+      "micro_prompt": "Color the clean toothbrush bright blue!"
     },
     {
-      "action": "Poco sips carefully from a single warm mug with steam rising in 2 simple wavy lines.",
-      "micro_prompt": "Color the cozy mug with purple!"
+      "action": "Peanut sips happily from a single round baby milk bottle.",
+      "micro_prompt": "Color the warm bedtime milk bottle pink!"
     },
     {
-      "action": "Poco holds a single glowing camping lantern with a simple curved handle.",
-      "micro_prompt": "Color the glowing lantern bright yellow!"
+      "action": "Peanut sits quietly looking at a single large open bedtime storybook.",
+      "micro_prompt": "Color the bedtime storybook cover purple!"
     },
     {
-      "action": "Poco hugs a single smiling crescent moon cushion against its chest.",
-      "micro_prompt": "Color the gentle crescent moon yellow!"
+      "action": "Peanut hugs a single soft puffy sleeping pillow against his round tummy.",
+      "micro_prompt": "Color the puffy bedtime pillow cozy yellow!"
     },
     {
-      "action": "Poco wears a single pointy sleeping nightcap that flops over to one side.",
-      "micro_prompt": "Color the round pom-pom on the sleeping cap!"
+      "action": "Peanut reaches up with his trunk towards a single smiling bedtime star.",
+      "micro_prompt": "Color the glowing bedtime star bright yellow!"
     },
     {
-      "action": "Poco is curled up fast asleep in a round ball, cuddling a single giant smiling star pillow.",
-      "micro_prompt": "Say goodnight to Poco and color the 5-point star!"
+      "action": "Peanut sleeps peacefully curled in a round ball beside a single crescent moon.",
+      "micro_prompt": "Color the sleepy crescent moon golden yellow!"
     }
   ]
 }
