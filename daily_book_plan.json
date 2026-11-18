@@ -1,129 +1,129 @@
 {
-  "subject": "Peanut the Chubby Baby Tapir",
-  "category": "Tropical Rainforest Friends",
-  "target_age": "Ages 1-4 Toddler Bold and Easy",
-  "character_dna": "Adorable chubby baby Malayan tapir with a round squishy body, tiny flexible prehensile mini-trunk, small rounded ears with smooth rims, four short stubby legs, no fur hatching, zero texture lines, ultra-thick 6pt outlines, wide open spaces for coloring, pure 2D vector style",
-  "habitat_rules": "Pure white blank background, completely empty canvas, zero floor lines, zero foliage, zero clutter, single central character interacting with exactly one bold prop",
+  "subject": "Finley the Chubby Baby Beluga Whale",
+  "category": "Gentle Ocean Nursery Explorers",
+  "target_age": "Ages 1-4 Toddler Bold & Easy",
+  "character_dna": "Ultra-adorable baby beluga whale, large squishy round bulbous forehead melon, smooth teardrop body shape, tiny stubby paddle flippers, sweet curved smiling mouth, simple dot eyes with small single highlights, tiny notched tail fluke, no fur, no scales, zero anatomy lines, bold ultra-thick 6pt smooth outlines",
+  "habitat_rules": "Pure stark white backgrounds, zero water line hatching, zero seafloor clutter, zero complex scenery, only Finley and exactly one single bold toddler prop per page",
   "scenes": [
     {
-      "action": "Peanut sits upright stretching his tiny front hooves with a cute little alarm clock beside him.",
-      "micro_prompt": "Color the ringing alarm clock bright yellow!"
+      "action": "Finley rests on his belly smiling at a big cheerful cartoon morning sun.",
+      "micro_prompt": "Color the happy morning sun bright yellow!"
     },
     {
-      "action": "Peanut reaches his mini-trunk up towards a single smiling morning sun.",
-      "micro_prompt": "Can you color the happy morning sun?"
+      "action": "Finley rubs his eye with one stubby flipper next to a round twin-bell alarm clock.",
+      "micro_prompt": "Color the big round alarm clock!"
     },
     {
-      "action": "Peanut happily sips fresh water from one big round feeding bowl.",
-      "micro_prompt": "Color Peanut's round water bowl blue!"
+      "action": "Finley cheerfully holds an oversized chunky baby toothbrush with his flippers.",
+      "micro_prompt": "Make the chunky toothbrush your favorite color!"
     },
     {
-      "action": "Peanut munches happily on a single thick slice of sweet watermelon.",
-      "micro_prompt": "Color the juicy watermelon slice pink and green!"
+      "action": "Finley balances an empty striped breakfast bowl right on his round belly.",
+      "micro_prompt": "Count the stripes on Finley's breakfast bowl!"
     },
     {
-      "action": "Peanut sits proudly balancing a single pointy birthday party hat on his head.",
-      "micro_prompt": "Color the festive party hat with your favorite color!"
+      "action": "Finley happily munches on a single wide heart-shaped sea leaf.",
+      "micro_prompt": "Color the yummy heart-shaped leaf green!"
     },
     {
-      "action": "Peanut leans his cute trunk forward to sniff one large daisy flower.",
-      "micro_prompt": "Color the big flower petals bright orange!"
+      "action": "Finley wiggles with delight while wearing a simple polka-dot baby bib.",
+      "micro_prompt": "Count the polka dots on the cute bib!"
     },
     {
-      "action": "Peanut balances a single shiny round apple right on top of his snout.",
-      "micro_prompt": "Can you color the big shiny apple red?"
+      "action": "Finley proudly balances a big striped beach ball on his rounded forehead.",
+      "micro_prompt": "Color the sections of the beach ball!"
     },
     {
-      "action": "Peanut pushes a single wooden toy pull-wagon with his front hooves.",
-      "micro_prompt": "Color the little toy wagon bright blue!"
+      "action": "Finley pops his head up looking at one giant floating soap bubble.",
+      "micro_prompt": "Trace the big round bubble with a blue crayon!"
     },
     {
-      "action": "Peanut holds the string of a single big round floating balloon in his trunk.",
-      "micro_prompt": "Color the big floating balloon pretty purple!"
+      "action": "Finley cuddles a simple 5-pointed plush starfish against his chest.",
+      "micro_prompt": "Count all 5 points on the plush starfish!"
     },
     {
-      "action": "Peanut cheerfully steps one stubby foot into a single smooth splash puddle.",
-      "micro_prompt": "Color the round splash puddle sky blue!"
+      "action": "Finley wears an oversized round snorkel mask tilted playfully over one eye.",
+      "micro_prompt": "Color Finley's silly swim mask!"
     },
     {
-      "action": "Peanut sits snugly tucked inside a single open square cardboard box.",
-      "micro_prompt": "Color the cozy cardboard box light brown!"
+      "action": "Finley gently rolls a giant smooth round pearl forward with his nose.",
+      "micro_prompt": "Color the big shiny pearl!"
     },
     {
-      "action": "Peanut sits happily sheltered beneath one wide open rain umbrella.",
-      "micro_prompt": "Color the big umbrella with bold rainbow stripes!"
+      "action": "Finley smiles while wearing a cute little paper sailor boat hat.",
+      "micro_prompt": "Color the little sailor hat!"
     },
     {
-      "action": "Peanut rolls a single large patterned soccer ball with his snout.",
-      "micro_prompt": "Color the big round ball black and white!"
+      "action": "Finley taps happily on a simple round toddler drum with a single drumstick.",
+      "micro_prompt": "Color the drum and drumstick!"
     },
     {
-      "action": "Peanut holds a single giant juicy strawberry in his two front paws.",
-      "micro_prompt": "Color the sweet strawberry bright red!"
+      "action": "Finley holds onto the string of a floating heart-shaped balloon.",
+      "micro_prompt": "Color the sweet heart balloon red!"
     },
     {
-      "action": "Peanut gently taps a single giant floating soap bubble with his nose.",
-      "micro_prompt": "Color the big shiny bubble soft blue!"
+      "action": "Finley balances a juicy slice of watermelon on his round snout.",
+      "micro_prompt": "Count the little seeds on the watermelon slice!"
     },
     {
-      "action": "Peanut taps happily on a single round toy drum using one little drumstick.",
-      "micro_prompt": "Color the cheerful little toy drum red!"
+      "action": "Finley nudges a classic little floating rubber ducky with his chin.",
+      "micro_prompt": "Color the cute rubber ducky bright yellow!"
     },
     {
-      "action": "Peanut balances one big wooden alphabet toy block between his front hooves.",
-      "micro_prompt": "Color the big toy block sunny yellow!"
+      "action": "Finley holds a big round magnifying glass over his happy eye.",
+      "micro_prompt": "Color the handle of the magnifying glass!"
     },
     {
-      "action": "Peanut affectionately cuddles a single small plush teddy bear against his chest.",
-      "micro_prompt": "Color the friendly little teddy bear brown!"
+      "action": "Finley curiously peeks inside an empty open wooden treasure chest.",
+      "micro_prompt": "Color the open treasure chest brown!"
     },
     {
-      "action": "Peanut nibbles on the tip of one giant smooth tropical jungle leaf.",
-      "micro_prompt": "Color the giant snack leaf emerald green!"
+      "action": "Finley balances a sweet ice cream cone with one giant round scoop.",
+      "micro_prompt": "What flavor is the scoop? Pick your favorite color!"
     },
     {
-      "action": "Peanut happily wears a single thick knitted winter scarf around his neck.",
-      "micro_prompt": "Color the warm cozy scarf bright red!"
+      "action": "Finley blows a gentle puff of air at a four-bladed toy pinwheel.",
+      "micro_prompt": "Count the 4 blades on the fun pinwheel!"
     },
     {
-      "action": "Peanut blows gently on a single spinning four-petal toy pinwheel.",
-      "micro_prompt": "Color each petal of the pinwheel a different color!"
+      "action": "Finley swims playfully in a loop around a round floating bell buoy.",
+      "micro_prompt": "Color the floating ocean buoy!"
     },
     {
-      "action": "Peanut happily holds a single peeled ripe banana ready for an evening snack.",
-      "micro_prompt": "Color the delicious ripe banana golden yellow!"
+      "action": "Finley holds a large smooth spiral seashell against the side of his head.",
+      "micro_prompt": "Trace the swirl on the big spiral shell!"
     },
     {
-      "action": "Peanut sits beside a single cheerful yellow rubber duckie.",
-      "micro_prompt": "Color the cute squeaky duckie bright yellow!"
+      "action": "Finley proudly sits beside a neat stack of three square toy blocks.",
+      "micro_prompt": "Count the 3 square toy blocks from bottom to top!"
     },
     {
-      "action": "Peanut wraps himself warmly inside a single thick fluffy bath towel.",
-      "micro_prompt": "Color the cozy bath towel soft green!"
+      "action": "Finley wipes his smiling snout with a single square checkered napkin.",
+      "micro_prompt": "Color the squares on the dinner napkin!"
     },
     {
-      "action": "Peanut holds a single oversized toddler toothbrush in his front hoof.",
-      "micro_prompt": "Color the clean toothbrush bright blue!"
+      "action": "Finley rests in a shallow wash basin next to a smooth bar of soap.",
+      "micro_prompt": "Color the slippery clean bar of soap!"
     },
     {
-      "action": "Peanut sips happily from a single round baby milk bottle.",
-      "micro_prompt": "Color the warm bedtime milk bottle pink!"
+      "action": "Finley peeks out sweetly from inside a fluffy hooded bath towel.",
+      "micro_prompt": "Color the warm hooded bath towel!"
     },
     {
-      "action": "Peanut sits quietly looking at a single large open bedtime storybook.",
-      "micro_prompt": "Color the bedtime storybook cover purple!"
+      "action": "Finley sips milk from a toddler cup with a tall bendy drinking straw.",
+      "micro_prompt": "Trace the bend in the long drinking straw!"
     },
     {
-      "action": "Peanut hugs a single soft puffy sleeping pillow against his round tummy.",
-      "micro_prompt": "Color the puffy bedtime pillow cozy yellow!"
+      "action": "Finley listens with eyes half-closed beside a tiny winding music box.",
+      "micro_prompt": "Color the little wind-up key on the music box!"
     },
     {
-      "action": "Peanut reaches up with his trunk towards a single smiling bedtime star.",
-      "micro_prompt": "Color the glowing bedtime star bright yellow!"
+      "action": "Finley hugs a squishy plush crescent moon pillow tightly as he yawns.",
+      "micro_prompt": "Color the sleeping crescent moon pillow yellow!"
     },
     {
-      "action": "Peanut sleeps peacefully curled in a round ball beside a single crescent moon.",
-      "micro_prompt": "Color the sleepy crescent moon golden yellow!"
+      "action": "Finley sleeps soundly curled up under a cozy blanket dotted with little stars.",
+      "micro_prompt": "Count the 4 stars on Finley's bedtime blanket!"
     }
   ]
 }
